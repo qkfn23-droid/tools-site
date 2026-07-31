@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수익률 계산기 - MOGU Tools</title>
+    <meta name="description" content="매수가, 매도가, 수량을 입력하면 수익금과 수익률을 계산합니다. 수수료와 세금을 포함한 실현 손익을 확인하세요.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 2px solid #eee;
+            padding: 16px 20px;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        header a span {
+            color: #4a90d9;
+        }
+
+        .breadcrumb {
+            max-width: 600px;
+            margin: 16px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .breadcrumb a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 10px auto 40px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .calc-box {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-row input:focus {
+            border-color: #4a90d9;
+        }
+
+        .input-row .unit {
+            font-size: 14px;
+            color: #999;
+            min-width: 30px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 4px 0 20px;
+        }
+
+        .optional-label {
+            font-size: 12px;
+            color: #aaa;
+            font-weight: 400;
+            margin-left: 6px;
+        }
+
+        .fee-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .fee-row .input-group {
+            margin-bottom: 0;
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .calc-btn:hover {
+            background: #3a7bc8;
+        }
+
+        .result {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .result-main {
+            text-align: center;
+            padding: 24px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            margin-bottom: 16px;
+        }
+
+        .result-main .profit-number {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .result-main .profit-rate {
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .color-profit { color: #e03131; }
+        .color-loss   { color: #1971c2; }
+        .color-zero   { color: #555; }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row .detail-label {
+            color: #666;
+        }
+
+        .detail-row .detail-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .detail-row.highlight {
+            background: #eef4fb;
+        }
+
+        .detail-row.highlight .detail-label {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .info-section {
+            margin-top: 30px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .info-section h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .info-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html">MOGU <span>Tools</span></a>
+</header>
+
+<div class="breadcrumb">
+    <a href="../index.html">홈</a> &gt; 투자/금융 &gt; 수익률 계산기
+</div>
+
+<div class="container">
+    <h1>수익률 계산기</h1>
+    <p class="subtitle">매수가·매도가·수량을 입력하면 수익금과 수익률을 계산합니다.</p>
+
+    <div class="calc-box">
+        <div class="input-group">
+            <label>매수가 (1주당)</label>
+            <div class="input-row">
+                <input type="number" id="buyPrice" placeholder="50000" min="0" step="any">
+                <span class="unit">원</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>매도가 (1주당)</label>
+            <div class="input-row">
+                <input type="number" id="sellPrice" placeholder="60000" min="0" step="any">
+                <span class="unit">원</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>수량</label>
+            <div class="input-row">
+                <input type="number" id="quantity" placeholder="10" min="0" step="any">
+                <span class="unit">주</span>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="fee-row">
+            <div class="input-group">
+                <label>매수 수수료율 <span class="optional-label">선택</span></label>
+                <div class="input-row">
+                    <input type="number" id="buyFee" placeholder="0.015" value="0.015" min="0" step="any">
+                    <span class="unit">%</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>매도 수수료율 <span class="optional-label">선택</span></label>
+                <div class="input-row">
+                    <input type="number" id="sellFee" placeholder="0.015" value="0.015" min="0" step="any">
+                    <span class="unit">%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>세금율 <span class="optional-label">선택</span></label>
+            <div class="input-row">
+                <input type="number" id="taxRate" placeholder="0.23" value="0.23" min="0" step="any">
+                <span class="unit">%</span>
+            </div>
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">계산하기</button>
+
+        <div class="result" id="result">
+            <div class="result-main">
+                <div class="profit-number" id="profitNumber">-</div>
+                <div class="profit-rate" id="profitRate">-</div>
+            </div>
+
+            <div class="result-details">
+                <div class="detail-row">
+                    <span class="detail-label">총 매수금액</span>
+                    <span class="detail-value" id="totalBuy">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">총 매도금액</span>
+                    <span class="detail-value" id="totalSell">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">수수료 합계</span>
+                    <span class="detail-value" id="totalFee">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">세금</span>
+                    <span class="detail-value" id="totalTax">-</span>
+                </div>
+                <div class="detail-row highlight">
+                    <span class="detail-label">실현 손익 (수수료·세금 후)</span>
+                    <span class="detail-value" id="netProfit">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h2>계산 방식 안내</h2>
+        <p>
+            수익금 = (매도가 - 매수가) × 수량<br>
+            수수료 = 총 매수금액 × 매수 수수료율 + 총 매도금액 × 매도 수수료율<br>
+            세금 = 총 매도금액 × 세금율<br>
+            실현 손익 = 수익금 - 수수료 합계 - 세금<br><br>
+            기본값은 국내 주식 기준(수수료 0.015%, 증권거래세 0.23%)입니다.
+            증권사·상품에 따라 실제 수수료율이 다를 수 있습니다.
+        </p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 MOGU Tools
+</footer>
+
+<script>
+function fmt(num) {
+    const sign = num < 0 ? '-' : '';
+    return sign + Math.abs(Math.round(num)).toLocaleString('ko-KR') + '원';
+}
+
+function fmtAbs(num) {
+    return Math.abs(Math.round(num)).toLocaleString('ko-KR') + '원';
+}
+
+function calculate() {
+    const buyPrice  = parseFloat(document.getElementById('buyPrice').value);
+    const sellPrice = parseFloat(document.getElementById('sellPrice').value);
+    const quantity  = parseFloat(document.getElementById('quantity').value);
+    const buyFee    = parseFloat(document.getElementById('buyFee').value)  || 0;
+    const sellFee   = parseFloat(document.getElementById('sellFee').value) || 0;
+    const taxRate   = parseFloat(document.getElementById('taxRate').value) || 0;
+
+    if (!buyPrice || !sellPrice || !quantity || buyPrice <= 0 || sellPrice <= 0 || quantity <= 0) {
+        alert('매수가, 매도가, 수량을 올바르게 입력해주세요.');
+        return;
+    }
+
+    const totalBuy  = buyPrice * quantity;
+    const totalSell = sellPrice * quantity;
+    const profit    = totalSell - totalBuy;
+    const rate      = (profit / totalBuy) * 100;
+
+    const buyFeeAmt  = totalBuy  * (buyFee  / 100);
+    const sellFeeAmt = totalSell * (sellFee / 100);
+    const totalFeeAmt = buyFeeAmt + sellFeeAmt;
+
+    const taxAmt = totalSell * (taxRate / 100);
+
+    const netProfit = profit - totalFeeAmt - taxAmt;
+
+    // Color class
+    let colorClass = 'color-zero';
+    if (profit > 0) colorClass = 'color-profit';
+    if (profit < 0) colorClass = 'color-loss';
+
+    let netColorClass = 'color-zero';
+    if (netProfit > 0) netColorClass = 'color-profit';
+    if (netProfit < 0) netColorClass = 'color-loss';
+
+    const profitSign = profit >= 0 ? '+' : '';
+    const rateSign   = rate >= 0 ? '+' : '';
+
+    document.getElementById('profitNumber').textContent =
+        profitSign + Math.round(profit).toLocaleString('ko-KR') + '원';
+    document.getElementById('profitNumber').className = 'profit-number ' + colorClass;
+
+    document.getElementById('profitRate').textContent =
+        rateSign + rate.toFixed(2) + '%';
+    document.getElementById('profitRate').className = 'profit-rate ' + colorClass;
+
+    document.getElementById('totalBuy').textContent  = fmtAbs(totalBuy);
+    document.getElementById('totalSell').textContent = fmtAbs(totalSell);
+    document.getElementById('totalFee').textContent  = fmtAbs(totalFeeAmt);
+    document.getElementById('totalTax').textContent  = fmtAbs(taxAmt);
+
+    const netSign = netProfit >= 0 ? '+' : '-';
+    document.getElementById('netProfit').textContent =
+        netSign + Math.abs(Math.round(netProfit)).toLocaleString('ko-KR') + '원';
+    document.getElementById('netProfit').className = 'detail-value ' + netColorClass;
+
+    document.getElementById('result').style.display = 'block';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') calculate();
+});
+</script>
+
+</body>
+</html>
