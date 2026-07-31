@@ -234,6 +234,77 @@
             margin-top: 10px;
         }
 
+        /* Dark mode */
+        body.dark {
+            background: #1a1a2e;
+            color: #e0e0e0;
+        }
+
+        body.dark header {
+            background: linear-gradient(135deg, #2d2d5e 0%, #4a2d6e 100%);
+        }
+
+        body.dark .search-bar input {
+            background: rgba(255,255,255,0.1);
+            color: #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        body.dark .search-bar input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        body.dark .tool-card {
+            background: #16213e;
+            border-color: rgba(255,255,255,0.08);
+        }
+
+        body.dark .tool-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        body.dark .tool-card .name {
+            color: #e0e0e0;
+        }
+
+        body.dark .tool-card .desc {
+            color: #888;
+        }
+
+        body.dark .category h2 {
+            color: #ccc;
+        }
+
+        body.dark footer {
+            color: #666;
+            border-top-color: #2a2a4a;
+        }
+
+        .dark-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 100;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark .dark-toggle {
+            background: #16213e;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        /* Mobile optimization */
         @media (max-width: 600px) {
             .tools-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -241,8 +312,30 @@
             }
             header { padding: 24px 0 20px; }
             header h1 { font-size: 22px; }
+            .logo-icon { width: 34px; height: 34px; font-size: 18px; }
             .tool-card { padding: 16px 10px 14px; }
             .tool-card .icon { width: 38px; height: 38px; font-size: 18px; }
+            .tool-card .name { font-size: 12.5px; }
+            .tool-card .desc { font-size: 10.5px; }
+            .category-header { margin-bottom: 10px; }
+            .category h2 { font-size: 15px; }
+            .category-icon { width: 28px; height: 28px; }
+            main { padding: 0 12px; margin: 20px auto; }
+            .category { margin-bottom: 24px; }
+            .search-bar input { padding: 10px 14px 10px 38px; font-size: 14px; }
+            .search-bar::before { left: 28px; font-size: 14px; }
+            .stats span { font-size: 11px; }
+            .dark-toggle { width: 38px; height: 38px; font-size: 17px; bottom: 14px; right: 14px; }
+        }
+
+        @media (max-width: 360px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            .tool-card { padding: 14px 8px 12px; }
+            .tool-card .name { font-size: 11.5px; }
+            header h1 { font-size: 20px; }
         }
     </style>
 </head>
@@ -563,7 +656,23 @@
     &copy; 2025 MOGU Tools · mogutool.com
 </footer>
 
+<button class="dark-toggle" onclick="toggleDark()" aria-label="다크모드 전환">🌙</button>
+
 <script>
+// Dark mode
+function toggleDark() {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('darkMode', isDark);
+    document.querySelector('.dark-toggle').textContent = isDark ? '☀️' : '🌙';
+}
+
+// Load saved preference
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark');
+    document.querySelector('.dark-toggle').textContent = '☀️';
+}
+
 function filterTools() {
     const query = document.getElementById('searchInput').value.toLowerCase();
     const cards = document.querySelectorAll('.tool-card');
