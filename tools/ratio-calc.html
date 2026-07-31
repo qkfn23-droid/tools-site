@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비율 계산기 - EZ Tools</title>
+    <meta name="description" content="퍼센트 계산, 비율 계산, 증감률 계산을 쉽고 빠르게 할 수 있습니다.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 2px solid #eee;
+            padding: 16px 20px;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        header a span {
+            color: #4a90d9;
+        }
+
+        .breadcrumb {
+            max-width: 600px;
+            margin: 16px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .breadcrumb a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 10px auto 40px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .calc-box {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 28px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 8px;
+            background: #fff;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            color: #999;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn.active {
+            background: #4a90d9;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #f0f6ff;
+            color: #4a90d9;
+        }
+
+        /* Mode panels */
+        .mode-panel {
+            display: none;
+        }
+
+        .mode-panel.active {
+            display: block;
+        }
+
+        .formula-hint {
+            font-size: 13px;
+            color: #4a90d9;
+            background: #f0f6ff;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-row input:focus {
+            border-color: #4a90d9;
+        }
+
+        .input-row .unit {
+            font-size: 14px;
+            color: #999;
+            min-width: 24px;
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .calc-btn:hover {
+            background: #3a7bc8;
+        }
+
+        .result {
+            display: none;
+            margin-top: 24px;
+            text-align: center;
+            padding: 28px 24px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .result-number {
+            font-size: 52px;
+            font-weight: 700;
+            color: #4a90d9;
+            line-height: 1;
+        }
+
+        .result-number.positive {
+            color: #5cb85c;
+        }
+
+        .result-number.negative {
+            color: #d9534f;
+        }
+
+        .result-unit {
+            font-size: 20px;
+            font-weight: 600;
+            color: #4a90d9;
+            margin-top: 6px;
+        }
+
+        .result-unit.positive { color: #5cb85c; }
+        .result-unit.negative { color: #d9534f; }
+
+        .result-desc {
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .info-section {
+            margin-top: 30px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .info-section h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .info-section ul {
+            padding-left: 18px;
+        }
+
+        .info-section li {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html">EZ <span>Tools</span></a>
+</header>
+
+<div class="breadcrumb">
+    <a href="../index.html">홈</a> &gt; 계산기 &gt; 비율 계산기
+</div>
+
+<div class="container">
+    <h1>비율 계산기</h1>
+    <p class="subtitle">퍼센트, 비율, 증감률을 간편하게 계산합니다.</p>
+
+    <div class="calc-box">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">퍼센트 계산</button>
+            <button class="tab-btn" onclick="switchTab(1)">비율 계산</button>
+            <button class="tab-btn" onclick="switchTab(2)">증감률 계산</button>
+        </div>
+
+        <!-- 모드 1: A의 B%는? -->
+        <div class="mode-panel active" id="panel-0">
+            <div class="formula-hint">A의 B%는 얼마인가?</div>
+            <div class="input-group">
+                <label>A (전체 값)</label>
+                <div class="input-row">
+                    <input type="number" id="p-a" placeholder="예: 50000">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>B (퍼센트)</label>
+                <div class="input-row">
+                    <input type="number" id="p-b" placeholder="예: 15">
+                    <span class="unit">%</span>
+                </div>
+            </div>
+            <button class="calc-btn" onclick="calcPercent()">계산하기</button>
+            <div class="result" id="result-0">
+                <div class="result-number" id="r0-number">-</div>
+                <div class="result-desc" id="r0-desc">-</div>
+            </div>
+        </div>
+
+        <!-- 모드 2: A는 B의 몇 %? -->
+        <div class="mode-panel" id="panel-1">
+            <div class="formula-hint">A는 B의 몇 %인가?</div>
+            <div class="input-group">
+                <label>A (비교 값)</label>
+                <div class="input-row">
+                    <input type="number" id="r-a" placeholder="예: 30">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>B (기준 값)</label>
+                <div class="input-row">
+                    <input type="number" id="r-b" placeholder="예: 120">
+                </div>
+            </div>
+            <button class="calc-btn" onclick="calcRatio()">계산하기</button>
+            <div class="result" id="result-1">
+                <div class="result-number" id="r1-number">-</div>
+                <div class="result-unit">%</div>
+                <div class="result-desc" id="r1-desc">-</div>
+            </div>
+        </div>
+
+        <!-- 모드 3: 증감률 -->
+        <div class="mode-panel" id="panel-2">
+            <div class="formula-hint">A에서 B로 변했을 때 증감률은?</div>
+            <div class="input-group">
+                <label>A (변화 전)</label>
+                <div class="input-row">
+                    <input type="number" id="d-a" placeholder="예: 10000">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>B (변화 후)</label>
+                <div class="input-row">
+                    <input type="number" id="d-b" placeholder="예: 13500">
+                </div>
+            </div>
+            <button class="calc-btn" onclick="calcChange()">계산하기</button>
+            <div class="result" id="result-2">
+                <div class="result-number" id="r2-number">-</div>
+                <div class="result-unit" id="r2-unit">%</div>
+                <div class="result-desc" id="r2-desc">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h2>계산 방법</h2>
+        <ul>
+            <li><b>퍼센트 계산:</b> A × B ÷ 100</li>
+            <li><b>비율 계산:</b> (A ÷ B) × 100</li>
+            <li><b>증감률 계산:</b> (B − A) ÷ A × 100</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 EZ Tools
+</footer>
+
+<script>
+let currentTab = 0;
+
+function switchTab(idx) {
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.mode-panel').forEach((panel, i) => {
+        panel.classList.toggle('active', i === idx);
+    });
+    currentTab = idx;
+}
+
+function formatNum(n) {
+    if (Number.isInteger(n)) return n.toLocaleString('ko-KR');
+    return parseFloat(n.toFixed(4)).toLocaleString('ko-KR');
+}
+
+function calcPercent() {
+    const a = parseFloat(document.getElementById('p-a').value);
+    const b = parseFloat(document.getElementById('p-b').value);
+
+    if (isNaN(a) || isNaN(b)) {
+        alert('값을 올바르게 입력해주세요.');
+        return;
+    }
+
+    const result = a * b / 100;
+    document.getElementById('r0-number').textContent = formatNum(result);
+    document.getElementById('r0-desc').textContent =
+        formatNum(a) + '의 ' + formatNum(b) + '% = ' + formatNum(result);
+    document.getElementById('result-0').style.display = 'block';
+}
+
+function calcRatio() {
+    const a = parseFloat(document.getElementById('r-a').value);
+    const b = parseFloat(document.getElementById('r-b').value);
+
+    if (isNaN(a) || isNaN(b)) {
+        alert('값을 올바르게 입력해주세요.');
+        return;
+    }
+    if (b === 0) {
+        alert('B(기준 값)는 0이 될 수 없습니다.');
+        return;
+    }
+
+    const result = (a / b) * 100;
+    document.getElementById('r1-number').textContent = formatNum(result);
+    document.getElementById('r1-desc').textContent =
+        formatNum(a) + '은(는) ' + formatNum(b) + '의 ' + formatNum(result) + '%';
+    document.getElementById('result-1').style.display = 'block';
+}
+
+function calcChange() {
+    const a = parseFloat(document.getElementById('d-a').value);
+    const b = parseFloat(document.getElementById('d-b').value);
+
+    if (isNaN(a) || isNaN(b)) {
+        alert('값을 올바르게 입력해주세요.');
+        return;
+    }
+    if (a === 0) {
+        alert('A(변화 전)는 0이 될 수 없습니다.');
+        return;
+    }
+
+    const result = ((b - a) / Math.abs(a)) * 100;
+    const rounded = parseFloat(result.toFixed(4));
+    const numEl = document.getElementById('r2-number');
+    const unitEl = document.getElementById('r2-unit');
+    const descEl = document.getElementById('r2-desc');
+
+    const sign = rounded > 0 ? '+' : '';
+    numEl.textContent = sign + formatNum(rounded);
+    unitEl.textContent = '%';
+
+    if (rounded > 0) {
+        numEl.className = 'result-number positive';
+        unitEl.className = 'result-unit positive';
+        descEl.textContent = formatNum(a) + ' → ' + formatNum(b) + '  |  ' + formatNum(Math.abs(rounded)) + '% 증가';
+    } else if (rounded < 0) {
+        numEl.className = 'result-number negative';
+        unitEl.className = 'result-unit negative';
+        descEl.textContent = formatNum(a) + ' → ' + formatNum(b) + '  |  ' + formatNum(Math.abs(rounded)) + '% 감소';
+    } else {
+        numEl.className = 'result-number';
+        unitEl.className = 'result-unit';
+        descEl.textContent = '변화 없음';
+    }
+
+    document.getElementById('result-2').style.display = 'block';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        if (currentTab === 0) calcPercent();
+        else if (currentTab === 1) calcRatio();
+        else calcChange();
+    }
+});
+</script>
+
+</body>
+</html>

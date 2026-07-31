@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZ Tools - 모든 온라인 도구</title>
+    <meta name="description" content="계산기, 변환기, 생성기, 텍스트 도구, 색상 도구 - 무료 온라인 도구 모음">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 2px solid #eee;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c2c2c;
+        }
+
+        header h1 span {
+            color: #4a90d9;
+        }
+
+        header p {
+            color: #888;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .search-bar {
+            max-width: 500px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-bar input:focus {
+            border-color: #4a90d9;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .category {
+            margin-bottom: 36px;
+        }
+
+        .category h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 14px;
+            padding-left: 4px;
+            border-left: 3px solid #4a90d9;
+            padding-left: 10px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .tool-card {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            padding: 20px 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: box-shadow 0.2s, transform 0.1s;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .tool-card .icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .tool-card .name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .tool-card .desc {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .tool-card.coming-soon {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .tool-card.coming-soon:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            header h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>EZ <span>Tools</span></h1>
+    <p>빠르고 간단한 온라인 도구 모음</p>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="도구 검색..." oninput="filterTools()">
+    </div>
+</header>
+
+<main>
+    <!-- 계산기 -->
+    <div class="category" data-category="calculator">
+        <h2>계산기</h2>
+        <div class="tools-grid">
+            <a href="tools/bmi.html" class="tool-card" data-name="BMI 계산기">
+                <div class="icon">⚖️</div>
+                <div class="name">BMI 계산기</div>
+                <div class="desc">체질량지수 계산</div>
+            </a>
+            <a href="tools/salary-calc.html" class="tool-card" data-name="연봉 계산기">
+                <div class="icon">💰</div>
+                <div class="name">연봉 계산기</div>
+                <div class="desc">실수령액 계산</div>
+            </a>
+            <a href="tools/loan-calc.html" class="tool-card" data-name="대출 계산기">
+                <div class="icon">🏦</div>
+                <div class="name">대출 계산기</div>
+                <div class="desc">이자/상환액 계산</div>
+            </a>
+            <a href="tools/severance-calc.html" class="tool-card" data-name="퇴직금 계산기">
+                <div class="icon">📋</div>
+                <div class="name">퇴직금 계산기</div>
+                <div class="desc">퇴직금 예상액</div>
+            </a>
+            <a href="tools/age-calc.html" class="tool-card" data-name="나이 계산기">
+                <div class="icon">🎂</div>
+                <div class="name">나이 계산기</div>
+                <div class="desc">만나이/한국나이</div>
+            </a>
+            <a href="tools/dday-calc.html" class="tool-card" data-name="디데이 계산기">
+                <div class="icon">📅</div>
+                <div class="name">디데이 계산기</div>
+                <div class="desc">날짜 차이 계산</div>
+            </a>
+            <a href="tools/discount-calc.html" class="tool-card" data-name="할인율 계산기">
+                <div class="icon">🏷️</div>
+                <div class="name">할인율 계산기</div>
+                <div class="desc">할인가/할인율</div>
+            </a>
+            <a href="tools/ratio-calc.html" class="tool-card" data-name="비율 계산기">
+                <div class="icon">📐</div>
+                <div class="name">비율 계산기</div>
+                <div class="desc">비율/퍼센트 계산</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 변환기 -->
+    <div class="category" data-category="converter">
+        <h2>변환기</h2>
+        <div class="tools-grid">
+            <a href="tools/unit-convert.html" class="tool-card" data-name="단위 변환기">
+                <div class="icon">📏</div>
+                <div class="name">단위 변환기</div>
+                <div class="desc">길이/무게/부피</div>
+            </a>
+            <a href="tools/currency-convert.html" class="tool-card" data-name="환율 변환기">
+                <div class="icon">💱</div>
+                <div class="name">환율 변환기</div>
+                <div class="desc">실시간 환율 계산</div>
+            </a>
+            <a href="tools/temp-convert.html" class="tool-card" data-name="온도 변환기">
+                <div class="icon">🌡️</div>
+                <div class="name">온도 변환기</div>
+                <div class="desc">섭씨/화씨/켈빈</div>
+            </a>
+            <a href="tools/timezone-convert.html" class="tool-card" data-name="시간대 변환기">
+                <div class="icon">🕐</div>
+                <div class="name">시간대 변환기</div>
+                <div class="desc">세계 시간 변환</div>
+            </a>
+            <a href="tools/base-convert.html" class="tool-card" data-name="진법 변환기">
+                <div class="icon">🔢</div>
+                <div class="name">진법 변환기</div>
+                <div class="desc">2/8/10/16진법</div>
+            </a>
+            <a href="tools/date-convert.html" class="tool-card" data-name="날짜 변환기">
+                <div class="icon">📆</div>
+                <div class="name">날짜 변환기</div>
+                <div class="desc">날짜 형식 변환</div>
+            </a>
+            <a href="tools/romanize.html" class="tool-card" data-name="로마자 변환기">
+                <div class="icon">🔤</div>
+                <div class="name">로마자 변환기</div>
+                <div class="desc">한글 로마자 표기</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 생성기 -->
+    <div class="category" data-category="generator">
+        <h2>생성기</h2>
+        <div class="tools-grid">
+            <a href="tools/password-gen.html" class="tool-card" data-name="비밀번호 생성기">
+                <div class="icon">🔑</div>
+                <div class="name">비밀번호 생성기</div>
+                <div class="desc">안전한 비밀번호</div>
+            </a>
+            <a href="tools/qr-gen.html" class="tool-card" data-name="QR코드 생성기">
+                <div class="icon">📱</div>
+                <div class="name">QR코드 생성기</div>
+                <div class="desc">QR코드 만들기</div>
+            </a>
+            <a href="tools/random-pick.html" class="tool-card" data-name="랜덤 뽑기">
+                <div class="icon">🎲</div>
+                <div class="name">랜덤 뽑기</div>
+                <div class="desc">랜덤 숫자/이름</div>
+            </a>
+            <a href="tools/nickname-gen.html" class="tool-card" data-name="닉네임 생성기">
+                <div class="icon">🏷️</div>
+                <div class="name">닉네임 생성기</div>
+                <div class="desc">랜덤 닉네임</div>
+            </a>
+            <a href="tools/hash-gen.html" class="tool-card" data-name="해시 생성기">
+                <div class="icon">🔒</div>
+                <div class="name">해시 생성기</div>
+                <div class="desc">MD5/SHA256</div>
+            </a>
+            <a href="tools/name-gen.html" class="tool-card" data-name="예쁜 이름 생성기">
+                <div class="icon">✨</div>
+                <div class="name">예쁜 이름 생성기</div>
+                <div class="desc">영어/일본/한국/판타지</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 텍스트 도구 -->
+    <div class="category" data-category="text">
+        <h2>텍스트 도구</h2>
+        <div class="tools-grid">
+            <a href="tools/char-count.html" class="tool-card" data-name="글자수 세기">
+                <div class="icon">🔤</div>
+                <div class="name">글자수 세기</div>
+                <div class="desc">글자/단어/바이트</div>
+            </a>
+            <a href="tools/space-remove.html" class="tool-card" data-name="공백 제거">
+                <div class="icon">✂️</div>
+                <div class="name">공백 제거</div>
+                <div class="desc">불필요한 공백 정리</div>
+            </a>
+            <a href="tools/case-convert.html" class="tool-card" data-name="대소문자 변환">
+                <div class="icon">🔠</div>
+                <div class="name">대소문자 변환</div>
+                <div class="desc">대문자/소문자 변환</div>
+            </a>
+            <a href="tools/dedup.html" class="tool-card" data-name="중복 제거">
+                <div class="icon">📝</div>
+                <div class="name">중복 제거</div>
+                <div class="desc">중복 텍스트 제거</div>
+            </a>
+            <a href="tools/encoding.html" class="tool-card" data-name="인코딩 변환">
+                <div class="icon">🔄</div>
+                <div class="name">인코딩 변환</div>
+                <div class="desc">Base64/URL 인코딩</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 색상 도구 -->
+    <div class="category" data-category="color">
+        <h2>색상 도구</h2>
+        <div class="tools-grid">
+            <a href="tools/color-convert.html" class="tool-card" data-name="HEX RGB 변환">
+                <div class="icon">🎨</div>
+                <div class="name">HEX/RGB 변환</div>
+                <div class="desc">색상 코드 변환</div>
+            </a>
+            <a href="tools/color-palette.html" class="tool-card" data-name="색상 팔레트">
+                <div class="icon">🖌️</div>
+                <div class="name">색상 팔레트</div>
+                <div class="desc">조화로운 색 조합</div>
+            </a>
+            <a href="tools/gradient-gen.html" class="tool-card" data-name="그라디언트 생성">
+                <div class="icon">🌈</div>
+                <div class="name">그라디언트 생성</div>
+                <div class="desc">CSS 그라디언트</div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 EZ Tools
+</footer>
+
+<script>
+function filterTools() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.tool-card');
+    const categories = document.querySelectorAll('.category');
+
+    cards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        card.style.display = name.includes(query) ? '' : 'none';
+    });
+
+    categories.forEach(cat => {
+        const visibleCards = cat.querySelectorAll('.tool-card:not([style*="display: none"])');
+        cat.style.display = visibleCards.length > 0 ? '' : 'none';
+    });
+}
+</script>
+
+</body>
+</html>
