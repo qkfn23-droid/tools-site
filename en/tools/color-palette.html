@@ -305,16 +305,16 @@
  <label>Base color</label>
  <input type="color" id="baseColor" value="#4a90d9">
  <input type="text" id="hexinput" value="#4A90D9" maxlength="7" placeholder="#000000">
- <button class="random-btn" onclick="randomColor()"></button>
+ <button class="random-btn" onclick="randomColor()">Random</button>
  </div>
 
- <div class="type-label"> </div>
+ <div class="type-label">Color Scheme</div>
  <div class="type-buttons">
  <button class="type-btn active" data-type="complementary" onclick="selectType(this)">Complementary (2)</button>
  <button class="type-btn" data-type="analogous" onclick="selectType(this)">Analogous (5)</button>
  <button class="type-btn" data-type="triadic" onclick="selectType(this)">Triadic (3)</button>
  <button class="type-btn" data-type="tetradic" onclick="selectType(this)">Tetradic (4)</button>
- <button class="type-btn" data-type="monocomatic" onclick="selectType(this)"> (5)</button>
+ <button class="type-btn" data-type="monocomatic" onclick="selectType(this)">Monochromatic (5)</button>
  </div>
 
  <div class="palette-area visible" id="paletteArea">
@@ -323,10 +323,10 @@
  </div>
 
  <div class="info-section">
- <h2>Color scheme Info</h2>
+ <h2>Color Schemes</h2>
  <div class="info-grid">
- <div class="info-item"><strong>Complementary</strong> — Colorfrom Top . .</div>
- <div class="info-item"><strong>Analogous</strong> — Colors adjacent on the wheel. Subtle and harmonious.ers Color scheme.</div>
+ <div class="info-item"><strong>Complementary</strong> — Opposite color on the wheel. High contrast and bold.</div>
+ <div class="info-item"><strong>Analogous</strong> — Colors adjacent on the wheel. Subtle and harmonious.</div>
  <div class="info-item"><strong>Triadic</strong> — Three colors evenly spaced at 120° on the color wheel. Vibrant and balanced.</div>
  <div class="info-item"><strong>Tetradic</strong> — Four colors at 90° intervals. Rich and diverse color scheme.</div>
  <div class="info-item"><strong>Split-Complementary</strong> — A variation of complementary using two adjacent colors. Balanced yet dynamic.</div>
