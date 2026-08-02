@@ -250,7 +250,7 @@
  <div class="calc-box">
  <div class="input-group">
  <label>Text input</label>
- <textarea id="inputText" placeholder="Enter text to generate hash values..." oninput="oninput()"></textarea>
+ <textarea id="inputText" placeholder="Enter text to generate hash values..." oninput="generateHashes()"></textarea>
  </div>
 
  <div class="options-row">
@@ -321,7 +321,7 @@ function setCase(mode) {
 }
 
 // ── input ────────────────────────────────────
-function oninput() {
+function generateHashes() {
  const text = document.getElementById('inputText').value;
  if (!text) {
  clearAll();
