@@ -614,15 +614,11 @@
         const expandBtn = document.getElementById('expandBtn');
 
         if (!scheduleExpanded) {
-            hiddenRows.forEach(r => r.style.display = '');
+            hiddenRows.forEach(r => r.style.display = 'table-row');
             expandBtn.textContent = '접기 ▲';
             scheduleExpanded = true;
         } else {
-            hiddenRows.forEach(r => r.style.display = '');
-            // re-hide
-            document.querySelectorAll('#scheduleBody tr').forEach((tr, idx) => {
-                if (idx >= 12) tr.style.display = 'none';
-            });
+            hiddenRows.forEach(r => r.style.display = 'none');
             expandBtn.textContent = '전체 보기 (' + totalMonths + '개월) ▼';
             scheduleExpanded = false;
         }
