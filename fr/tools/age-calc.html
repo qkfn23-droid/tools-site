@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur d'âge - MOGU Tools</title>
+    <meta name="description" content="Entrez votre date de naissance pour calculer votre âge exact, votre signe du zodiaque et votre animal chinois.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 2px solid #eee;
+            padding: 16px 20px;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        header a span {
+            color: #4a90d9;
+        }
+
+        .breadcrumb {
+            max-width: 600px;
+            margin: 16px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .breadcrumb a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 10px auto 40px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .calc-box {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        .input-group input[type="date"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+            color: #333;
+            background: #fff;
+        }
+
+        .input-group input[type="date"]:focus {
+            border-color: #4a90d9;
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .calc-btn:hover {
+            background: #3a7bc8;
+        }
+
+        .result {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 16px 18px;
+        }
+
+        .result-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .result-card .card-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+
+        .result-card .card-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c2c2c;
+        }
+
+        .result-card .card-value.highlight {
+            color: #4a90d9;
+        }
+
+        .result-card .card-value.small {
+            font-size: 17px;
+        }
+
+        .info-section {
+            margin-top: 30px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .info-section h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .info-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .info-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html">MOGU <span>Outils</span></a>
+</header>
+
+<div class="breadcrumb">
+    <a href="../index.html">Accueil</a> &gt; Calculateurs &gt; Calculateur d'âge
+</div>
+
+<div class="container">
+    <h1>Calculateur d'âge</h1>
+    <p class="subtitle">Entrez votre date de naissance pour calculer votre âge, votre signe du zodiaque et votre animal chinois.</p>
+
+    <div class="calc-box">
+        <div class="input-group">
+            <label>Date de naissance</label>
+            <input type="date" id="birthday" max="">
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Calculer</button>
+
+        <div class="result" id="result">
+            <div class="result-grid">
+                <div class="result-card full">
+                    <div class="card-label">Âge</div>
+                    <div class="card-value highlight" id="manAge">-</div>
+                </div>
+                <div class="result-card full">
+                    <div class="card-label">Temps écoulé depuis la naissance</div>
+                    <div class="card-value small" id="elapsed">-</div>
+                </div>
+                <div class="result-card full">
+                    <div class="card-label">Prochain anniversaire dans</div>
+                    <div class="card-value small" id="nextBirthday">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="card-label">Jour de naissance</div>
+                    <div class="card-value small" id="birthDay">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="card-label">Animal chinois</div>
+                    <div class="card-value small" id="zodiacAnimal">-</div>
+                </div>
+                <div class="result-card full">
+                    <div class="card-label">Signe du zodiaque</div>
+                    <div class="card-value small" id="zodiacSign">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h2>Comment est calculé l'âge ?</h2>
+        <p>
+            L'âge est calculé selon la norme internationale : on commence à 0 an à la naissance et on ajoute un an à chaque anniversaire.
+            C'est la méthode utilisée dans la plupart des pays du monde.
+        </p>
+        <p>
+            Le <strong>signe du zodiaque</strong> est déterminé par la position du soleil au moment de la naissance, selon les 12 constellations du zodiaque.
+            L'<strong>animal chinois</strong> suit un cycle de 12 ans basé sur le calendrier lunaire chinois.
+        </p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 MOGU Tools
+</footer>
+
+<script>
+// Date input max = today
+document.getElementById('birthday').max = new Date().toISOString().split('T')[0];
+
+const ANIMALS = ['Rat', 'B\u0153uf', 'Tigre', 'Lapin', 'Dragon', 'Serpent', 'Cheval', 'Ch\u00e8vre', 'Singe', 'Coq', 'Chien', 'Cochon'];
+
+function getAnimal(year) {
+    // 1900 = Rat (index 0)
+    return ANIMALS[((year - 1900) % 12 + 12) % 12];
+}
+
+function getZodiac(month, day) {
+    const signs = [
+        { name: 'Capricorne', end: [1, 19] },
+        { name: 'Verseau', end: [2, 18] },
+        { name: 'Poissons', end: [3, 20] },
+        { name: 'B\u00e9lier', end: [4, 19] },
+        { name: 'Taureau', end: [5, 20] },
+        { name: 'G\u00e9meaux', end: [6, 20] },
+        { name: 'Cancer', end: [7, 22] },
+        { name: 'Lion', end: [8, 22] },
+        { name: 'Vierge', end: [9, 22] },
+        { name: 'Balance', end: [10, 22] },
+        { name: 'Scorpion', end: [11, 21] },
+        { name: 'Sagittaire', end: [12, 21] },
+    ];
+    for (const s of signs) {
+        if (month < s.end[0] || (month === s.end[0] && day <= s.end[1])) {
+            return s.name;
+        }
+    }
+    return 'Capricorne';
+}
+
+function calculate() {
+    const val = document.getElementById('birthday').value;
+    if (!val) {
+        alert('Veuillez sélectionner votre date de naissance.');
+        return;
+    }
+
+    const birth = new Date(val);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (birth > today) {
+        alert('La date de naissance ne peut pas être postérieure à aujourd\'hui.');
+        return;
+    }
+
+    const birthYear  = birth.getFullYear();
+    const birthMonth = birth.getMonth() + 1;
+    const birthDate  = birth.getDate();
+    const todayYear  = today.getFullYear();
+    const todayMonth = today.getMonth() + 1;
+    const todayDate  = today.getDate();
+
+    // Age
+    let age = todayYear - birthYear;
+    if (todayMonth < birthMonth || (todayMonth === birthMonth && todayDate < birthDate)) {
+        age--;
+    }
+
+    // Elapsed (years, months, days)
+    let eYears  = todayYear  - birthYear;
+    let eMonths = todayMonth - birthMonth;
+    let eDays   = todayDate  - birthDate;
+
+    if (eDays < 0) {
+        eMonths--;
+        const prevMonth = new Date(todayYear, today.getMonth(), 0);
+        eDays += prevMonth.getDate();
+    }
+    if (eMonths < 0) {
+        eYears--;
+        eMonths += 12;
+    }
+
+    // Next birthday
+    let nextBirth = new Date(todayYear, birthMonth - 1, birthDate);
+    if (nextBirth <= today) {
+        nextBirth = new Date(todayYear + 1, birthMonth - 1, birthDate);
+    }
+    const diffMs   = nextBirth - today;
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+    // Day of the week
+    const DAYS = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    const birthWeekday = DAYS[birth.getDay()];
+
+    // Chinese animal
+    const animal = getAnimal(birthYear);
+
+    // Zodiac sign
+    const zodiac = getZodiac(birthMonth, birthDate);
+
+    // Display
+    document.getElementById('manAge').textContent    = age + ' ans';
+    document.getElementById('elapsed').textContent   = eYears + ' ans ' + eMonths + ' mois ' + eDays + ' jours';
+    document.getElementById('nextBirthday').textContent =
+        diffDays === 0 ? 'C\'est votre anniversaire aujourd\'hui !' : diffDays + ' jours restants';
+    document.getElementById('birthDay').textContent  = birthWeekday;
+    document.getElementById('zodiacAnimal').textContent = animal;
+    document.getElementById('zodiacSign').textContent   = zodiac;
+
+    document.getElementById('result').style.display = 'block';
+}
+
+document.getElementById('birthday').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') calculate();
+});
+</script>
+
+</body>
+</html>
