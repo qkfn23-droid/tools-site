@@ -246,22 +246,22 @@
 
  <div class="calc-box">
  <div class="input-group">
- <label>input ( one)</label>
+ <label>Input (one per line)</label>
  <textarea id="inputText" rows="10" placeholder="Enter text here.&#10;One item per line."></textarea>
  </div>
 
  <div class="options-row">
  <label class="option-item">
  <input type="checkbox" id="caseSensitive" checked>
- Lowercase most
+ Case sensitive
  </label>
  <label class="option-item">
  <input type="checkbox" id="removeEmpty" checked>
- Remove
+ Remove empty lines
  </label>
  <label class="option-item">
  <input type="checkbox" id="sortResult">
- 
+ Sort results
  </label>
  </div>
 
@@ -280,8 +280,8 @@
  <div class="info-section">
  <h2>How to Use</h2>
  <p>
- Top input combine "Duplicate Remover" .
- Top and, Lowercase most , option Selectcan .
+ Enter text with one item per line, then click "Duplicate Remover" to remove repeated lines.
+ You can also toggle case sensitivity, remove empty lines, and sort results with the options above.
  </p>
  </div>
 </div>
@@ -329,7 +329,7 @@ function deduplicate() {
 
  document.getElementById('outputText').value = result.join('\n');
  document.getElementById('stats').innerHTML =
- 'input <strong>' + inputCount + '</strong> &rarr; Result <strong>' + outputCount + '</strong> (<strong>' + removedCount + '</strong> Duplicate Remover)';
+ 'Input: <strong>' + inputCount + '</strong> lines &rarr; Result: <strong>' + outputCount + '</strong> lines (<strong>' + removedCount + '</strong> removed)';
 
  document.getElementById('resultArea').style.display = 'block';
 
