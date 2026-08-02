@@ -626,4 +626,45 @@
   <url><loc>https://mogutool.com/fr/tools/timer.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mogutool.com/fr/tools/timezone-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mogutool.com/fr/tools/unit-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PT -->
+  <url>
+    <loc>https://mogutool.com/pt/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url><loc>https://mogutool.com/pt/tools/age-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/aspect-ratio.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/base-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/blood-match.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/bmi.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/case-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/char-count.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/color-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/color-palette.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/compound-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/date-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/dday-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/dedup.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/discount-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/encoding.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/gpa-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/gradient-gen.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/hash-gen.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/korean-love-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/loan-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/mbti-match.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/name-gen.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/name-match.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/password-gen.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/qr-gen.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/random-pick.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/ratio-calc.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/romanize.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/space-remove.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/temp-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/timer.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/timezone-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mogutool.com/pt/tools/unit-convert.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

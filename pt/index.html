@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOGU Tools - Ferramentas Online Grátis</title>
+    <meta name="description" content="Calculadoras, conversores, geradores, ferramentas de texto e cor - Coleção de ferramentas online grátis | mogutool.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 32px 0 24px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        header h1 span {
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        header p {
+            color: rgba(255,255,255,0.75);
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .lang-switch {
+            margin-top: 8px;
+        }
+
+        .lang-switch a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 12px;
+            margin: 0 6px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .lang-switch a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.15);
+        }
+
+        .lang-switch a.active {
+            color: #fff;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .search-bar {
+            max-width: 480px;
+            margin: 18px auto 0;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 18px 12px 42px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.2s;
+        }
+
+        .search-bar input:focus {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .search-bar::before {
+            content: "🔍";
+            position: absolute;
+            left: 34px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            z-index: 1;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
+
+        .category { margin-bottom: 32px; }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .category-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .cat-calc .category-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .cat-convert .category-icon { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .cat-gen .category-icon { background: linear-gradient(135deg, #ee0979, #ff6a00); }
+        .cat-text .category-icon { background: linear-gradient(135deg, #2193b0, #6dd5ed); }
+        .cat-color .category-icon { background: linear-gradient(135deg, #f953c6, #b91d73); }
+
+        .category h2 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 10px;
+        }
+
+        .tool-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 14px;
+            padding: 20px 14px 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .cat-calc .tool-card::before { background: linear-gradient(90deg, #667eea, #764ba2); }
+        .cat-convert .tool-card::before { background: linear-gradient(90deg, #11998e, #38ef7d); }
+        .cat-gen .tool-card::before { background: linear-gradient(90deg, #ee0979, #ff6a00); }
+        .cat-text .tool-card::before { background: linear-gradient(90deg, #2193b0, #6dd5ed); }
+        .cat-color .tool-card::before { background: linear-gradient(90deg, #f953c6, #b91d73); }
+
+        .tool-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .tool-card:hover::before { opacity: 1; }
+
+        .tool-card .icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .cat-calc .tool-card .icon { background: rgba(102,126,234,0.1); color: #667eea; }
+        .cat-convert .tool-card .icon { background: rgba(17,153,142,0.1); color: #11998e; }
+        .cat-gen .tool-card .icon { background: rgba(238,9,121,0.1); color: #ee0979; }
+        .cat-text .tool-card .icon { background: rgba(33,147,176,0.1); color: #2193b0; }
+        .cat-color .tool-card .icon { background: rgba(249,83,198,0.1); color: #b91d73; }
+
+        .tool-card .name {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .tool-card .desc {
+            font-size: 11.5px;
+            color: #999;
+        }
+
+        .stats {
+            text-align: center;
+            padding: 8px 0 0;
+            margin-bottom: -8px;
+        }
+
+        .stats span {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.85);
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px;
+            color: #bbb;
+            font-size: 12px;
+            border-top: 1px solid #e8e8e8;
+            margin-top: 10px;
+        }
+
+        /* Dark mode */
+        body.dark { background: #1a1a2e; color: #e0e0e0; }
+        body.dark header { background: linear-gradient(135deg, #2d2d5e 0%, #4a2d6e 100%); }
+        body.dark .search-bar input { background: rgba(255,255,255,0.1); color: #e0e0e0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        body.dark .search-bar input::placeholder { color: rgba(255,255,255,0.4); }
+        body.dark .tool-card { background: #16213e; border-color: rgba(255,255,255,0.08); }
+        body.dark .tool-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        body.dark .tool-card .name { color: #e0e0e0; }
+        body.dark .tool-card .desc { color: #888; }
+        body.dark .category h2 { color: #ccc; }
+        body.dark footer { color: #666; border-top-color: #2a2a4a; }
+
+        .dark-toggle {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 100;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark .dark-toggle { background: #16213e; box-shadow: 0 2px 10px rgba(0,0,0,0.4); }
+
+        @media (max-width: 600px) {
+            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            header { padding: 24px 0 20px; }
+            header h1 { font-size: 22px; }
+            .logo-icon { width: 34px; height: 34px; font-size: 18px; }
+            .tool-card { padding: 16px 10px 14px; }
+            .tool-card .icon { width: 38px; height: 38px; font-size: 18px; }
+            .tool-card .name { font-size: 12.5px; }
+            .tool-card .desc { font-size: 10.5px; }
+            .category-header { margin-bottom: 10px; }
+            .category h2 { font-size: 15px; }
+            .category-icon { width: 28px; height: 28px; }
+            main { padding: 0 12px; margin: 20px auto; }
+            .category { margin-bottom: 24px; }
+            .search-bar input { padding: 10px 14px 10px 38px; font-size: 14px; }
+            .search-bar::before { left: 28px; font-size: 14px; }
+            .stats span { font-size: 11px; }
+            .dark-toggle { width: 38px; height: 38px; font-size: 17px; bottom: 14px; right: 14px; }
+        }
+
+        @media (max-width: 360px) {
+            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .tool-card { padding: 14px 8px 12px; }
+            .tool-card .name { font-size: 11.5px; }
+            header h1 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">🛠</div>
+        <h1>MOGU <span>Tools</span></h1>
+    </div>
+    <p>Ferramentas online rápidas e simples</p>
+    <div class="stats"><span>🧰 33 Ferramentas Grátis</span></div>
+    <div class="lang-switch">
+        <a href="../index.html">한국어</a>
+        <a href="../en/index.html">English</a>
+        <a href="../jp/index.html">日本語</a>
+        <a href="../es/index.html">Español</a>
+        <a href="../de/index.html">Deutsch</a>
+        <a href="../fr/index.html">Français</a>
+        <a href="./" class="active">Português</a>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar ferramentas..." oninput="filterTools()">
+    </div>
+</header>
+
+<main>
+    <!-- Calculators -->
+    <div class="category cat-calc" data-category="calculator">
+        <div class="category-header">
+            <div class="category-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+            </div>
+            <h2>Calculadoras</h2>
+        </div>
+        <div class="tools-grid">
+            <a href="tools/bmi.html" class="tool-card" data-name="Calculadora de IMC">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"/><path d="M12 7v5l3 3"/></svg></div>
+                <div class="name">Calculadora de IMC</div>
+                <div class="desc">Índice de Massa Corporal</div>
+            </a>
+            <a href="tools/loan-calc.html" class="tool-card" data-name="Calculadora de Empréstimo">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <div class="name">Calculadora de Empréstimo</div>
+                <div class="desc">Juros e parcelas</div>
+            </a>
+            <a href="tools/compound-calc.html" class="tool-card" data-name="Juros Compostos Calculator">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M16 8l-4 4-4-4"/><path d="M16 12l-4 4-4-4"/></svg></div>
+                <div class="name">Juros Compostos</div>
+                <div class="desc">Rendimento composto</div>
+            </a>
+            <a href="tools/age-calc.html" class="tool-card" data-name="Calculadora de Idade">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div class="name">Calculadora de Idade</div>
+                <div class="desc">Cálculo exato de idade</div>
+            </a>
+            <a href="tools/dday-calc.html" class="tool-card" data-name="Calculadora D-Day">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <div class="name">Calculadora D-Day</div>
+                <div class="desc">Diferença de datas</div>
+            </a>
+            <a href="tools/discount-calc.html" class="tool-card" data-name="Calculadora de Desconto">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+                <div class="name">Calculadora de Desconto</div>
+                <div class="desc">Preço de venda e economia</div>
+            </a>
+            <a href="tools/ratio-calc.html" class="tool-card" data-name="Ratio Calculator Percentage">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                <div class="name">Calculadora de Porcentagem</div>
+                <div class="desc">Razão e porcentagem</div>
+            </a>
+            <a href="tools/gpa-calc.html" class="tool-card" data-name="Calculadora de Média">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/></svg></div>
+                <div class="name">Calculadora de Média</div>
+                <div class="desc">Média de notas</div>
+            </a>
+            <a href="tools/aspect-ratio.html" class="tool-card" data-name="Proporção de Tela Calculator">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div>
+                <div class="name">Proporção de Tela</div>
+                <div class="desc">Proporção e resolução</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Converters -->
+    <div class="category cat-convert" data-category="converter">
+        <div class="category-header">
+            <div class="category-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            </div>
+            <h2>Conversores</h2>
+        </div>
+        <div class="tools-grid">
+            <a href="tools/unit-convert.html" class="tool-card" data-name="Conversor de Unidades">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12h20M6 8l-4 4 4 4M18 8l4 4-4 4"/></svg></div>
+                <div class="name">Conversor de Unidades</div>
+                <div class="desc">Comprimento, peso, volume</div>
+            </a>
+            <a href="tools/temp-convert.html" class="tool-card" data-name="Temperatura Converter">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
+                <div class="name">Temperatura</div>
+                <div class="desc">°C / °F / K</div>
+            </a>
+            <a href="tools/timezone-convert.html" class="tool-card" data-name="Conversor de Fuso Horário">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="name">Conversor de Fuso Horário</div>
+                <div class="desc">Fusos horários do mundo</div>
+            </a>
+            <a href="tools/base-convert.html" class="tool-card" data-name="Base Number Converter">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+                <div class="name">Conversor de Base</div>
+                <div class="desc">Binário, Octal, Hex</div>
+            </a>
+            <a href="tools/date-convert.html" class="tool-card" data-name="Date Format Converter">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 2v4M16 2v4"/></svg></div>
+                <div class="name">Conversor de Data</div>
+                <div class="desc">Conversão de formato de data</div>
+            </a>
+                    <a href="tools/romanize.html" class="tool-card" data-name="Romanizador Coreano">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div>
+                <div class="name">Romanizador Coreano</div>
+                <div class="desc">Coreano para letras romanas</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Generators -->
+    <div class="category cat-gen" data-category="generator">
+        <div class="category-header">
+            <div class="category-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h2>Geradores</h2>
+        </div>
+        <div class="tools-grid">
+            <a href="tools/password-gen.html" class="tool-card" data-name="Gerador de Senhas">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <div class="name">Gerador de Senhas</div>
+                <div class="desc">Senhas seguras</div>
+            </a>
+            <a href="tools/qr-gen.html" class="tool-card" data-name="Gerador de QR Code">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/></svg></div>
+                <div class="name">Gerador de QR Code</div>
+                <div class="desc">Criar QR codes</div>
+            </a>
+            <a href="tools/random-pick.html" class="tool-card" data-name="Sorteio Aleatório">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2" transform="rotate(45 12 12)"/><circle cx="12" cy="12" r="1"/></svg></div>
+                <div class="name">Sorteio Aleatório</div>
+                <div class="desc">Número/nome aleatório</div>
+            </a>
+            <a href="tools/hash-gen.html" class="tool-card" data-name="Gerador de Hash">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
+                <div class="name">Gerador de Hash</div>
+                <div class="desc">MD5 / SHA256</div>
+            </a>
+            <a href="tools/name-gen.html" class="tool-card" data-name="Gerador de Nomes">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                <div class="name">Gerador de Nomes</div>
+                <div class="desc">Nomes de fantasia e aleatórios</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Text Tools -->
+    <div class="category cat-text" data-category="text">
+        <div class="category-header">
+            <div class="category-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+            </div>
+            <h2>Ferramentas de Texto</h2>
+        </div>
+        <div class="tools-grid">
+            <a href="tools/char-count.html" class="tool-card" data-name="Contador de Caracteres Word Counter">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div>
+                <div class="name">Contador de Caracteres</div>
+                <div class="desc">Caracteres, palavras, bytes</div>
+            </a>
+            <a href="tools/space-remove.html" class="tool-card" data-name="Removedor de Espaços">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+                <div class="name">Removedor de Espaços</div>
+                <div class="desc">Limpar espaços</div>
+            </a>
+            <a href="tools/case-convert.html" class="tool-card" data-name="Conversor de Maiúsculas">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18h6l3-12 3 12h6"/><line x1="5" y1="14" x2="7" y2="14"/></svg></div>
+                <div class="name">Conversor de Maiúsculas</div>
+                <div class="desc">MAIÚSCULAS / minúsculas / Título</div>
+            </a>
+            <a href="tools/dedup.html" class="tool-card" data-name="Removedor de Duplicatas">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="2" width="13" height="13" rx="2"/><path d="M4 9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2"/></svg></div>
+                <div class="name">Removedor de Duplicatas</div>
+                <div class="desc">Remover linhas duplicadas</div>
+            </a>
+            <a href="tools/encoding.html" class="tool-card" data-name="Conversor de Codificação Base64 URL">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                <div class="name">Conversor de Codificação</div>
+                <div class="desc">Codificação Base64 / URL</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Color Tools -->
+    <div class="category cat-color" data-category="color">
+        <div class="category-header">
+            <div class="category-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+            </div>
+            <h2>Ferramentas de Cor</h2>
+        </div>
+        <div class="tools-grid">
+            <a href="tools/color-convert.html" class="tool-card" data-name="HEX RGB Color Converter">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></div>
+                <div class="name">Conversor HEX/RGB</div>
+                <div class="desc">Conversão de código de cor</div>
+            </a>
+            <a href="tools/color-palette.html" class="tool-card" data-name="Paleta de Cores Generator">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="8" r="1.5" fill="currentColor"/><circle cx="9" cy="14" r="1.5" fill="currentColor"/></svg></div>
+                <div class="name">Paleta de Cores</div>
+                <div class="desc">Cores harmoniosas</div>
+            </a>
+            <a href="tools/gradient-gen.html" class="tool-card" data-name="CSS Gerador de Degradê">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="17" x2="21" y2="17"/></svg></div>
+                <div class="name">Gerador de Degradê</div>
+                <div class="desc">Degradês CSS</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Utility -->
+    <div class="category cat-util" data-category="utility">
+        <div class="category-header">
+            <div class="category-icon" style="background: linear-gradient(135deg, #636363, #a2a2a2);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h2>Utilidades</h2>
+        </div>
+        <div class="tools-grid">
+            <a href="tools/timer.html" class="tool-card" data-name="Timer Stopwatch">
+                <div class="icon" style="background:rgba(99,99,99,0.1);color:#636363;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3l2 2M19 3l-2 2M12 5V3"/></svg></div>
+                <div class="name">Cronômetro / Timer</div>
+                <div class="desc">Contagem regressiva e voltas</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Fun -->
+    <div class="category cat-fun" data-category="fun">
+        <div class="category-header">
+            <div class="category-icon" style="background: linear-gradient(135deg, #e05c8a, #f7971e);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h2>Diversão & K-Culture</h2>
+        </div>
+        <div class="tools-grid">
+            <a href="tools/mbti-match.html" class="tool-card" data-name="Compatibilidade MBTI Test">
+                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <div class="name">Compatibilidade MBTI</div>
+                <div class="desc">Teste de compatibilidade MBTI</div>
+            </a>
+                    <a href="tools/name-match.html" class="tool-card" data-name="Compatibilidade de Nomes Korean">
+                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                <div class="name">Compatibilidade de Nomes</div>
+                <div class="desc">Teste de nomes coreano</div>
+            </a>
+            <a href="tools/blood-match.html" class="tool-card" data-name="Blood Type Compatibility">
+                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+                <div class="name">Tipo Sanguíneo</div>
+                <div class="desc">Compatibilidade K-style</div>
+            </a>
+                    <a href="tools/korean-love-calc.html" class="tool-card" data-name="Korean Love Calculator 사랑">
+                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                <div class="name">Teste de Amor Coreano 💕</div>
+                <div class="desc">Compatibilidade 사랑</div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 MOGU Tools · mogutool.com
+</footer>
+
+<button class="dark-toggle" onclick="toggleDark()" aria-label="Alternar modo escuro">🌙</button>
+
+<script>
+function toggleDark() {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('darkMode', isDark);
+    document.querySelector('.dark-toggle').textContent = isDark ? '☀️' : '🌙';
+}
+
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark');
+    document.querySelector('.dark-toggle').textContent = '☀️';
+}
+
+function filterTools() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.tool-card');
+    const categories = document.querySelectorAll('.category');
+
+    cards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        card.style.display = name.includes(query) ? '' : 'none';
+    });
+
+    categories.forEach(cat => {
+        const visibleCards = cat.querySelectorAll('.tool-card:not([style*="display: none"])');
+        cat.style.display = visibleCards.length > 0 ? '' : 'none';
+    });
+}
+</script>
+
+</body>
+</html>
