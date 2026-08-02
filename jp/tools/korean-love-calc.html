@@ -60,7 +60,7 @@
 </header>
 
 <div class="breadcrumb">
- <a href="../index.html">ホーム</a> &gt; K-Culture &gt; Korean Love Calculator
+ <a href="../index.html">ホーム</a> &gt; K-Culture &gt; 韓国式愛の相性計算
 </div>
 
 <div class="container">
@@ -94,9 +94,9 @@
  <li>各韓国語の文字の画数を数える</li>
  <li>隣り合う数字を足す</li>
  <li>最後の2桁になるまで続ける</li>
- <li>If it matches <strong> (4 strokes) (10 strokes)</strong> → it's LOVE! 💕</li>
+ <li>結果が <strong>사（4画）랑（10画）</strong> になれば → LOVE！💕</li>
  </ol>
- <p style="margin-top:12px;">The magic numbers are <strong>4 and 10</strong> (사랑 = Love in Korean)!</p>
+ <p style="margin-top:12px;">マジックナンバーは <strong>4と10</strong>（사랑 = 韓国語で「愛」）！</p>
  </div>
 </div>
 
@@ -206,22 +206,22 @@ function calculate() {
  if (isSarang) {
  html += '<div class="final-emoji">💕💕💕</div>';
  html += '<div class="final-text love">사랑 LOVE!</div>';
- html += '<div class="final-desc">Perfect match! The numbers spell out 사랑 (LOVE)! 💕<br>This is destiny!</div>';
+ html += '<div class="final-desc">完璧な相性！数字が사랑（愛）になりました！💕<br>これは運命です！</div>';
  } else if (percentage >= 80) {
  html += '<div class="final-emoji">💕</div>';
  html += '<div class="final-number" style="color:#e05c8a;">' + percentage + '%</div>';
- html += '<div class="final-text love">Great Match!</div>';
- html += '<div class="final-desc">You two have amazing compatibility! </div>';
+ html += '<div class="final-text love">最高の相性！</div>';
+ html += '<div class="final-desc">二人の相性は素晴らしいです！</div>';
  } else if (percentage >= 50) {
  html += '<div class="final-emoji">💛</div>';
  html += '<div class="final-number" style="color:#f7971e;">' + percentage + '%</div>';
- html += '<div class="final-text" style="color:#f7971e;">Good Match!</div>';
- html += '<div class="final-desc">There\'s definitely something there! </div>';
+ html += '<div class="final-text" style="color:#f7971e;">良い相性！</div>';
+ html += '<div class="final-desc">何かありそうな予感！</div>';
  } else {
  html += '<div class="final-emoji">🤔</div>';
  html += '<div class="final-number" style="color:#999;">' + percentage + '%</div>';
- html += '<div class="final-text notlove">Keep Trying!</div>';
- html += '<div class="final-desc">Maybe try with a different name? 😅</div>';
+ html += '<div class="final-text notlove">もう一回！</div>';
+ html += '<div class="final-desc">違う名前で試してみよう？😅</div>';
  }
 
  html += '</div>';

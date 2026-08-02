@@ -2,543 +2,539 @@
 <html lang="ja">
 <head>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>血液型相性診断 - MOGU Tools</title>
- <meta name="description" content="Blood type compatibility test. Check personalityy compatibility between blood types. blood type personalityy compatibility checkcheck.">
- <style>
- * { margin: 0; padding: 0; box-sizing: border-box; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>血液型相性診断 - MOGU Tools</title>
+    <meta name="description" content="血液型で調べる相性診断。二つの血液型の性格と相性をチェック。">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
- body {
- font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
- background: #f5f5f5;
- color: #333;
- }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
 
- header {
- background: #fff;
- border-bottom: 2px solid #eee;
- padding: 16px 20px;
- }
+        header {
+            background: #fff;
+            border-bottom: 2px solid #eee;
+            padding: 16px 20px;
+        }
 
- header a {
- text-decoration: none;
- color: #2c2c2c;
- font-size: 18px;
- font-weight: 700;
- }
+        header a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 18px;
+            font-weight: 700;
+        }
 
- header a span {
- color: #4a90d9;
- }
+        header a span {
+            color: #4a90d9;
+        }
 
- .breadcrumb {
- max-width: 600px;
- margin: 16px auto;
- padding: 0 20px;
- font-size: 13px;
- color: #999;
- }
+        .breadcrumb {
+            max-width: 600px;
+            margin: 16px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #999;
+        }
 
- .breadcrumb a {
- color: #4a90d9;
- text-decoration: none;
- }
+        .breadcrumb a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
 
- .container {
- max-width: 600px;
- margin: 10px auto 40px;
- padding: 0 20px;
- }
+        .container {
+            max-width: 600px;
+            margin: 10px auto 40px;
+            padding: 0 20px;
+        }
 
- h1 {
- font-size: 24px;
- font-weight: 700;
- margin-bottom: 8px;
- }
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
- .subtitle {
- color: #888;
- font-size: 14px;
- margin-bottom: 24px;
- }
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
 
- .calc-box {
- background: #fff;
- border: 1px solid #e8e8e8;
- border-radius: 12px;
- padding: 28px;
- }
+        .calc-box {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 28px;
+        }
 
- .selector-label {
- font-size: 14px;
- font-weight: 600;
- color: #555;
- margin-bottom: 12px;
- }
+        .selector-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 12px;
+        }
 
- .blood-buttons {
- display: grid;
- grid-template-columns: repeat(4, 1fr);
- gap: 10px;
- margin-bottom: 24px;
- }
+        .blood-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
 
- .blood-btn {
- padding: 18px 8px;
- border: 2px solid transparent;
- border-radius: 10px;
- font-size: 18px;
- font-weight: 700;
- cursor: pointer;
- transition: all 0.18s;
- color: #fff;
- text-align: center;
- user-select: none;
- background: #ccc;
- }
+        .blood-btn {
+            padding: 18px 8px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s;
+            color: #fff;
+            text-align: center;
+            user-select: none;
+            background: #ccc;
+        }
 
- .blood-btn.type-A { background: #4a90d9; }
- .blood-btn.type-B { background: #4caf7d; }
- .blood-btn.type-O { background: #e05c5c; }
- .blood-btn.type-AB { background: #9b6fd4; font-size: 15px; }
+        .blood-btn.type-A  { background: #4a90d9; }
+        .blood-btn.type-B  { background: #4caf7d; }
+        .blood-btn.type-O  { background: #e05c5c; }
+        .blood-btn.type-AB { background: #9b6fd4; font-size: 15px; }
 
- .blood-btn:hover {
- filter: brightness(1.1);
- transform: translateY(-2px);
- }
+        .blood-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
 
- .blood-btn.selected {
- border-color: #2c2c2c;
- box-shadow: 0 0 0 3px rgba(44,44,44,0.15);
- transform: translateY(-2px);
- }
+        .blood-btn.selected {
+            border-color: #2c2c2c;
+            box-shadow: 0 0 0 3px rgba(44,44,44,0.15);
+            transform: translateY(-2px);
+        }
 
- .blood-btn .type-sub {
- font-size: 11px;
- font-weight: 400;
- opacity: 0.85;
- margin-top: 4px;
- }
+        .blood-btn .type-sub {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
 
- .divider {
- border: none;
- border-top: 1px solid #f0f0f0;
- margin: 4px 0 24px;
- }
+        .divider {
+            border: none;
+            border-top: 1px solid #f0f0f0;
+            margin: 4px 0 24px;
+        }
 
- .calc-btn {
- width: 100%;
- padding: 14px;
- background: #4a90d9;
- color: #fff;
- border: none;
- border-radius: 8px;
- font-size: 16px;
- font-weight: 600;
- cursor: pointer;
- transition: background 0.2s;
- }
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
 
- .calc-btn:hover {
- background: #3a7bc8;
- }
+        .calc-btn:hover {
+            background: #3a7bc8;
+        }
 
- /* Result */
- .result {
- display: none;
- margin-top: 24px;
- }
+        /* Result */
+        .result {
+            display: none;
+            margin-top: 24px;
+        }
 
- .result-card {
- background: #f8f9fa;
- border-radius: 10px;
- padding: 24px;
- text-align: center;
- }
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+        }
 
- .result-pair {
- display: flex;
- align-items: center;
- justify-content: center;
- gap: 14px;
- margin-bottom: 16px;
- }
+        .result-pair {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
 
- .pair-badge {
- width: 52px;
- height: 52px;
- border-radius: 50%;
- display: flex;
- align-items: center;
- justify-content: center;
- color: #fff;
- font-size: 17px;
- font-weight: 700;
- }
+        .pair-badge {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 700;
+        }
 
- .pair-heart {
- font-size: 22px;
- color: #e05c5c;
- }
+        .pair-heart {
+            font-size: 22px;
+            color: #e05c5c;
+        }
 
- .result-stars {
- font-size: 26px;
- letter-spacing: 2px;
- margin-bottom: 8px;
- }
+        .result-stars {
+            font-size: 26px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
 
- .result-title {
- font-size: 18px;
- font-weight: 700;
- margin-bottom: 16px;
- color: #333;
- }
+        .result-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #333;
+        }
 
- /* Meter bar */
- .meter-wrap {
- background: #e8e8e8;
- border-radius: 20px;
- height: 12px;
- overflow: hidden;
- margin: 0 auto 20px;
- max-width: 320px;
- }
+        /* Meter bar */
+        .meter-wrap {
+            background: #e8e8e8;
+            border-radius: 20px;
+            height: 12px;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            max-width: 320px;
+        }
 
- .meter-bar {
- height: 100%;
- border-radius: 20px;
- transition: width 0.6s ease;
- background: linear-gradient(90deg, #f0ad4e, #e05c5c);
- }
+        .meter-bar {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+            background: linear-gradient(90deg, #f0ad4e, #e05c5c);
+        }
 
- /* Personality cards */
- .personality-row {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 12px;
- margin-bottom: 16px;
- text-align: left;
- }
+        /* Personality cards */
+        .personality-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
 
- .personality-card {
- border-radius: 8px;
- padding: 14px;
- color: #fff;
- }
+        .personality-card {
+            border-radius: 8px;
+            padding: 14px;
+            color: #fff;
+        }
 
- .personality-card .p-type {
- font-size: 15px;
- font-weight: 700;
- margin-bottom: 6px;
- }
+        .personality-card .p-type {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
 
- .personality-card .p-tags {
- font-size: 12px;
- opacity: 0.9;
- line-height: 1.7;
- }
+        .personality-card .p-tags {
+            font-size: 12px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
 
- /* Pros / Cons */
- .detail-grid {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 12px;
- margin-bottom: 20px;
- text-align: left;
- }
+        /* Pros / Cons */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
 
- .detail-box {
- background: #fff;
- border-radius: 8px;
- padding: 14px;
- border: 1px solid #e8e8e8;
- }
+        .detail-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 14px;
+            border: 1px solid #e8e8e8;
+        }
 
- .detail-box .d-title {
- font-size: 13px;
- font-weight: 600;
- margin-bottom: 6px;
- }
+        .detail-box .d-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
 
- .detail-box .d-title.pros { color: #4caf7d; }
- .detail-box .d-title.cons { color: #e05c5c; }
+        .detail-box .d-title.pros { color: #4caf7d; }
+        .detail-box .d-title.cons { color: #e05c5c; }
 
- .detail-box p {
- font-size: 13px;
- color: #666;
- line-height: 1.6;
- }
+        .detail-box p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
 
- .reset-btn {
- width: 100%;
- padding: 12px;
- background: #fff;
- color: #555;
- border: 1.5px solid #ddd;
- border-radius: 8px;
- font-size: 15px;
- font-weight: 600;
- cursor: pointer;
- transition: all 0.2s;
- }
+        .reset-btn {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            color: #555;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
 
- .reset-btn:hover {
- border-color: #4a90d9;
- color: #4a90d9;
- }
+        .reset-btn:hover {
+            border-color: #4a90d9;
+            color: #4a90d9;
+        }
 
- .info-section {
- margin-top: 30px;
- background: #fff;
- border: 1px solid #e8e8e8;
- border-radius: 12px;
- padding: 24px;
- }
+        .info-section {
+            margin-top: 30px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 24px;
+        }
 
- .info-section h2 {
- font-size: 16px;
- margin-bottom: 12px;
- color: #555;
- }
+        .info-section h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #555;
+        }
 
- .info-section p {
- font-size: 14px;
- color: #666;
- line-height: 1.7;
- }
+        .info-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
 
- footer {
- text-align: center;
- padding: 30px;
- color: #bbb;
- font-size: 13px;
- }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
 
- /* Color helpers */
- .bg-A { background: #4a90d9; }
- .bg-B { background: #4caf7d; }
- .bg-O { background: #e05c5c; }
- .bg-AB { background: #9b6fd4; }
- </style>
+        /* Color helpers */
+        .bg-A  { background: #4a90d9; }
+        .bg-B  { background: #4caf7d; }
+        .bg-O  { background: #e05c5c; }
+        .bg-AB { background: #9b6fd4; }
+    </style>
 </head>
 <body>
 
 <header>
- <a href="../index.html">MOGU <span>ツール</span></a>
+    <a href="../index.html">MOGU <span>ツール</span></a>
 </header>
 
 <div class="breadcrumb">
- <a href="../index.html">ホーム</a> &gt; Fun &gt; Blood Type Compatibility
+    <a href="../index.html">ホーム</a> &gt; お楽しみ &gt; 血液型相性診断
 </div>
 
 <div class="container">
- <h1>血液型相性診断</h1>
- <p class="subtitle"> 2つの血液型の相性を診断しましょう。</p>
+    <h1>血液型相性診断</h1>
+    <p class="subtitle">二つの血液型を選んで相性をチェック。</p>
 
- <div class="calc-box">
+    <div class="calc-box">
 
- <!-- My type -->
- <div class="selector-label">My Blood Type</div>
- <div class="blood-buttons" id="myButtons">
- <button class="blood-btn type-A" onclick="selectType('my','A')">
- A<div class="type-sub">Careful & considerate</div>
- </button>
- <button class="blood-btn type-B" onclick="selectType('my','B')">
- B<div class="type-sub">characters·</div>
- </button>
- <button class="blood-btn type-O" onclick="selectType('my','O')">
- O<div class="type-sub">Leader & passionate</div>
- </button>
- <button class="blood-btn type-AB" onclick="selectType('my','AB')">
- AB<div class="type-sub">·</div>
- </button>
- </div>
+        <div class="selector-label">自分の血液型</div>
+        <div class="blood-buttons" id="myButtons">
+            <button class="blood-btn type-A"  onclick="selectType('my','A')">
+                A型<div class="type-sub">几帳面·思いやり</div>
+            </button>
+            <button class="blood-btn type-B"  onclick="selectType('my','B')">
+                B型<div class="type-sub">自由·創造</div>
+            </button>
+            <button class="blood-btn type-O"  onclick="selectType('my','O')">
+                O型<div class="type-sub">リーダー·情熱</div>
+            </button>
+            <button class="blood-btn type-AB" onclick="selectType('my','AB')">
+                AB型<div class="type-sub">理性·独特</div>
+            </button>
+        </div>
 
- < class="divider">
+        <hr class="divider">
 
- <!-- Partner type -->
- <div class="selector-label"> blood type</div>
- <div class="blood-buttons" id="partnerButtons">
- <button class="blood-btn type-A" onclick="selectType('partner','A')">
- A<div class="type-sub">Careful & considerate</div>
- </button>
- <button class="blood-btn type-B" onclick="selectType('partner','B')">
- B<div class="type-sub">characters·</div>
- </button>
- <button class="blood-btn type-O" onclick="selectType('partner','O')">
- O<div class="type-sub">Leader & passionate</div>
- </button>
- <button class="blood-btn type-AB" onclick="selectType('partner','AB')">
- AB<div class="type-sub">·</div>
- </button>
- </div>
+        <div class="selector-label">相手の血液型</div>
+        <div class="blood-buttons" id="partnerButtons">
+            <button class="blood-btn type-A"  onclick="selectType('partner','A')">
+                A型<div class="type-sub">几帳面·思いやり</div>
+            </button>
+            <button class="blood-btn type-B"  onclick="selectType('partner','B')">
+                B型<div class="type-sub">自由·創造</div>
+            </button>
+            <button class="blood-btn type-O"  onclick="selectType('partner','O')">
+                O型<div class="type-sub">リーダー·情熱</div>
+            </button>
+            <button class="blood-btn type-AB" onclick="selectType('partner','AB')">
+                AB型<div class="type-sub">理性·独特</div>
+            </button>
+        </div>
 
- <button class="calc-btn" onclick="checkMatch()">相性チェック</button>
+        <button class="calc-btn" onclick="checkMatch()">相性チェック</button>
 
- <!-- Result -->
- <div class="result" id="result">
- <div class="result-card">
- <div class="result-pair">
- <div class="pair-badge" id="badgeMe"></div>
- <div class="pair-heart">♥</div>
- <div class="pair-badge" id="badgePartner"></div>
- </div>
- <div class="result-stars" id="resultStars"></div>
- <div class="result-title" id="resultTitle"></div>
+        <!-- Result -->
+        <div class="result" id="result">
+            <div class="result-card">
+                <div class="result-pair">
+                    <div class="pair-badge" id="badgeMe"></div>
+                    <div class="pair-heart">♥</div>
+                    <div class="pair-badge" id="badgePartner"></div>
+                </div>
+                <div class="result-stars" id="resultStars"></div>
+                <div class="result-title" id="resultTitle"></div>
 
- <div class="meter-wrap">
- <div class="meter-bar" id="meterBar" style="width:0%"></div>
- </div>
+                <div class="meter-wrap">
+                    <div class="meter-bar" id="meterBar" style="width:0%"></div>
+                </div>
 
- <div class="personality-row">
- <div class="personality-card" id="cardMe">
- <div class="p-type" id="cardMeType"></div>
- <div class="p-tags" id="cardMeTags"></div>
- </div>
- <div class="personality-card" id="cardPartner">
- <div class="p-type" id="cardPartnerType"></div>
- <div class="p-tags" id="cardPartnerTags"></div>
- </div>
- </div>
+                <div class="personality-row">
+                    <div class="personality-card" id="cardMe">
+                        <div class="p-type" id="cardMeType"></div>
+                        <div class="p-tags" id="cardMeTags"></div>
+                    </div>
+                    <div class="personality-card" id="cardPartner">
+                        <div class="p-type" id="cardPartnerType"></div>
+                        <div class="p-tags" id="cardPartnerTags"></div>
+                    </div>
+                </div>
 
- <div class="detail-grid">
- <div class="detail-box">
- <div class="d-title pros">strengths</div>
- <p id="resultPros"></p>
- </div>
- <div class="detail-box">
- <div class="d-title cons">caution</div>
- <p id="resultCons"></p>
- </div>
- </div>
+                <div class="detail-grid">
+                    <div class="detail-box">
+                        <div class="d-title pros">強み</div>
+                        <p id="resultPros"></p>
+                    </div>
+                    <div class="detail-box">
+                        <div class="d-title cons">注意点</div>
+                        <p id="resultCons"></p>
+                    </div>
+                </div>
 
- <button class="reset-btn" onclick="resetAll()">Again </button>
- </div>
- </div>
- </div>
+                <button class="reset-btn" onclick="resetAll()">もう一度</button>
+            </div>
+        </div>
+    </div>
 
- <div class="info-section">
- <h2>What is Blood Type Compatibility?</h2>
- <p>
- Blood type personality theory is a popular belief in Korea and Japan that connects 
- ABO blood types with personality traits and compatibility. While not scientifically proven, 
- it's a fun way to explore relationships! Each blood type is believed to have unique 
- characteristics that affect how people interact with each other.
- </p>
- </div>
+    <div class="info-section">
+        <h2>血液型性格論とは？</h2>
+        <p>
+            血液型性格論はABO式血液型と性格・相性を結びつける韓国・日本の大衆文化です。
+            科学的根拠はありませんが、楽しむためのコンテンツです。
+            結果は軽く参考にして、実際の関係は相互理解と思いやりで築いていきましょう。
+        </p>
+    </div>
 </div>
 
 <footer>
- &copy; 2025 MOGU Tools
+    &copy; 2025 MOGU Tools
 </footer>
 
 <script>
- const selected = { my: null, partner: null };
+    const selected = { my: null, partner: null };
 
- const personality = {
- A: { label: 'A', tags: 'Careful · Detail · Shy · Cautious', bgClass: 'bg-A' },
- B: { label: 'B', tags: 'Creative · Passionate · Strong · Honest', bgClass: 'bg-B' },
- O: { label: 'O', tags: 'Leader · Confident · Generous · Bold', bgClass: 'bg-O' },
- AB: { label: 'AB', tags: 'Rational · Unique · Artistic · Independent', bgClass: 'bg-AB' },
- };
+    const personality = {
+        A:  { label: 'A型', tags: '几帳面 · 思いやり · 繊細 · 完璧主義', bgClass: 'bg-A' },
+        B:  { label: 'B型', tags: '自由 · 創造性 · マイペース · 正直', bgClass: 'bg-B' },
+        O:  { label: 'O型', tags: 'リーダーシップ · 情熱 · 嫉妬心 · 大胆', bgClass: 'bg-O' },
+        AB: { label: 'AB型', tags: '理性的 · 多才 · 冷静 · 独特', bgClass: 'bg-AB' },
+    };
 
- // Key: sorted pair string e.g. "A+O"
- const compatibility = {
- 'A+O': { stars: 5, title: 'Best Match!', meter: 96, pros: 'A\'s care + O\'s leadership = perfect balance', cons: 'O may find A too cautious' },
- 'AB+B': { stars: 5, title: 'Creative Duo!', meter: 94, pros: 'Both creative and free-spirited', cons: 'May lack stability' },
- 'A+A': { stars: 4, title: 'Understanding Pair', meter: 80, pros: 'Deep mutual understanding', cons: 'Both may be too cautious' },
- 'O+O': { stars: 4, title: 'Passionate Pair', meter: 82, pros: 'Both energetic and confident', cons: 'Power struggles possible' },
- 'A+AB': { stars: 4, title: 'Thoughtful Match', meter: 78, pros: 'A\'s detail + AB\'s rationality', cons: 'AB may seem cold to A' },
- 'B+O': { stars: 4, title: 'Dynamic Duo', meter: 76, pros: 'O\'s energy + B\'s creativity', cons: 'Both strong-willed' },
- 'B+B': { stars: 3, title: 'Free Spirits', meter: 60, pros: 'Both independent and creative', cons: 'May clash on details' },
- 'AB+AB': { stars: 3, title: 'Intellectual Pair', meter: 62, pros: 'Both rational and unique', cons: 'May lack emotional depth' },
- 'AB+O': { stars: 3, title: 'Opposites Attract', meter: 58, pros: 'O brings energy, AB brings ideas', cons: 'Very different approaches' },
- 'A+B': { stars: 2, title: 'Challenging Match', meter: 38, pros: 'Can learn from differences', cons: 'A\'s caution vs B\'s freedom = conflict' },
- };
+    const compatibility = {
+        'A+O':  { stars: 5, title: '思いやりのAとリーダーOの完璧な組み合わせ', meter: 96, pros: 'お互いの足りない部分を埋め合う最高のチーム', cons: 'O型の率直な言い方がA型を傷つけることがあります' },
+        'AB+B': { stars: 5, title: '自由なBと多才なABの最高の相性', meter: 94, pros: 'お互いを束縛しない快適な関係', cons: '二人ともマイペースなので計画がずれやすいです' },
+        'A+A':  { stars: 4, title: 'お互いを理解する安定した関係', meter: 80, pros: '細やかに思いやり、衝突が少ないです', cons: 'お互い気を使いすぎて率直な会話が不足しがちです' },
+        'O+O':  { stars: 4, title: '情熱的で活気あふれるカップル', meter: 82, pros: 'エネルギーに溢れ、一緒なら何でも楽しいです', cons: '二人とも負けず嫌いで主導権争いが起きることがあります' },
+        'A+AB': { stars: 4, title: '繊細なAと理性的なAB', meter: 78, pros: 'A型の思いやりとAB型の分析力がよく合います', cons: 'AB型の冷静な発言がA型を不安にさせることがあります' },
+        'B+O':  { stars: 4, title: '活発なOと自由なB', meter: 76, pros: '二人とも活動的で一緒にいると活気があります', cons: 'B型の自由奔放さがO型の嫉妬心を刺激することがあります' },
+        'B+B':  { stars: 3, title: '自由な魂同士の出会い', meter: 60, pros: 'お互い干渉せず自由で正直な関係', cons: '責任感が分散して関係が曖昧になりがちです' },
+        'AB+AB':{ stars: 3, title: '知的な会話が尽きないカップル', meter: 62, pros: '深い会話と共感が豊富です', cons: '感情表現が少なくお互い寂しさを感じることがあります' },
+        'AB+O': { stars: 3, title: 'リーダーOと分析的なAB', meter: 58, pros: 'O型の推進力とAB型のアイデアが合わさると強力です', cons: 'AB型がO型の強い主導権に疲れることがあります' },
+        'A+B':  { stars: 2, title: '几帳面なAと自由なBの衝突', meter: 38, pros: 'お互い違う魅力で最初は惹かれることがあります', cons: 'A型のルールとB型の自由が正面衝突しやすいです' },
+    };
 
- function getKey(t1, t2) {
- // Canonical ordering
- const order = ['A', 'B', 'O', 'AB'];
- const i1 = order.indexOf(t1), i2 = order.indexOf(t2);
- return i1 <= i2 ? t1 + '+' + t2 : t2 + '+' + t1;
- }
+    function getKey(t1, t2) {
+        // Canonical ordering
+        const order = ['A', 'B', 'O', 'AB'];
+        const i1 = order.indexOf(t1), i2 = order.indexOf(t2);
+        return i1 <= i2 ? t1 + '+' + t2 : t2 + '+' + t1;
+    }
 
- function selectType(who, type) {
- selected[who] = type;
- const containerId = who === 'my' ? 'myButtons' : 'partnerButtons';
- const container = document.getElementById(containerId);
- container.querySelectorAll('.blood-btn').forEach(btn => btn.classList.remove('selected'));
- const idx = ['A','B','O','AB'].indexOf(type);
- container.querySelectorAll('.blood-btn')[idx].classList.add('selected');
- }
+    function selectType(who, type) {
+        selected[who] = type;
+        const containerId = who === 'my' ? 'myButtons' : 'partnerButtons';
+        const container = document.getElementById(containerId);
+        container.querySelectorAll('.blood-btn').forEach(btn => btn.classList.remove('selected'));
+        const idx = ['A','B','O','AB'].indexOf(type);
+        container.querySelectorAll('.blood-btn')[idx].classList.add('selected');
+    }
 
- function checkMatch() {
- if (!selected.my || !selected.partner) {
- alert('My Blood Type blood type please select.');
- return;
- }
+    function checkMatch() {
+        if (!selected.my || !selected.partner) {
+            alert('自分と相手の血液型を両方選んでください。');
+            return;
+        }
 
- const key = getKey(selected.my, selected.partner);
- const data = compatibility[key];
+        const key = getKey(selected.my, selected.partner);
+        const data = compatibility[key];
 
- if (!data) {
- alert('compatibility Data A .');
- return;
- }
+        if (!data) {
+            alert('相性データが見つかりません。');
+            return;
+        }
 
- // Badges
- const me = personality[selected.my];
- const partner = personality[selected.partner];
+        // Badges
+        const me = personality[selected.my];
+        const partner = personality[selected.partner];
 
- const badgeMe = document.getElementById('badgeMe');
- badgeMe.textContent = selected.my + '';
- badgeMe.className = 'pair-badge ' + me.bgClass;
+        const badgeMe = document.getElementById('badgeMe');
+        badgeMe.textContent = selected.my + '형';
+        badgeMe.className = 'pair-badge ' + me.bgClass;
 
- const badgePartner = document.getElementById('badgePartner');
- badgePartner.textContent = selected.partner + '';
- badgePartner.className = 'pair-badge ' + partner.bgClass;
+        const badgePartner = document.getElementById('badgePartner');
+        badgePartner.textContent = selected.partner + '형';
+        badgePartner.className = 'pair-badge ' + partner.bgClass;
 
- // Stars
- document.getElementById('resultStars').textContent = '★'.repeat(data.stars) + '☆'.repeat(5 - data.stars);
+        // Stars
+        document.getElementById('resultStars').textContent = '★'.repeat(data.stars) + '☆'.repeat(5 - data.stars);
 
- // Title
- document.getElementById('resultTitle').textContent = data.title;
+        // Title
+        document.getElementById('resultTitle').textContent = data.title;
 
- // Meter (animate after slight delay)
- const bar = document.getElementById('meterBar');
- bar.style.width = '0%';
- setTimeout(() => { bar.style.width = data.meter + '%'; }, 80);
+        // Meter (animate after slight delay)
+        const bar = document.getElementById('meterBar');
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.width = data.meter + '%'; }, 80);
 
- // Personality cards
- const cardMe = document.getElementById('cardMe');
- cardMe.className = 'personality-card ' + me.bgClass;
- document.getElementById('cardMeType').textContent = me.label;
- document.getElementById('cardMeTags').textContent = me.tags;
+        // Personality cards
+        const cardMe = document.getElementById('cardMe');
+        cardMe.className = 'personality-card ' + me.bgClass;
+        document.getElementById('cardMeType').textContent = me.label;
+        document.getElementById('cardMeTags').textContent = me.tags;
 
- const cardPartner = document.getElementById('cardPartner');
- cardPartner.className = 'personality-card ' + partner.bgClass;
- document.getElementById('cardPartnerType').textContent = partner.label;
- document.getElementById('cardPartnerTags').textContent = partner.tags;
+        const cardPartner = document.getElementById('cardPartner');
+        cardPartner.className = 'personality-card ' + partner.bgClass;
+        document.getElementById('cardPartnerType').textContent = partner.label;
+        document.getElementById('cardPartnerTags').textContent = partner.tags;
 
- // Pros / cons
- document.getElementById('resultPros').textContent = data.pros;
- document.getElementById('resultCons').textContent = data.cons;
+        // Pros / cons
+        document.getElementById('resultPros').textContent = data.pros;
+        document.getElementById('resultCons').textContent = data.cons;
 
- // Show
- const resultEl = document.getElementById('result');
- resultEl.style.display = 'block';
- resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
- }
+        // Show
+        const resultEl = document.getElementById('result');
+        resultEl.style.display = 'block';
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 
- function resetAll() {
- selected.my = null;
- selected.partner = null;
- document.querySelectorAll('.blood-btn').forEach(btn => btn.classList.remove('selected'));
- document.getElementById('result').style.display = 'none';
- document.getElementById('meterBar').style.width = '0%';
- window.scrollTo({ top: 0, behavior: 'smooth' });
- }
+    function resetAll() {
+        selected.my = null;
+        selected.partner = null;
+        document.querySelectorAll('.blood-btn').forEach(btn => btn.classList.remove('selected'));
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('meterBar').style.width = '0%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 </script>
 
 </body>
