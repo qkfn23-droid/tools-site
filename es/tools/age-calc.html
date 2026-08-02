@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Edad - MOGU Tools</title>
+    <meta name="description" content="Ingrese su fecha de nacimiento para calcular su edad exacta, signo zodiacal, horóscopo chino y más.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 2px solid #eee;
+            padding: 16px 20px;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        header a span {
+            color: #4a90d9;
+        }
+
+        .breadcrumb {
+            max-width: 600px;
+            margin: 16px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .breadcrumb a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 10px auto 40px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .calc-box {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        .input-group input[type="date"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+            color: #333;
+            background: #fff;
+        }
+
+        .input-group input[type="date"]:focus {
+            border-color: #4a90d9;
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .calc-btn:hover {
+            background: #3a7bc8;
+        }
+
+        .result {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 16px 18px;
+        }
+
+        .result-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .result-card .card-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+
+        .result-card .card-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c2c2c;
+        }
+
+        .result-card .card-value.highlight {
+            color: #4a90d9;
+        }
+
+        .result-card .card-value.small {
+            font-size: 17px;
+        }
+
+        .info-section {
+            margin-top: 30px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .info-section h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .info-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .info-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html">MOGU <span>Herramientas</span></a>
+</header>
+
+<div class="breadcrumb">
+    <a href="../index.html">Inicio</a> &gt; Calculadoras &gt; Calculadora de Edad
+</div>
+
+<div class="container">
+    <h1>Calculadora de Edad</h1>
+    <p class="subtitle">Ingrese su fecha de nacimiento para calcular su edad, signo zodiacal y horóscopo chino.</p>
+
+    <div class="calc-box">
+        <div class="input-group">
+            <label>Fecha de nacimiento</label>
+            <input type="date" id="birthday" max="">
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Calcular</button>
+
+        <div class="result" id="result">
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="card-label">Edad</div>
+                    <div class="card-value highlight" id="manAge">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="card-label">Edad coreana</div>
+                    <div class="card-value" id="koreanAge">-</div>
+                </div>
+                <div class="result-card full">
+                    <div class="card-label">Tiempo desde el nacimiento</div>
+                    <div class="card-value small" id="elapsed">-</div>
+                </div>
+                <div class="result-card full">
+                    <div class="card-label">Hasta el próximo cumpleaños</div>
+                    <div class="card-value small" id="nextBirthday">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="card-label">Día de nacimiento</div>
+                    <div class="card-value small" id="birthDay">-</div>
+                </div>
+                <div class="result-card">
+                    <div class="card-label">Horóscopo chino</div>
+                    <div class="card-value small" id="zodiacAnimal">-</div>
+                </div>
+                <div class="result-card full">
+                    <div class="card-label">Signo zodiacal</div>
+                    <div class="card-value small" id="zodiacSign">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h2>Edad internacional vs Edad coreana</h2>
+        <p>
+            La <strong>edad internacional</strong> comienza en 0 al nacer y se incrementa en uno cada cumpleaños. Es el estándar internacional.
+            Desde junio de 2023, Corea del Sur también usa oficialmente la edad internacional.
+        </p>
+        <p>
+            La <strong>edad coreana</strong> considera 1 año al nacer y se incrementa en uno cada 1 de enero.
+            Todavía se usa ampliamente en conversaciones cotidianas en Corea.
+        </p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 MOGU Tools
+</footer>
+
+<script>
+// 날짜 입력 최대값 = 오늘
+document.getElementById('birthday').max = new Date().toISOString().split('T')[0];
+
+const ANIMALS = ['Rata', 'Buey', 'Tigre', 'Conejo', 'Dragón', 'Serpiente', 'Caballo', 'Cabra', 'Mono', 'Gallo', 'Perro', 'Cerdo'];
+
+function getAnimal(year) {
+    // 1900 = 쥐(index 0)
+    return ANIMALS[((year - 1900) % 12 + 12) % 12];
+}
+
+function getZodiac(month, day) {
+    const signs = [
+        { name: 'Capricornio', end: [1, 19] },
+        { name: 'Acuario', end: [2, 18] },
+        { name: 'Piscis', end: [3, 20] },
+        { name: 'Aries',   end: [4, 19] },
+        { name: 'Tauro', end: [5, 20] },
+        { name: 'Géminis', end: [6, 20] },
+        { name: 'Cáncer',   end: [7, 22] },
+        { name: 'Leo', end: [8, 22] },
+        { name: 'Virgo', end: [9, 22] },
+        { name: 'Libra', end: [10, 22] },
+        { name: 'Escorpio', end: [11, 21] },
+        { name: 'Sagitario', end: [12, 21] },
+    ];
+    for (const s of signs) {
+        if (month < s.end[0] || (month === s.end[0] && day <= s.end[1])) {
+            return s.name;
+        }
+    }
+    return 'Capricornio';
+}
+
+function calculate() {
+    const val = document.getElementById('birthday').value;
+    if (!val) {
+        alert('Por favor, seleccione su fecha de nacimiento.');
+        return;
+    }
+
+    const birth = new Date(val);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (birth > today) {
+        alert('La fecha de nacimiento no puede ser posterior a hoy.');
+        return;
+    }
+
+    const birthYear  = birth.getFullYear();
+    const birthMonth = birth.getMonth() + 1; // 1-based
+    const birthDate  = birth.getDate();
+    const todayYear  = today.getFullYear();
+    const todayMonth = today.getMonth() + 1;
+    const todayDate  = today.getDate();
+
+    // 만 나이
+    let manAge = todayYear - birthYear;
+    if (todayMonth < birthMonth || (todayMonth === birthMonth && todayDate < birthDate)) {
+        manAge--;
+    }
+
+    // 한국 나이
+    const koreanAge = todayYear - birthYear + 1;
+
+    // 태어난 지 (년, 월, 일)
+    let eYears  = todayYear  - birthYear;
+    let eMonths = todayMonth - birthMonth;
+    let eDays   = todayDate  - birthDate;
+
+    if (eDays < 0) {
+        eMonths--;
+        const prevMonth = new Date(todayYear, today.getMonth(), 0); // last day of prev month
+        eDays += prevMonth.getDate();
+    }
+    if (eMonths < 0) {
+        eYears--;
+        eMonths += 12;
+    }
+
+    // 다음 생일까지
+    let nextBirth = new Date(todayYear, birthMonth - 1, birthDate);
+    if (nextBirth <= today) {
+        nextBirth = new Date(todayYear + 1, birthMonth - 1, birthDate);
+    }
+    const diffMs   = nextBirth - today;
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+    // 태어난 요일
+    const DAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const birthWeekday = DAYS[birth.getDay()];
+
+    // 띠
+    const animal = getAnimal(birthYear);
+
+    // 별자리
+    const zodiac = getZodiac(birthMonth, birthDate);
+
+    // 표시
+    document.getElementById('manAge').textContent    = manAge + ' años';
+    document.getElementById('koreanAge').textContent = koreanAge + ' años';
+    document.getElementById('elapsed').textContent   = eYears + ' años ' + eMonths + ' meses ' + eDays + ' días';
+    document.getElementById('nextBirthday').textContent =
+        diffDays === 0 ? '¡Hoy es su cumpleaños!' : diffDays + ' días restantes';
+    document.getElementById('birthDay').textContent  = birthWeekday;
+    document.getElementById('zodiacAnimal').textContent = animal;
+    document.getElementById('zodiacSign').textContent   = zodiac;
+
+    document.getElementById('result').style.display = 'block';
+}
+
+document.getElementById('birthday').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') calculate();
+});
+</script>
+
+</body>
+</html>
