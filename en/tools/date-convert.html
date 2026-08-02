@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Date Format Converter - MOGU Tools</title>
+ <meta name="description" content="Convert dates between various formats. ISO, Korean, US format, European format, Unix , day, dayA etc. OK.">
+ <style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+
+ body {
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+ background: #f5f5f5;
+ color: #333;
+ }
+
+ header {
+ background: #fff;
+ border-bottom: 2px solid #eee;
+ padding: 16px 20px;
+ }
+
+ header a {
+ text-decoration: none;
+ color: #2c2c2c;
+ font-size: 18px;
+ font-weight: 700;
+ }
+
+ header a span {
+ color: #4a90d9;
+ }
+
+ .breadcrumb {
+ max-width: 600px;
+ margin: 16px auto;
+ padding: 0 20px;
+ font-size: 13px;
+ color: #999;
+ }
+
+ .breadcrumb a {
+ color: #4a90d9;
+ text-decoration: none;
+ }
+
+ .container {
+ max-width: 600px;
+ margin: 10px auto 40px;
+ padding: 0 20px;
+ }
+
+ h1 {
+ font-size: 24px;
+ font-weight: 700;
+ margin-bottom: 8px;
+ }
+
+ .subtitle {
+ color: #888;
+ font-size: 14px;
+ margin-bottom: 24px;
+ }
+
+ .calc-box {
+ background: #fff;
+ border: 1px solid #e8e8e8;
+ border-radius: 12px;
+ padding: 28px;
+ }
+
+ .input-group {
+ margin-bottom: 24px;
+ }
+
+ .input-group label {
+ display: block;
+ font-size: 14px;
+ font-weight: 500;
+ margin-bottom: 6px;
+ color: #555;
+ }
+
+ .date-input {
+ width: 100%;
+ padding: 12px 14px;
+ border: 2px solid #e0e0e0;
+ border-radius: 8px;
+ font-size: 16px;
+ outline: none;
+ transition: border-color 0.2s;
+ color: #333;
+ background: #fff;
+ }
+
+ .date-input:focus {
+ border-color: #4a90d9;
+ }
+
+ .today-btn {
+ margin-top: 8px;
+ padding: 6px 14px;
+ background: #f0f6ff;
+ color: #4a90d9;
+ border: 1px solid #c5daf6;
+ border-radius: 6px;
+ font-size: 13px;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.2s;
+ }
+
+ .today-btn:hover {
+ background: #daeaf9;
+ }
+
+ .results {
+ display: none;
+ margin-top: 4px;
+ }
+
+ .results-title {
+ font-size: 13px;
+ font-weight: 600;
+ color: #888;
+ text-transform: uppercase;
+ letter-spacing: 0.05em;
+ margin-bottom: 12px;
+ }
+
+ .result-row {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 12px 14px;
+ border-radius: 8px;
+ background: #f8f9fa;
+ margin-bottom: 8px;
+ gap: 10px;
+ }
+
+ .result-row:last-child {
+ margin-bottom: 0;
+ }
+
+ .result-left {
+ display: flex;
+ flex-direction: column;
+ gap: 2px;
+ min-width: 0;
+ }
+
+ .result-label {
+ font-size: 11px;
+ color: #aaa;
+ font-weight: 500;
+ }
+
+ .result-value {
+ font-size: 15px;
+ font-weight: 600;
+ color: #222;
+ word-break: break-all;
+ }
+
+ .copy-btn {
+ flex-sink: 0;
+ padding: 5px 12px;
+ background: #fff;
+ color: #4a90d9;
+ border: 1px solid #c5daf6;
+ border-radius: 6px;
+ font-size: 12px;
+ font-weight: 500;
+ cursor: pointer;
+ transition: background 0.15s, color 0.15s;
+ white-space: nowrap;
+ }
+
+ .copy-btn:hover {
+ background: #4a90d9;
+ color: #fff;
+ }
+
+ .copy-btn.copied {
+ background: #5cb85c;
+ color: #fff;
+ border-color: #5cb85c;
+ }
+
+ .divider {
+ height: 1px;
+ background: #eee;
+ margin: 16px 0;
+ }
+
+ .info-section {
+ margin-top: 30px;
+ background: #fff;
+ border: 1px solid #e8e8e8;
+ border-radius: 12px;
+ padding: 24px;
+ }
+
+ .info-section h2 {
+ font-size: 16px;
+ margin-bottom: 12px;
+ color: #555;
+ }
+
+ .info-section p {
+ font-size: 14px;
+ color: #666;
+ line-height: 1.7;
+ }
+
+ footer {
+ text-align: center;
+ padding: 30px;
+ color: #bbb;
+ font-size: 13px;
+ }
+ </style>
+</head>
+<body>
+
+<header>
+ <a href="../index.html">MOGU <span>Tools</span></a>
+</header>
+
+<div class="breadcrumb">
+ <a href="../index.html">Home</a> &gt; /time &gt; Date Converter
+</div>
+
+<div class="container">
+ <h1>Date Converter</h1>
+ <p class="subtitle"> Select a date to convert between different formats.</p>
+
+ <div class="calc-box">
+ <div class="input-group">
+ <label for="dateinput"> Select</label>
+ <input type="date" id="dateinput" class="date-input">
+ <button class="today-btn" onclick="setToday()">Today </button>
+ </div>
+
+ <div class="results" id="results">
+ <div class="divider"></div>
+ <div class="results-title">Convert Result</div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">ISO format</span>
+ <span class="result-value" id="fmt-iso">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-iso', this)">Copy</button>
+ </div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">Korean format</span>
+ <span class="result-value" id="fmt-kr">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-kr', this)">Copy</button>
+ </div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">US format (MM/DD/YYYY)</span>
+ <span class="result-value" id="fmt-us">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-us', this)">Copy</button>
+ </div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">European format (DD/MM/YYYY)</span>
+ <span class="result-value" id="fmt-eu">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-eu', this)">Copy</button>
+ </div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">Unix (sec)</span>
+ <span class="result-value" id="fmt-unix">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-unix', this)">Copy</button>
+ </div>
+
+ <div class="divider"></div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">day</span>
+ <span class="result-value" id="fmt-dow">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-dow', this)">Copy</button>
+ </div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">year Nth </span>
+ <span class="result-value" id="fmt-doy">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-doy', this)">Copy</button>
+ </div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">year Nth </span>
+ <span class="result-value" id="fmt-wom">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-wom', this)">Copy</button>
+ </div>
+
+ <div class="result-row">
+ <div class="result-left">
+ <span class="result-label">year Nth (ISO standard)</span>
+ <span class="result-value" id="fmt-woy">-</span>
+ </div>
+ <button class="copy-btn" onclick="copyValue('fmt-woy', this)">Copy</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="info-section">
+ <h2>format Info</h2>
+ <p>
+ ISO format (YYYY-MM-DD)to and Data usedone.
+ Unix 1970years 1 1day 00:00:00 UTC standardto elapsed sec .
+ ISO day caution Startto calculation (ISO 8601) .
+ </p>
+ </div>
+</div>
+
+<footer>
+ &copy; 2025 MOGU Tools
+</footer>
+
+<script>
+ function pad(n) {
+ return String(n).padStart(2, '0');
+ }
+
+ function getDayOfYear(date) {
+ const start = new Date(date.getFullYear(), 0, 0);
+ const diff = date - start;
+ const oneDay = 1000 * 60 * 60 * 24;
+ return Math.floor(diff / oneDay);
+ }
+
+ function getWeekOfMonth(date) {
+ const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+ // day standard: 0=, 6=day
+ const firstDayOfWeek = (firstDay.getDay() + 6) % 7;
+ const dayOfMonth = date.getDate();
+ return Math.ceil((dayOfMonth + firstDayOfWeek) / 7);
+ }
+
+ function getISOWeek(date) {
+ const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+ const dayNum = d.getUTCDay() || 7;
+ d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+ const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+ return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+ }
+
+ function convertDate(val) {
+ if (!val) return;
+
+ const parts = val.split('-');
+ const year = parseInt(parts[0]);
+ const month = parseInt(parts[1]);
+ const day = parseInt(parts[2]);
+
+ // standard Generate (timezone )
+ const date = new Date(year, month - 1, day);
+
+ const y = date.getFullYear();
+ const m = pad(date.getMonth() + 1);
+ const d = pad(date.getDate());
+
+ const dayKo = ['dayday', 'day', 'day', 'Aday', 'day', 'day', 'day'];
+ const dow = daysKo[date.getDay()];
+
+ const doy = getDayOfYear(date);
+ const wom = getWeekOfMonth(date);
+ const woy = getISOWeek(date);
+
+ // Unix Times: UTC standard characters
+ const unix = Math.floor(Date.UTC(y, date.getMonth(), date.getDate()) / 1000);
+
+ document.getElementById('fmt-iso').textContent = `${y}-${m}-${d}`;
+ document.getElementById('fmt-kr').textContent = `${y}years ${m} ${d}day`;
+ document.getElementById('fmt-us').textContent = `${m}/${d}/${y}`;
+ document.getElementById('fmt-eu').textContent = `${d}/${m}/${y}`;
+ document.getElementById('fmt-unix').textContent = unix;
+ document.getElementById('fmt-dow').textContent = dow;
+ document.getElementById('fmt-doy').textContent = `${doy}th ( ${isLeapYear(y) ? 366 : 365}day )`;
+ document.getElementById('fmt-wom').textContent = `${wom}th `;
+ document.getElementById('fmt-woy').textContent = `${woy}th `;
+
+ document.getElementById('results').style.display = 'block';
+ }
+
+ function isLeapYear(y) {
+ return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+ }
+
+ function setToday() {
+ const today = new Date();
+ const y = today.getFullYear();
+ const m = pad(today.getMonth() + 1);
+ const d = pad(today.getDate());
+ const input = document.getElementById('dateinput');
+ input.value = `${y}-${m}-${d}`;
+ convertDate(input.value);
+ }
+
+ function copyValue(id, btn) {
+ const text = document.getElementById(id).textContent;
+ navigator.clipboard.writeText(text).then(() => {
+ btn.textContent = '';
+ btn.classList.add('copied');
+ setTimeout(() => {
+ btn.textContent = 'Copy';
+ btn.classList.remove('copied');
+ }, 1500);
+ }).catch(() => {
+ // clipboard API C fallback
+ const ta = document.createElement('textarea');
+ ta.value = text;
+ document.body.appendChild(ta);
+ ta.select();
+ document.execCommand('copy');
+ document.body.removeChild(ta);
+ btn.textContent = '';
+ btn.classList.add('copied');
+ setTimeout(() => {
+ btn.textContent = 'Copy';
+ btn.classList.remove('copied');
+ }, 1500);
+ });
+ }
+
+ document.getElementById('dateinput').addEventListener('change', function() {
+ convertDate(this.value);
+ });
+
+ // Today Reset
+ setToday();
+</script>
+
+</body>
+</html>

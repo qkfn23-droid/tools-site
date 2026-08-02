@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>MBTI Compatibility - MOGU Tools</title>
+ <meta name="description" content=" MBTI type compatibility OKcheck. Romance, Friendship, Work relationship most.">
+ <style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+
+ body {
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+ background: #f5f5f5;
+ color: #333;
+ }
+
+ header {
+ background: #fff;
+ border-bottom: 2px solid #eee;
+ padding: 16px 20px;
+ }
+
+ header a {
+ text-decoration: none;
+ color: #2c2c2c;
+ font-size: 18px;
+ font-weight: 700;
+ }
+
+ header a span {
+ color: #4a90d9;
+ }
+
+ .breadcrumb {
+ max-width: 600px;
+ margin: 16px auto;
+ padding: 0 20px;
+ font-size: 13px;
+ color: #999;
+ }
+
+ .breadcrumb a {
+ color: #4a90d9;
+ text-decoration: none;
+ }
+
+ .container {
+ max-width: 600px;
+ margin: 10px auto 40px;
+ padding: 0 20px;
+ }
+
+ h1 {
+ font-size: 24px;
+ font-weight: 700;
+ margin-bottom: 8px;
+ }
+
+ .subtitle {
+ color: #888;
+ font-size: 14px;
+ margin-bottom: 24px;
+ }
+
+ .calc-box {
+ background: #fff;
+ border: 1px solid #e8e8e8;
+ border-radius: 12px;
+ padding: 28px;
+ }
+
+ .selector-group {
+ margin-bottom: 28px;
+ }
+
+ .selector-group label {
+ display: block;
+ font-size: 14px;
+ font-weight: 600;
+ margin-bottom: 12px;
+ color: #555;
+ }
+
+ .mbti-grid {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 8px;
+ }
+
+ .mbti-btn {
+ padding: 10px 4px;
+ border: 2px solid #e0e0e0;
+ border-radius: 8px;
+ background: #fff;
+ font-size: 13px;
+ font-weight: 600;
+ color: #555;
+ cursor: pointer;
+ transition: all 0.15s;
+ text-align: center;
+ }
+
+ .mbti-btn:hover {
+ border-color: #4a90d9;
+ color: #4a90d9;
+ background: #f0f6fd;
+ }
+
+ .mbti-btn.selected {
+ border-color: #4a90d9;
+ background: #4a90d9;
+ color: #fff;
+ }
+
+ .divider {
+ height: 1px;
+ background: #eee;
+ margin-bottom: 28px;
+ }
+
+ .calc-btn {
+ width: 100%;
+ padding: 14px;
+ background: #4a90d9;
+ color: #fff;
+ border: none;
+ border-radius: 8px;
+ font-size: 16px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: background 0.2s;
+ }
+
+ .calc-btn:hover {
+ background: #3a7bc8;
+ }
+
+ .calc-btn:disabled {
+ background: #b0c8e8;
+ cursor: not-allowed;
+ }
+
+ .result {
+ display: none;
+ margin-top: 24px;
+ }
+
+ .result-header {
+ text-align: center;
+ padding: 28px 24px 20px;
+ background: #f8f9fa;
+ border-radius: 10px;
+ margin-bottom: 16px;
+ }
+
+ .result-types {
+ font-size: 20px;
+ font-weight: 700;
+ color: #4a90d9;
+ margin-bottom: 12px;
+ letter-spacing: 1px;
+ }
+
+ .result-types span {
+ color: #999;
+ font-weight: 400;
+ font-size: 16px;
+ margin: 0 6px;
+ }
+
+ .stars {
+ font-size: 28px;
+ letter-spacing: 3px;
+ margin-bottom: 8px;
+ }
+
+ .star-filled { color: #f5a623; }
+ .star-empty { color: #ddd; }
+
+ .result-title {
+ font-size: 20px;
+ font-weight: 700;
+ margin-bottom: 8px;
+ }
+
+ .result-desc {
+ font-size: 14px;
+ color: #666;
+ line-height: 1.7;
+ }
+
+ .result-detail {
+ background: #fff;
+ border: 1px solid #e8e8e8;
+ border-radius: 10px;
+ overflow: hidden;
+ }
+
+ .detail-row {
+ padding: 16px 20px;
+ border-bottom: 1px solid #f0f0f0;
+ }
+
+ .detail-row:last-child {
+ border-bottom: none;
+ }
+
+ .detail-label {
+ font-size: 13px;
+ font-weight: 600;
+ color: #4a90d9;
+ margin-bottom: 6px;
+ }
+
+ .detail-text {
+ font-size: 14px;
+ color: #555;
+ line-height: 1.7;
+ }
+
+ .reset-btn {
+ width: 100%;
+ margin-top: 16px;
+ padding: 12px;
+ background: #fff;
+ color: #4a90d9;
+ border: 2px solid #4a90d9;
+ border-radius: 8px;
+ font-size: 15px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.2s;
+ }
+
+ .reset-btn:hover {
+ background: #f0f6fd;
+ }
+
+ .info-section {
+ margin-top: 30px;
+ background: #fff;
+ border: 1px solid #e8e8e8;
+ border-radius: 12px;
+ padding: 24px;
+ }
+
+ .info-section h2 {
+ font-size: 16px;
+ margin-bottom: 12px;
+ color: #555;
+ }
+
+ .info-section p {
+ font-size: 14px;
+ color: #666;
+ line-height: 1.7;
+ }
+
+ footer {
+ text-align: center;
+ padding: 30px;
+ color: #bbb;
+ font-size: 13px;
+ }
+
+ @media (max-width: 400px) {
+ .mbti-btn {
+ font-size: 12px;
+ padding: 9px 2px;
+ }
+ }
+ </style>
+</head>
+<body>
+
+<header>
+ <a href="../index.html">MOGU <span>Tools</span></a>
+</header>
+
+<div class="breadcrumb">
+ <a href="../index.html">Home</a> &gt; Fun &gt; MBTI Compatibility
+</div>
+
+<div class="container">
+ <h1>MBTI Compatibility</h1>
+ <p class="subtitle"> Select two MBTI types to check their compatibility.</p>
+
+ <div class="calc-box">
+ <div class="selector-group">
+ <label>My MBTI</label>
+ <div class="mbti-grid" id="grid-a">
+ <button class="mbti-btn" data-type="A" data-mbti="ISTJ" onclick="selectMbti('A','ISTJ',this)">ISTJ</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ISFJ" onclick="selectMbti('A','ISFJ',this)">ISFJ</button>
+ <button class="mbti-btn" data-type="A" data-mbti="INFJ" onclick="selectMbti('A','INFJ',this)">INFJ</button>
+ <button class="mbti-btn" data-type="A" data-mbti="INTJ" onclick="selectMbti('A','INTJ',this)">INTJ</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ISTP" onclick="selectMbti('A','ISTP',this)">ISTP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ISFP" onclick="selectMbti('A','ISFP',this)">ISFP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="INFP" onclick="selectMbti('A','INFP',this)">INFP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="INTP" onclick="selectMbti('A','INTP',this)">INTP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ESTP" onclick="selectMbti('A','ESTP',this)">ESTP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ESFP" onclick="selectMbti('A','ESFP',this)">ESFP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ENFP" onclick="selectMbti('A','ENFP',this)">ENFP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ENTP" onclick="selectMbti('A','ENTP',this)">ENTP</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ESTJ" onclick="selectMbti('A','ESTJ',this)">ESTJ</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ESFJ" onclick="selectMbti('A','ESFJ',this)">ESFJ</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ENFJ" onclick="selectMbti('A','ENFJ',this)">ENFJ</button>
+ <button class="mbti-btn" data-type="A" data-mbti="ENTJ" onclick="selectMbti('A','ENTJ',this)">ENTJ</button>
+ </div>
+ </div>
+
+ <div class="divider"></div>
+
+ <div class="selector-group">
+ <label> MBTI</label>
+ <div class="mbti-grid" id="grid-b">
+ <button class="mbti-btn" data-type="B" data-mbti="ISTJ" onclick="selectMbti('B','ISTJ',this)">ISTJ</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ISFJ" onclick="selectMbti('B','ISFJ',this)">ISFJ</button>
+ <button class="mbti-btn" data-type="B" data-mbti="INFJ" onclick="selectMbti('B','INFJ',this)">INFJ</button>
+ <button class="mbti-btn" data-type="B" data-mbti="INTJ" onclick="selectMbti('B','INTJ',this)">INTJ</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ISTP" onclick="selectMbti('B','ISTP',this)">ISTP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ISFP" onclick="selectMbti('B','ISFP',this)">ISFP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="INFP" onclick="selectMbti('B','INFP',this)">INFP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="INTP" onclick="selectMbti('B','INTP',this)">INTP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ESTP" onclick="selectMbti('B','ESTP',this)">ESTP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ESFP" onclick="selectMbti('B','ESFP',this)">ESFP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ENFP" onclick="selectMbti('B','ENFP',this)">ENFP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ENTP" onclick="selectMbti('B','ENTP',this)">ENTP</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ESTJ" onclick="selectMbti('B','ESTJ',this)">ESTJ</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ESFJ" onclick="selectMbti('B','ESFJ',this)">ESFJ</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ENFJ" onclick="selectMbti('B','ENFJ',this)">ENFJ</button>
+ <button class="mbti-btn" data-type="B" data-mbti="ENTJ" onclick="selectMbti('B','ENTJ',this)">ENTJ</button>
+ </div>
+ </div>
+
+ <button class="calc-btn" id="checkBtn" onclick="checkCompatibility()" disabled>Check Compatibility</button>
+
+ <div class="result" id="result">
+ <div class="result-header">
+ <div class="result-types" id="resultTypes"></div>
+ <div class="stars" id="resultStars"></div>
+ <div class="result-title" id="resultTitle"></div>
+ <div class="result-desc" id="resultDesc"></div>
+ </div>
+
+ <div class="result-detail">
+ <div class="detail-row">
+ <div class="detail-label">strengths</div>
+ <div class="detail-text" id="resultPros"></div>
+ </div>
+ <div class="detail-row">
+ <div class="detail-label">caution</div>
+ <div class="detail-text" id="resultCons"></div>
+ </div>
+ </div>
+
+ <button class="reset-btn" onclick="resetAll()"> </button>
+ </div>
+ </div>
+
+ <div class="info-section">
+ <h2>What is MBTI Compatibility?</h2>
+ <p>
+ MBTI compatibility analyzes how different personality types interact with each other.
+ Some types naturally complement each other, while others may need more effort to understand one another.
+ The result depends on both types' willingness to communicate and grow together.
+ Select two MBTI types above to check their compatibility!
+ </p>
+ </div>
+</div>
+
+<footer>
+ &copy; 2025 MOGU Tools
+</footer>
+
+<script>
+ const selected = { A: null, B: null };
+
+ function selectMbti(type, mbti, btn) {
+ // Select year
+ document.querySelectorAll(`#grid-${type.toLowerCase()} .mbti-btn`).forEach(b => b.classList.remove('selected'));
+ btn.classList.add('selected');
+ selected[type] = mbti;
+
+ // Select 
+ document.getElementById('checkBtn').disabled = !(selected.A && selected.B);
+
+ // ResultF if 
+ document.getElementById('result').style.display = 'none';
+ }
+
+ // -----------------------------------------------------------------------
+ // compatibility Data
+ // key: "TYPE1-TYPE2" (alphabetical order)
+ // score: 1~5
+ // -----------------------------------------------------------------------
+ const compatData = {
+ // ★★★★★ Best compatibility (5)
+ "INFJ-ENTP": { score: 5, title: "Best Match!", desc: "INFJ ENTP well. each other characters done. A each other years or more .", pros: " , each other weaknesses charactersnatural , ", cons: "INFJF ENTP A , ENTP INFJ emotions caution" },
+ "INTJ-ENFP": { score: 5, title: "Best Match!", desc: "INTJ ENFP F . each other . MBTI from best .", pros: " , ENFPF INTJ years , INTJF ENFP Direction provide", cons: "INTJ ENFP conflictcan , vs required" },
+ "INTP-ENTJ": { score: 5, title: "Best Match!", desc: "INTP most ENTJ strong . . each other respect relationshipF done.", pros: " characters, ENTJF INTP , each other about respect", cons: "ENTJ INTP can , INTP emotions expression year " },
+ "ISFJ-ESTP": { score: 5, title: "Best Match!", desc: "ISFJ meaning ESTP F . ISFJ ESTP F , ESTP ISFJ years . each otherF each other most compatibility.", pros: " mutually, each other , ", cons: "ISFJF ESTP impulsive fire feel A , about caution" },
+ "ISTJ-ESFP": { score: 5, title: "Best Match!", desc: "ISTJ ESFP characters F each other . ISTJ ESFP , ESFP ISTJ fire. .", pros: "stable , each other about , F", cons: " method ( vs ) F, each other key" },
+ "INFP-ENFJ": { score: 5, title: "Best Match!", desc: "INFP ENFJ meaning B. ENFJ INFPF characters F flowerB , INFP ENFJ . each other or more relationship.", pros: " emotions understanding , ENFJF INFP years , F ", cons: "ENFJF if you INFPF Top A , INFP characters time required respect required" },
+ "ISFP-ENFJ": { score: 5, title: "Best Match!", desc: "ISFP meaning ENFJ F each other . ENFJ ISFP please, ISFP ENFJ . each other or more .", pros: " emotions , each other relationship, F ", cons: "ENFJF yearsB ISFPF feel A , C A " },
+ "ISTP-ESTJ": { score: 5, title: "Best Match!", desc: "ISTP year ESTJ well. year if you year. to .", pros: " caution , each other , target moon ", cons: "emotions expression required, ESTJ ISTP characters conflict F" },
+
+ // ★★★★ Good Match (4)
+ "INFJ-INTJ": { score: 4, title: "Good Match", desc: " C . each other understanding . and C F charactersnatural .", pros: " , each other years respect, target ", cons: "emotions expression year each other yearcan , year A " },
+ "ENFP-ENTP": { score: 4, title: "Good Match", desc: " F . years all C done. relationship.", pros: " , , each other ", cons: " F about A , emotions Top" },
+ "ISFJ-INFJ": { score: 4, title: "Good Match", desc: " and . each other A understandingand . meaningand pyeong relationship enterF compatibility.", pros: " emotions understanding , each other years, can relationship", cons: " can , each other D F emotions day Top" },
+ "ENTJ-ENFJ": { score: 4, title: "Good Match", desc: " target F. if you and strong done. each other and characters relationship.", pros: " target , each other about respect, ", cons: " year A , ENFJ emotions ENTJ conflict F" },
+ "INTP-INFP": { score: 4, title: "Good Match", desc: " yearsF F. each other method A C . but compatibility.", pros: "each other respect, and mostTop, years ", cons: " aboutyear managementF A , expression emotions moon A " },
+ "ESTJ-ESFJ": { score: 4, title: "Good Match", desc: " and . each otherF A A . can relationship.", pros: " , F(F, , ), from matching compatibility", cons: " fireyearyear relationshipF A , ESTJ ESFJ can " },
+ "ESTP-ENTP": { score: 4, title: "Good Match", desc: " F . characters time A . each other .", pros: " , , each other characters", cons: " emotions can , mostfrom Weak" },
+ "ESFP-ENFP": { score: 4, title: "Good Match", desc: " and emotions and . meaning relationshipF done. each other emotions understandingand compatibility.", pros: " emotions , mostTop, each other ", cons: " aboutyear F A , emotions A " },
+
+ // ★★★ Average compatibility (3)
+ "ISTJ-ISFJ": { score: 3, title: "Average compatibility", desc: " and and . each other understandingbut relationshipF characters pyeong A . Top required.", pros: " , each other F day, pyeong relationship", cons: " characters relationshipF A , emotions expression required" },
+ "INTJ-INTP": { score: 3, title: "Average compatibility", desc: " most A . each other to charactersbut emotions can . to required.", pros: " , each other respect, unnecessary emotions none", cons: "emotions aboutyear relationshipF A , management " },
+ "ENFJ-ENTJ": { score: 3, title: "Average compatibility", desc: " F. each other charactersand , A . each other if you strong F A .", pros: " target , each other characters relationship", cons: " to conflict F, ENFJ emotions B ENTJ B F conflict" },
+ "ESFJ-ENFJ": { score: 3, title: "Average compatibility", desc: " and . each other understandingand about . meaningand relationship A .", pros: " emotions , each other understanding, meaningand pyeong mostTop", cons: " etc. to year A , about A " },
+ "INFP-ISFP": { score: 3, title: "Average compatibility", desc: " A and F characters . each other understandingand relationship. but C A .", pros: "each other A respect, mostTop", cons: " aboutyear C , about" },
+ "ESTP-ISTP": { score: 3, title: "Average compatibility", desc: " . each other understandingand relationship F to time . characters relationship compatibility.", pros: "characters mostTop each other respect, yearfrom ", cons: "emotions year relationshipF on the surface water A , difficulty feel A " },
+ "ISTJ-INTJ": { score: 3, title: "Average compatibility", desc: " logical . each other and respect relationship A . charactersthan matching .", pros: " , logical F, relationship ", cons: "emotions year relationshipF A , A" },
+ "ESFP-ESFJ": { score: 3, title: "Average compatibility", desc: " and emotions . meaningand time A . each other A understanding relationship.", pros: " emotions , mostTop , each other about meaning ", cons: " characters can , emotions year year A " },
+
+ // ★★ compatibility (2)
+ "INFJ-ISFJ": { score: 2, title: " compatibility", desc: " years method F . INFJ or morecaution ISFJ cautionF conflict. each other understanding required relationship.", pros: " Top , than ", cons: "INFJ F ISFJ to A , ISFJ traditional F INFJ can " },
+ "ENTJ-ISFP": { score: 2, title: " compatibility", desc: "ENTJ ISFP characters characters . ENTJ ISFPF emotions , ISFP ENTJF . each other required.", pros: "ENTJF ISFP Direction provide, ISFPF ENTJ A F", cons: "ENTJ ISFP characters yearcan , BTopfrom " },
+ "ESTJ-INFP": { score: 2, title: " compatibility", desc: "ESTJ method INFP characters emotional years conflict. ESTJ INFP to, INFP ESTJ . year relationship.", pros: "each other about , ESTJ INFP can ", cons: "F method , ESTJ INFP A " },
+ "ESTP-INFJ": { score: 2, title: " compatibility", desc: "ESTP INFJ C characters . each other feel A relationship required.", pros: "sec , ESTPF INFJ , INFJF ESTP ", cons: "to from F , ESTP characters INFJ C F conflict" },
+ "ESFJ-ISTP": { score: 2, title: " compatibility", desc: "ESFJ emotions ISTP logical independent . ESFJ ISTP , ISTP ESFJ . each other required understanding required.", pros: "each other A F", cons: "emotions required , ESFJ ISTP feel A " },
+ "INTP-ESFP": { score: 2, title: " compatibility", desc: "INTP Grade years ESFP extroverted yearsF . sec each other A F relationship .", pros: "each other sec characters , each other years ", cons: " required , INTP characters time ESFP conflict" },
+
+ // ★ compatibility (1)
+ "ESTJ-ISFP": { score: 1, title: " compatibility", desc: "ESTJ ISFP characters to conflict. each other method F moon . each other required relationship.", pros: "each other different through A F", cons: "ESTJ rules F ISFP , F method fireday, year " },
+ "ENTJ-INFP": { score: 1, title: " compatibility", desc: "ENTJ target F INFP F conflict. ENTJ INFP , INFP ENTJ characters respect . F one.", pros: "ENTJ INFP A ", cons: " F conflict( vs F), ENTJ INFP , relationship required" },
+ "ESTP-INFP": { score: 1, title: " compatibility", desc: "ESTP method INFP F conflict. each otherF moon F . relationship mutually understanding required.", pros: "each other years A ", cons: " method , ESTP method INFP , emotions required characters conflict" },
+ };
+
+ function getKey(a, b) {
+ // to DDirection F
+ return [a, b].sort().join('-');
+ }
+
+ function getCompatibility(a, b) {
+ const key = getKey(a, b);
+ if (compatData[key]) return compatData[key];
+
+ // DataF about default score ( feature )
+ return estimateCompatibility(a, b);
+ }
+
+ function estimateCompatibility(a, b) {
+ let score = 3;
+ let pros = "each other different from A F .";
+ let cons = "each other different most understandingand F required.";
+
+ // 
+ if (a === b) {
+ return {
+ score: 3,
+ title: "Average compatibility",
+ desc: " MBTI each other understandingbut, about . and charactersnatural relationship each other weaknesses A . for each other about required.",
+ pros: " mutually understanding, , A",
+ cons: " about A , each other characters can "
+ };
+ }
+
+ const sharedCount = countShared(a, b);
+
+ if (sharedCount === 3) {
+ score = 4;
+ return { score, title: "Good Match", desc: "years types feature each other understandingif you one characters . if you please relationship.", pros: " mutually understanding, charactersnatural , relationship", cons: "from A " };
+ } else if (sharedCount === 2) {
+ score = 3;
+ return { score, title: "Average compatibility", desc: " types understandingcan most different most . each other B can required most .", pros: "each other from , ", cons: " method F year A , required most " };
+ } else if (sharedCount === 1) {
+ score = 2;
+ return { score, title: " compatibility", desc: "one each other understanding required. characters A .", pros: "each other providecan ", cons: " method F F , each other understanding required" };
+ } else {
+ score = 2;
+ return { score, title: " compatibility", desc: " types F different each other feel A , relationship required.", pros: "each other different characters A ", cons: "all from F conflict F, each other method understanding required" };
+ }
+ }
+
+ function countShared(a, b) {
+ let count = 0;
+ for (let i = 0; i < 4; i++) {
+ if (a[i] === b[i]) count++;
+ }
+ return count;
+ }
+
+ function checkCompatibility() {
+ const a = selected.A;
+ const b = selected.B;
+ if (!a || !b) return;
+
+ const compat = getCompatibility(a, b);
+
+ document.getElementById('resultTypes').innerHTML =
+ `${a} <span>×</span> ${b}`;
+
+ // star 
+ let stars = '';
+ for (let i = 1; i <= 5; i++) {
+ stars += `<span class="${i <= compat.score ? 'star-filled' : 'star-empty'}">★</span>`;
+ }
+ document.getElementById('resultStars').innerHTML = stars;
+ document.getElementById('resultTitle').textContent = compat.title;
+ document.getElementById('resultDesc').textContent = compat.desc;
+ document.getElementById('resultPros').textContent = compat.pros;
+ document.getElementById('resultCons').textContent = compat.cons;
+
+ const resultEl = document.getElementById('result');
+ resultEl.style.display = 'block';
+ resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+ }
+
+ function resetAll() {
+ selected.A = null;
+ selected.B = null;
+ document.querySelectorAll('.mbti-btn').forEach(b => b.classList.remove('selected'));
+ document.getElementById('checkBtn').disabled = true;
+ document.getElementById('result').style.display = 'none';
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+ }
+</script>
+
+</body>
+</html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOGU Tools - 모든 온라인 도구</title>
-    <meta name="description" content="계산기, 변환기, 생성기, 텍스트 도구, 색상 도구 - 무료 온라인 도구 모음 | mogutool.com">
+    <title>MOGU Tools - Free Online Tools</title>
+    <meta name="description" content="Calculators, converters, generators, text tools, color tools - Free online tool collection | mogutool.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -87,6 +87,7 @@
             max-width: 480px;
             margin: 18px auto 0;
             padding: 0 20px;
+            position: relative;
         }
 
         .search-bar input {
@@ -105,10 +106,6 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
 
-        .search-bar {
-            position: relative;
-        }
-
         .search-bar::before {
             content: "🔍";
             position: absolute;
@@ -125,9 +122,7 @@
             padding: 0 20px;
         }
 
-        .category {
-            margin-bottom: 32px;
-        }
+        .category { margin-bottom: 32px; }
 
         .category-header {
             display: flex;
@@ -182,9 +177,7 @@
         .tool-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
             opacity: 0;
             transition: opacity 0.2s;
@@ -201,9 +194,7 @@
             transform: translateY(-3px);
         }
 
-        .tool-card:hover::before {
-            opacity: 1;
-        }
+        .tool-card:hover::before { opacity: 1; }
 
         .tool-card .icon {
             width: 44px;
@@ -259,57 +250,21 @@
         }
 
         /* Dark mode */
-        body.dark {
-            background: #1a1a2e;
-            color: #e0e0e0;
-        }
-
-        body.dark header {
-            background: linear-gradient(135deg, #2d2d5e 0%, #4a2d6e 100%);
-        }
-
-        body.dark .search-bar input {
-            background: rgba(255,255,255,0.1);
-            color: #e0e0e0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        body.dark .search-bar input::placeholder {
-            color: rgba(255,255,255,0.4);
-        }
-
-        body.dark .tool-card {
-            background: #16213e;
-            border-color: rgba(255,255,255,0.08);
-        }
-
-        body.dark .tool-card:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-
-        body.dark .tool-card .name {
-            color: #e0e0e0;
-        }
-
-        body.dark .tool-card .desc {
-            color: #888;
-        }
-
-        body.dark .category h2 {
-            color: #ccc;
-        }
-
-        body.dark footer {
-            color: #666;
-            border-top-color: #2a2a4a;
-        }
+        body.dark { background: #1a1a2e; color: #e0e0e0; }
+        body.dark header { background: linear-gradient(135deg, #2d2d5e 0%, #4a2d6e 100%); }
+        body.dark .search-bar input { background: rgba(255,255,255,0.1); color: #e0e0e0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        body.dark .search-bar input::placeholder { color: rgba(255,255,255,0.4); }
+        body.dark .tool-card { background: #16213e; border-color: rgba(255,255,255,0.08); }
+        body.dark .tool-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        body.dark .tool-card .name { color: #e0e0e0; }
+        body.dark .tool-card .desc { color: #888; }
+        body.dark .category h2 { color: #ccc; }
+        body.dark footer { color: #666; border-top-color: #2a2a4a; }
 
         .dark-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 44px;
-            height: 44px;
+            bottom: 20px; right: 20px;
+            width: 44px; height: 44px;
             border-radius: 50%;
             border: none;
             background: #fff;
@@ -323,17 +278,10 @@
             justify-content: center;
         }
 
-        body.dark .dark-toggle {
-            background: #16213e;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-        }
+        body.dark .dark-toggle { background: #16213e; box-shadow: 0 2px 10px rgba(0,0,0,0.4); }
 
-        /* Mobile optimization */
         @media (max-width: 600px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
+            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             header { padding: 24px 0 20px; }
             header h1 { font-size: 22px; }
             .logo-icon { width: 34px; height: 34px; font-size: 18px; }
@@ -353,10 +301,7 @@
         }
 
         @media (max-width: 360px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
-            }
+            .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
             .tool-card { padding: 14px 8px 12px; }
             .tool-card .name { font-size: 11.5px; }
             header h1 { font-size: 20px; }
@@ -370,321 +315,268 @@
         <div class="logo-icon">🛠</div>
         <h1>MOGU <span>Tools</span></h1>
     </div>
-    <p>빠르고 간단한 온라인 도구 모음</p>
-    <div class="stats"><span>🧰 39개 무료 도구</span></div>
+    <p>Fast & simple free online tools</p>
+    <div class="stats"><span>🧰 33 Free Tools</span></div>
     <div class="lang-switch">
-        <a href="index.html" class="active">한국어</a>
-        <a href="en/index.html">English</a>
-        <a href="jp/index.html">日本語</a>
-        <a href="es/index.html">Español</a>
-        <a href="de/index.html">Deutsch</a>
-        <a href="fr/index.html">Français</a>
-        <a href="pt/index.html">Português</a>
+        <a href="../index.html">한국어</a>
+        <a href="./" class="active">English</a>
+        <a href="../jp/index.html">日本語</a>
+        <a href="../es/index.html">Español</a>
+        <a href="../de/index.html">Deutsch</a>
+        <a href="../fr/index.html">Français</a>
+        <a href="../pt/index.html">Português</a>
     </div>
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="도구 검색..." oninput="filterTools()">
+        <input type="text" id="searchInput" placeholder="Search tools..." oninput="filterTools()">
     </div>
 </header>
 
 <main>
-    <!-- 계산기 -->
+    <!-- Calculators -->
     <div class="category cat-calc" data-category="calculator">
         <div class="category-header">
             <div class="category-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
             </div>
-            <h2>계산기</h2>
+            <h2>Calculators</h2>
         </div>
         <div class="tools-grid">
-            <a href="tools/bmi.html" class="tool-card" data-name="BMI 계산기">
+            <a href="tools/bmi.html" class="tool-card" data-name="BMI Calculator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"/><path d="M12 7v5l3 3"/></svg></div>
-                <div class="name">BMI 계산기</div>
-                <div class="desc">체질량지수 계산</div>
+                <div class="name">BMI Calculator</div>
+                <div class="desc">Body Mass Index</div>
             </a>
-            <a href="tools/loan-calc.html" class="tool-card" data-name="대출 계산기">
+            <a href="tools/loan-calc.html" class="tool-card" data-name="Loan Calculator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-                <div class="name">대출 계산기</div>
-                <div class="desc">이자/상환액 계산</div>
+                <div class="name">Loan Calculator</div>
+                <div class="desc">Interest & payments</div>
             </a>
-            <a href="tools/severance-calc.html" class="tool-card" data-name="퇴직금 계산기">
-                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-                <div class="name">퇴직금 계산기</div>
-                <div class="desc">퇴직금 예상액</div>
+            <a href="tools/compound-calc.html" class="tool-card" data-name="Compound Interest Calculator">
+                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M16 8l-4 4-4-4"/><path d="M16 12l-4 4-4-4"/></svg></div>
+                <div class="name">Compound Interest</div>
+                <div class="desc">Compound returns</div>
             </a>
-            <a href="tools/age-calc.html" class="tool-card" data-name="나이 계산기">
+            <a href="tools/age-calc.html" class="tool-card" data-name="Age Calculator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                <div class="name">나이 계산기</div>
-                <div class="desc">만나이/한국나이</div>
+                <div class="name">Age Calculator</div>
+                <div class="desc">Exact age calculation</div>
             </a>
-            <a href="tools/dday-calc.html" class="tool-card" data-name="디데이 계산기">
+            <a href="tools/dday-calc.html" class="tool-card" data-name="D-Day Calculator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-                <div class="name">디데이 계산기</div>
-                <div class="desc">날짜 차이 계산</div>
+                <div class="name">D-Day Calculator</div>
+                <div class="desc">Date difference</div>
             </a>
-            <a href="tools/discount-calc.html" class="tool-card" data-name="할인율 계산기">
+            <a href="tools/discount-calc.html" class="tool-card" data-name="Discount Calculator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
-                <div class="name">할인율 계산기</div>
-                <div class="desc">할인가/할인율</div>
+                <div class="name">Discount Calculator</div>
+                <div class="desc">Sale price & savings</div>
             </a>
-            <a href="tools/ratio-calc.html" class="tool-card" data-name="비율 계산기">
+            <a href="tools/ratio-calc.html" class="tool-card" data-name="Ratio Calculator Percentage">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                <div class="name">비율 계산기</div>
-                <div class="desc">비율/퍼센트 계산</div>
+                <div class="name">Percentage Calculator</div>
+                <div class="desc">Ratio & percentage</div>
             </a>
-            <a href="tools/gpa-calc.html" class="tool-card" data-name="학점 계산기">
+            <a href="tools/gpa-calc.html" class="tool-card" data-name="GPA Calculator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/></svg></div>
-                <div class="name">학점 계산기</div>
-                <div class="desc">평균 학점 계산</div>
+                <div class="name">GPA Calculator</div>
+                <div class="desc">Grade point average</div>
             </a>
-            <a href="tools/vat-calc.html" class="tool-card" data-name="부가세 계산기">
-                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-                <div class="name">부가세 계산기</div>
-                <div class="desc">부가가치세 10%</div>
-            </a>
-            <a href="tools/aspect-ratio.html" class="tool-card" data-name="가로세로 비율 계산기">
+            <a href="tools/aspect-ratio.html" class="tool-card" data-name="Aspect Ratio Calculator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div>
-                <div class="name">가로세로 비율</div>
-                <div class="desc">비율/해상도 계산</div>
+                <div class="name">Aspect Ratio</div>
+                <div class="desc">Ratio & resolution</div>
             </a>
         </div>
     </div>
 
-    <!-- 투자/금융 -->
-    <div class="category cat-finance" data-category="finance">
-        <div class="category-header">
-            <div class="category-icon" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <h2>투자/금융</h2>
-        </div>
-        <div class="tools-grid">
-            <a href="tools/avg-price.html" class="tool-card" data-name="평단가 계산기">
-                <div class="icon" style="background:rgba(247,151,30,0.1);color:#f7971e;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                <div class="name">평단가 계산기</div>
-                <div class="desc">평균 매수 단가</div>
-            </a>
-            <a href="tools/compound-calc.html" class="tool-card" data-name="복리 계산기">
-                <div class="icon" style="background:rgba(247,151,30,0.1);color:#f7971e;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M16 8l-4 4-4-4"/><path d="M16 12l-4 4-4-4"/></svg></div>
-                <div class="name">복리 계산기</div>
-                <div class="desc">복리 수익 계산</div>
-            </a>
-            <a href="tools/savings-calc.html" class="tool-card" data-name="적금 예금 이자 계산기">
-                <div class="icon" style="background:rgba(247,151,30,0.1);color:#f7971e;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="15" x2="10" y2="15"/></svg></div>
-                <div class="name">적금/예금 이자</div>
-                <div class="desc">이자 계산기</div>
-            </a>
-        </div>
-    </div>
-
-    <!-- 변환기 -->
+    <!-- Converters -->
     <div class="category cat-convert" data-category="converter">
         <div class="category-header">
             <div class="category-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
             </div>
-            <h2>변환기</h2>
+            <h2>Converters</h2>
         </div>
         <div class="tools-grid">
-            <a href="tools/unit-convert.html" class="tool-card" data-name="단위 변환기">
+            <a href="tools/unit-convert.html" class="tool-card" data-name="Unit Converter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12h20M6 8l-4 4 4 4M18 8l4 4-4 4"/></svg></div>
-                <div class="name">단위 변환기</div>
-                <div class="desc">길이/무게/부피</div>
+                <div class="name">Unit Converter</div>
+                <div class="desc">Length, weight, volume</div>
             </a>
-            <a href="tools/temp-convert.html" class="tool-card" data-name="온도 변환기">
+            <a href="tools/temp-convert.html" class="tool-card" data-name="Temperature Converter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
-                <div class="name">온도 변환기</div>
-                <div class="desc">섭씨/화씨/켈빈</div>
+                <div class="name">Temperature</div>
+                <div class="desc">°C / °F / K</div>
             </a>
-            <a href="tools/timezone-convert.html" class="tool-card" data-name="시간대 변환기">
+            <a href="tools/timezone-convert.html" class="tool-card" data-name="Timezone Converter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                <div class="name">시간대 변환기</div>
-                <div class="desc">세계 시간 변환</div>
+                <div class="name">Timezone Converter</div>
+                <div class="desc">World time zones</div>
             </a>
-            <a href="tools/base-convert.html" class="tool-card" data-name="진법 변환기">
+            <a href="tools/base-convert.html" class="tool-card" data-name="Base Number Converter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
-                <div class="name">진법 변환기</div>
-                <div class="desc">2/8/10/16진법</div>
+                <div class="name">Base Converter</div>
+                <div class="desc">Binary, Octal, Hex</div>
             </a>
-            <a href="tools/date-convert.html" class="tool-card" data-name="날짜 변환기">
+            <a href="tools/date-convert.html" class="tool-card" data-name="Date Format Converter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 2v4M16 2v4"/></svg></div>
-                <div class="name">날짜 변환기</div>
-                <div class="desc">날짜 형식 변환</div>
+                <div class="name">Date Converter</div>
+                <div class="desc">Date format conversion</div>
             </a>
-            <a href="tools/romanize.html" class="tool-card" data-name="로마자 변환기">
+                    <a href="tools/romanize.html" class="tool-card" data-name="Korean Romanizer">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div>
-                <div class="name">로마자 변환기</div>
-                <div class="desc">한글 로마자 표기</div>
+                <div class="name">Korean Romanizer</div>
+                <div class="desc">Korean to Roman letters</div>
             </a>
         </div>
     </div>
 
-    <!-- 생성기 -->
+    <!-- Generators -->
     <div class="category cat-gen" data-category="generator">
         <div class="category-header">
             <div class="category-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             </div>
-            <h2>생성기</h2>
+            <h2>Generators</h2>
         </div>
         <div class="tools-grid">
-            <a href="tools/password-gen.html" class="tool-card" data-name="비밀번호 생성기">
+            <a href="tools/password-gen.html" class="tool-card" data-name="Password Generator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-                <div class="name">비밀번호 생성기</div>
-                <div class="desc">안전한 비밀번호</div>
+                <div class="name">Password Generator</div>
+                <div class="desc">Secure passwords</div>
             </a>
-            <a href="tools/qr-gen.html" class="tool-card" data-name="QR코드 생성기">
+            <a href="tools/qr-gen.html" class="tool-card" data-name="QR Code Generator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/></svg></div>
-                <div class="name">QR코드 생성기</div>
-                <div class="desc">QR코드 만들기</div>
+                <div class="name">QR Code Generator</div>
+                <div class="desc">Create QR codes</div>
             </a>
-            <a href="tools/random-pick.html" class="tool-card" data-name="랜덤 뽑기">
+            <a href="tools/random-pick.html" class="tool-card" data-name="Random Picker">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2" transform="rotate(45 12 12)"/><circle cx="12" cy="12" r="1"/></svg></div>
-                <div class="name">랜덤 뽑기</div>
-                <div class="desc">랜덤 숫자/이름</div>
+                <div class="name">Random Picker</div>
+                <div class="desc">Random number/name</div>
             </a>
-            <a href="tools/nickname-gen.html" class="tool-card" data-name="닉네임 생성기">
-                <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="12" y1="11" x2="12" y2="17"/></svg></div>
-                <div class="name">닉네임 생성기</div>
-                <div class="desc">랜덤 닉네임</div>
-            </a>
-            <a href="tools/hash-gen.html" class="tool-card" data-name="해시 생성기">
+            <a href="tools/hash-gen.html" class="tool-card" data-name="Hash Generator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
-                <div class="name">해시 생성기</div>
-                <div class="desc">MD5/SHA256</div>
+                <div class="name">Hash Generator</div>
+                <div class="desc">MD5 / SHA256</div>
             </a>
-            <a href="tools/name-gen.html" class="tool-card" data-name="예쁜 이름 생성기">
+            <a href="tools/name-gen.html" class="tool-card" data-name="Name Generator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-                <div class="name">예쁜 이름 생성기</div>
-                <div class="desc">영어/일본/한국/판타지</div>
+                <div class="name">Name Generator</div>
+                <div class="desc">Fantasy & random names</div>
             </a>
         </div>
     </div>
 
-    <!-- 텍스트 도구 -->
+    <!-- Text Tools -->
     <div class="category cat-text" data-category="text">
         <div class="category-header">
             <div class="category-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
             </div>
-            <h2>텍스트 도구</h2>
+            <h2>Text Tools</h2>
         </div>
         <div class="tools-grid">
-            <a href="tools/char-count.html" class="tool-card" data-name="글자수 세기">
+            <a href="tools/char-count.html" class="tool-card" data-name="Character Counter Word Counter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div>
-                <div class="name">글자수 세기</div>
-                <div class="desc">글자/단어/바이트</div>
+                <div class="name">Character Counter</div>
+                <div class="desc">Characters, words, bytes</div>
             </a>
-            <a href="tools/space-remove.html" class="tool-card" data-name="공백 제거">
+            <a href="tools/space-remove.html" class="tool-card" data-name="Whitespace Remover">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                <div class="name">공백 제거</div>
-                <div class="desc">불필요한 공백 정리</div>
+                <div class="name">Whitespace Remover</div>
+                <div class="desc">Clean up spaces</div>
             </a>
-            <a href="tools/case-convert.html" class="tool-card" data-name="대소문자 변환">
+            <a href="tools/case-convert.html" class="tool-card" data-name="Case Converter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18h6l3-12 3 12h6"/><line x1="5" y1="14" x2="7" y2="14"/></svg></div>
-                <div class="name">대소문자 변환</div>
-                <div class="desc">대문자/소문자 변환</div>
+                <div class="name">Case Converter</div>
+                <div class="desc">UPPER / lower / Title</div>
             </a>
-            <a href="tools/dedup.html" class="tool-card" data-name="중복 제거">
+            <a href="tools/dedup.html" class="tool-card" data-name="Duplicate Remover">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="2" width="13" height="13" rx="2"/><path d="M4 9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2"/></svg></div>
-                <div class="name">중복 제거</div>
-                <div class="desc">중복 텍스트 제거</div>
+                <div class="name">Duplicate Remover</div>
+                <div class="desc">Remove duplicate lines</div>
             </a>
-            <a href="tools/encoding.html" class="tool-card" data-name="인코딩 변환">
+            <a href="tools/encoding.html" class="tool-card" data-name="Encoding Converter Base64 URL">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                <div class="name">인코딩 변환</div>
-                <div class="desc">Base64/URL 인코딩</div>
+                <div class="name">Encoding Converter</div>
+                <div class="desc">Base64 / URL encode</div>
             </a>
         </div>
     </div>
 
-    <!-- 색상 도구 -->
+    <!-- Color Tools -->
     <div class="category cat-color" data-category="color">
         <div class="category-header">
             <div class="category-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
             </div>
-            <h2>색상 도구</h2>
+            <h2>Color Tools</h2>
         </div>
         <div class="tools-grid">
-            <a href="tools/color-convert.html" class="tool-card" data-name="HEX RGB 변환">
+            <a href="tools/color-convert.html" class="tool-card" data-name="HEX RGB Color Converter">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></div>
-                <div class="name">HEX/RGB 변환</div>
-                <div class="desc">색상 코드 변환</div>
+                <div class="name">HEX/RGB Converter</div>
+                <div class="desc">Color code conversion</div>
             </a>
-            <a href="tools/color-palette.html" class="tool-card" data-name="색상 팔레트">
+            <a href="tools/color-palette.html" class="tool-card" data-name="Color Palette Generator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="8" r="1.5" fill="currentColor"/><circle cx="9" cy="14" r="1.5" fill="currentColor"/></svg></div>
-                <div class="name">색상 팔레트</div>
-                <div class="desc">조화로운 색 조합</div>
+                <div class="name">Color Palette</div>
+                <div class="desc">Harmonious colors</div>
             </a>
-            <a href="tools/gradient-gen.html" class="tool-card" data-name="그라디언트 생성">
+            <a href="tools/gradient-gen.html" class="tool-card" data-name="CSS Gradient Generator">
                 <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="17" x2="21" y2="17"/></svg></div>
-                <div class="name">그라디언트 생성</div>
-                <div class="desc">CSS 그라디언트</div>
-            </a>
-        </div>
-    </div>
-    <!-- 부동산 -->
-    <div class="category cat-realestate" data-category="realestate">
-        <div class="category-header">
-            <div class="category-icon" style="background: linear-gradient(135deg, #56ab2f, #a8e063);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            </div>
-            <h2>부동산</h2>
-        </div>
-        <div class="tools-grid">
-            <a href="tools/pyeong-calc.html" class="tool-card" data-name="평수 계산기">
-                <div class="icon" style="background:rgba(86,171,47,0.1);color:#56ab2f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg></div>
-                <div class="name">평수 계산기</div>
-                <div class="desc">평↔제곱미터 변환</div>
+                <div class="name">Gradient Generator</div>
+                <div class="desc">CSS gradients</div>
             </a>
         </div>
     </div>
 
-    <!-- 도구 -->
+    <!-- Utility -->
     <div class="category cat-util" data-category="utility">
         <div class="category-header">
             <div class="category-icon" style="background: linear-gradient(135deg, #636363, #a2a2a2);">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
-            <h2>도구</h2>
+            <h2>Utility</h2>
         </div>
         <div class="tools-grid">
-            <a href="tools/timer.html" class="tool-card" data-name="타이머 스톱워치">
+            <a href="tools/timer.html" class="tool-card" data-name="Timer Stopwatch">
                 <div class="icon" style="background:rgba(99,99,99,0.1);color:#636363;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3l2 2M19 3l-2 2M12 5V3"/></svg></div>
-                <div class="name">타이머/스톱워치</div>
-                <div class="desc">카운트다운+구간기록</div>
+                <div class="name">Timer / Stopwatch</div>
+                <div class="desc">Countdown & lap timer</div>
             </a>
         </div>
     </div>
 
-    <!-- 재미 -->
+    <!-- Fun -->
     <div class="category cat-fun" data-category="fun">
         <div class="category-header">
             <div class="category-icon" style="background: linear-gradient(135deg, #e05c8a, #f7971e);">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             </div>
-            <h2>재미</h2>
+            <h2>Fun</h2>
         </div>
         <div class="tools-grid">
-            <a href="tools/name-match.html" class="tool-card" data-name="이름 궁합">
-                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-                <div class="name">이름 궁합</div>
-                <div class="desc">이름으로 궁합 보기</div>
-            </a>
-            <a href="tools/mbti-match.html" class="tool-card" data-name="MBTI 궁합">
+            <a href="tools/mbti-match.html" class="tool-card" data-name="MBTI Compatibility Test">
                 <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                <div class="name">MBTI 궁합</div>
-                <div class="desc">MBTI 궁합 테스트</div>
+                <div class="name">MBTI Compatibility</div>
+                <div class="desc">MBTI match test</div>
             </a>
-            <a href="tools/blood-match.html" class="tool-card" data-name="혈액형 궁합">
-                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
-                <div class="name">혈액형 궁합</div>
-                <div class="desc">혈액형 궁합 테스트</div>
-            </a>
-                    <a href="tools/korean-love-calc.html" class="tool-card" data-name="사랑 궁합 계산기">
+                    <a href="tools/name-match.html" class="tool-card" data-name="Name Compatibility Korean">
                 <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-                <div class="name">사랑 궁합 💕</div>
-                <div class="desc">획수로 사랑 궁합 보기</div>
+                <div class="name">Name Compatibility</div>
+                <div class="desc">Korean name match</div>
+            </a>
+            <a href="tools/blood-match.html" class="tool-card" data-name="Blood Type Compatibility">
+                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+                <div class="name">Blood Type Match</div>
+                <div class="desc">K-style compatibility</div>
+            </a>
+                    <a href="tools/korean-love-calc.html" class="tool-card" data-name="Korean Love Calculator 사랑">
+                <div class="icon" style="background:rgba(224,92,138,0.1);color:#e05c8a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                <div class="name">Korean Love Test 💕</div>
+                <div class="desc">사랑 stroke compatibility</div>
             </a>
         </div>
     </div>
@@ -694,10 +586,9 @@
     &copy; 2025 MOGU Tools · mogutool.com
 </footer>
 
-<button class="dark-toggle" onclick="toggleDark()" aria-label="다크모드 전환">🌙</button>
+<button class="dark-toggle" onclick="toggleDark()" aria-label="Toggle dark mode">🌙</button>
 
 <script>
-// Dark mode
 function toggleDark() {
     document.body.classList.toggle('dark');
     const isDark = document.body.classList.contains('dark');
@@ -705,7 +596,6 @@ function toggleDark() {
     document.querySelector('.dark-toggle').textContent = isDark ? '☀️' : '🌙';
 }
 
-// Load saved preference
 if (localStorage.getItem('darkMode') === 'true') {
     document.body.classList.add('dark');
     document.querySelector('.dark-toggle').textContent = '☀️';
