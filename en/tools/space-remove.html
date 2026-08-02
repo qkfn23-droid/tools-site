@@ -255,41 +255,41 @@
  <div class="calc-box">
  <div class="input-group">
  <label>Input text</label>
- <textarea id="inputText" rows="7" placeholder="here combine..."></textarea>
+ <textarea id="inputText" rows="7" placeholder="Paste your text here..."></textarea>
  </div>
 
  <div class="btn-grid">
  <button class="op-btn" onclick="applyOp('removeAll')">Remove All Spaces</button>
  <button class="op-btn" onclick="applyOp('trim')">Trim</button>
- <button class="op-btn" onclick="applyOp('collapse')">consecutive one</button>
- <button class="op-btn" onclick="applyOp('removeEmptyLines')"> Remove</button>
- <button class="op-btn" onclick="applyOp('tabToSpace')"> → </button>
- <button class="op-btn" onclick="applyOp('spaceToTab')"> → </button>
+ <button class="op-btn" onclick="applyOp('collapse')">Collapse Spaces</button>
+ <button class="op-btn" onclick="applyOp('removeEmptyLines')">Remove Empty Lines</button>
+ <button class="op-btn" onclick="applyOp('tabToSpace')">Tab → Space</button>
+ <button class="op-btn" onclick="applyOp('spaceToTab')">Space → Tab</button>
  </div>
 
- < class="divider">
+ <hr class="divider">
 
  <div class="result-header">
  <label>Result</label>
  <button class="copy-btn" id="copyBtn" onclick="copyResult()">Copy</button>
  </div>
- <textarea id="outputText" rows="7" readonly placeholder="ResultF here done."></textarea>
+ <textarea id="outputText" rows="7" readonly placeholder="Result will appear here."></textarea>
 
  <div class="char-count">
- <span class="before">input: <strong id="beforeCount">0</strong>characters</span>
- <span class="after">Result: <strong id="afterCount">0</strong>characters</span>
+ <span class="before">Input: <strong id="beforeCount">0</strong> chars</span>
+ <span class="after">Result: <strong id="afterCount">0</strong> chars</span>
  </div>
  </div>
 
  <div class="info-section">
- <h2>feature Info</h2>
+ <h2>Features</h2>
  <ul class="info-list">
- <li><strong>Remove All Spaces</strong> — , all characters Delete.</li>
- <li><strong>Trim</strong> — spaces Delete.</li>
- <li><strong>consecutive one</strong> — consecutive multiple one .</li>
- <li><strong> Remove</strong> — Delete.</li>
- <li><strong> → </strong> — characters 4to converts.</li>
- <li><strong> → </strong> — 4space characters converts.</li>
+ <li><strong>Remove All Spaces</strong> — Removes all spaces and tabs from the text.</li>
+ <li><strong>Trim</strong> — Removes leading and trailing spaces from each line.</li>
+ <li><strong>Collapse Spaces</strong> — Reduces consecutive spaces to a single space.</li>
+ <li><strong>Remove Empty Lines</strong> — Deletes blank lines.</li>
+ <li><strong>Tab → Space</strong> — Converts tab characters to 4 spaces.</li>
+ <li><strong>Space → Tab</strong> — Converts 4 consecutive spaces to a tab.</li>
  </ul>
  </div>
 </div>
