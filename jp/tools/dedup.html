@@ -2,355 +2,355 @@
 <html lang="ja">
 <head>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>重複除去 - MOGU Tools</title>
- <meta name="description" content="Remove duplicate lines from your text. Paste text and see unique results.">
- <style>
- * { margin: 0; padding: 0; box-sizing: border-box; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重複除去 - MOGU Tools</title>
+    <meta name="description" content="テキストの重複行を除去します。1行ずつ入力すると重複を削除して結果を表示します。">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
- body {
- font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
- background: #f5f5f5;
- color: #333;
- }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
 
- header {
- background: #fff;
- border-bottom: 2px solid #eee;
- padding: 16px 20px;
- }
+        header {
+            background: #fff;
+            border-bottom: 2px solid #eee;
+            padding: 16px 20px;
+        }
 
- header a {
- text-decoration: none;
- color: #2c2c2c;
- font-size: 18px;
- font-weight: 700;
- }
+        header a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 18px;
+            font-weight: 700;
+        }
 
- header a span {
- color: #4a90d9;
- }
+        header a span {
+            color: #4a90d9;
+        }
 
- .breadcrumb {
- max-width: 600px;
- margin: 16px auto;
- padding: 0 20px;
- font-size: 13px;
- color: #999;
- }
+        .breadcrumb {
+            max-width: 600px;
+            margin: 16px auto;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #999;
+        }
 
- .breadcrumb a {
- color: #4a90d9;
- text-decoration: none;
- }
+        .breadcrumb a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
 
- .container {
- max-width: 600px;
- margin: 10px auto 40px;
- padding: 0 20px;
- }
+        .container {
+            max-width: 600px;
+            margin: 10px auto 40px;
+            padding: 0 20px;
+        }
 
- h1 {
- font-size: 24px;
- font-weight: 700;
- margin-bottom: 8px;
- }
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
- .subtitle {
- color: #888;
- font-size: 14px;
- margin-bottom: 24px;
- }
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
 
- .calc-box {
- background: #fff;
- border: 1px solid #e8e8e8;
- border-radius: 12px;
- padding: 28px;
- }
+        .calc-box {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 28px;
+        }
 
- .input-group {
- margin-bottom: 20px;
- }
+        .input-group {
+            margin-bottom: 20px;
+        }
 
- .input-group label {
- display: block;
- font-size: 14px;
- font-weight: 500;
- margin-bottom: 6px;
- color: #555;
- }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #555;
+        }
 
- textarea {
- width: 100%;
- padding: 12px 14px;
- border: 2px solid #e0e0e0;
- border-radius: 8px;
- font-size: 14px;
- font-family: inherit;
- outline: none;
- resize: vertical;
- transition: border-color 0.2s;
- line-height: 1.6;
- }
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            resize: vertical;
+            transition: border-color 0.2s;
+            line-height: 1.6;
+        }
 
- textarea:focus {
- border-color: #4a90d9;
- }
+        textarea:focus {
+            border-color: #4a90d9;
+        }
 
- textarea[readonly] {
- background: #f8f9fa;
- color: #444;
- cursor: default;
- }
+        textarea[readonly] {
+            background: #f8f9fa;
+            color: #444;
+            cursor: default;
+        }
 
- textarea[readonly]:focus {
- border-color: #e0e0e0;
- }
+        textarea[readonly]:focus {
+            border-color: #e0e0e0;
+        }
 
- .options-row {
- display: flex;
- flex-wrap: wrap;
- gap: 16px;
- margin-bottom: 20px;
- }
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
 
- .option-item {
- display: flex;
- align-items: center;
- gap: 7px;
- font-size: 14px;
- color: #555;
- cursor: pointer;
- user-select: none;
- }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            user-select: none;
+        }
 
- .option-item input[type="checkbox"] {
- width: 16px;
- height: 16px;
- accent-color: #4a90d9;
- cursor: pointer;
- }
+        .option-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #4a90d9;
+            cursor: pointer;
+        }
 
- .calc-btn {
- width: 100%;
- padding: 14px;
- background: #4a90d9;
- color: #fff;
- border: none;
- border-radius: 8px;
- font-size: 16px;
- font-weight: 600;
- cursor: pointer;
- transition: background 0.2s;
- margin-bottom: 20px;
- }
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 20px;
+        }
 
- .calc-btn:hover {
- background: #3a7bc8;
- }
+        .calc-btn:hover {
+            background: #3a7bc8;
+        }
 
- .result-area {
- display: none;
- }
+        .result-area {
+            display: none;
+        }
 
- .stats {
- font-size: 13px;
- color: #888;
- margin-bottom: 8px;
- }
+        .stats {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+        }
 
- .stats strong {
- color: #4a90d9;
- font-weight: 600;
- }
+        .stats strong {
+            color: #4a90d9;
+            font-weight: 600;
+        }
 
- .copy-row {
- display: flex;
- align-items: center;
- justify-content: space-between;
- margin-bottom: 6px;
- }
+        .copy-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
 
- .copy-row label {
- font-size: 14px;
- font-weight: 500;
- color: #555;
- }
+        .copy-row label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+        }
 
- .copy-btn {
- padding: 6px 16px;
- background: #fff;
- color: #4a90d9;
- border: 2px solid #4a90d9;
- border-radius: 6px;
- font-size: 13px;
- font-weight: 600;
- cursor: pointer;
- transition: background 0.2s, color 0.2s;
- }
+        .copy-btn {
+            padding: 6px 16px;
+            background: #fff;
+            color: #4a90d9;
+            border: 2px solid #4a90d9;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
 
- .copy-btn:hover {
- background: #4a90d9;
- color: #fff;
- }
+        .copy-btn:hover {
+            background: #4a90d9;
+            color: #fff;
+        }
 
- .copy-btn.copied {
- background: #5cb85c;
- border-color: #5cb85c;
- color: #fff;
- }
+        .copy-btn.copied {
+            background: #5cb85c;
+            border-color: #5cb85c;
+            color: #fff;
+        }
 
- .info-section {
- margin-top: 30px;
- background: #fff;
- border: 1px solid #e8e8e8;
- border-radius: 12px;
- padding: 24px;
- }
+        .info-section {
+            margin-top: 30px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 24px;
+        }
 
- .info-section h2 {
- font-size: 16px;
- margin-bottom: 12px;
- color: #555;
- }
+        .info-section h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #555;
+        }
 
- .info-section p {
- font-size: 14px;
- color: #666;
- line-height: 1.7;
- }
+        .info-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
 
- footer {
- text-align: center;
- padding: 30px;
- color: #bbb;
- font-size: 13px;
- }
- </style>
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 13px;
+        }
+    </style>
 </head>
 <body>
 
 <header>
- <a href="../index.html">MOGU <span>ツール</span></a>
+    <a href="../index.html">MOGU <span>ツール</span></a>
 </header>
 
 <div class="breadcrumb">
- <a href="../index.html">ホーム</a> &gt; Tools &gt; Duplicate Remover
+    <a href="../index.html">ホーム</a> &gt; テキスト &gt; 重複除去
 </div>
 
 <div class="container">
- <h1>重複除去</h1>
- <p class="subtitle">テキストを貼り付けて重複行を削除。</p>
+    <h1>重複除去</h1>
+    <p class="subtitle">1行ずつ入力すると重複行を除去します。</p>
 
- <div class="calc-box">
- <div class="input-group">
- <label>input ( one)</label>
- <textarea id="inputText" rows="10" placeholder="Enter text here.&#10;One item per line."></textarea>
- </div>
+    <div class="calc-box">
+        <div class="input-group">
+            <label>入力（1行に1つ）</label>
+            <textarea id="inputText" rows="10" placeholder="テキストを貼り付けてください。&#10;重複行が除去されます。"></textarea>
+        </div>
 
- <div class="options-row">
- <label class="option-item">
- <input type="checkbox" id="caseSensitive" checked>
- Lowercase most
- </label>
- <label class="option-item">
- <input type="checkbox" id="removeEmpty" checked>
- Remove
- </label>
- <label class="option-item">
- <input type="checkbox" id="sortResult">
- 
- </label>
- </div>
+        <div class="options-row">
+            <label class="option-item">
+                <input type="checkbox" id="caseSensitive" checked>
+                大小文字区別
+            </label>
+            <label class="option-item">
+                <input type="checkbox" id="removeEmpty" checked>
+                空行除去
+            </label>
+            <label class="option-item">
+                <input type="checkbox" id="sortResult">
+                ソート
+            </label>
+        </div>
 
- <button class="calc-btn" onclick="deduplicate()">Duplicate Remover</button>
+        <button class="calc-btn" onclick="deduplicate()">重複除去</button>
 
- <div class="result-area" id="resultArea">
- <p class="stats" id="stats"></p>
- <div class="copy-row">
- <label>Result</label>
- <button class="copy-btn" id="copyBtn" onclick="copyResult()">コピー</button>
- </div>
- <textarea id="outputText" rows="10" readonly></textarea>
- </div>
- </div>
+        <div class="result-area" id="resultArea">
+            <p class="stats" id="stats"></p>
+            <div class="copy-row">
+                <label>結果</label>
+                <button class="copy-btn" id="copyBtn" onclick="copyResult()">コピー</button>
+            </div>
+            <textarea id="outputText" rows="10" readonly></textarea>
+        </div>
+    </div>
 
- <div class="info-section">
- <h2>How to Use</h2>
- <p>
- Top input combine "Duplicate Remover" .
- Top and, Lowercase most , option Selectcan .
- </p>
- </div>
+    <div class="info-section">
+        <h2>使い方</h2>
+        <p>
+            テキストを入力欄に貼り付けて「重複除去」ボタンを押してください。
+            行単位で重複を検出し、大小文字の区別や空行処理、ソートオプションを選択できます。
+        </p>
+    </div>
 </div>
 
 <footer>
- &copy; 2025 MOGU Tools
+    &copy; 2025 MOGU Tools
 </footer>
 
 <script>
 function deduplicate() {
- const raw = document.getElementById('inputText').value;
- const caseSensitive = document.getElementById('caseSensitive').checked;
- const removeEmpty = document.getElementById('removeEmpty').checked;
- const sortResult = document.getElementById('sortResult').checked;
+    const raw = document.getElementById('inputText').value;
+    const caseSensitive = document.getElementById('caseSensitive').checked;
+    const removeEmpty = document.getElementById('removeEmpty').checked;
+    const sortResult = document.getElementById('sortResult').checked;
 
- let lines = raw.split('\n');
+    let lines = raw.split('\n');
 
- if (removeEmpty) {
- lines = lines.filter(line => line.trim() !== '');
- }
+    if (removeEmpty) {
+        lines = lines.filter(line => line.trim() !== '');
+    }
 
- const inputCount = lines.length;
+    const inputCount = lines.length;
 
- const seen = new Set();
- const result = [];
+    const seen = new Set();
+    const result = [];
 
- for (const line of lines) {
- const key = caseSensitive ? line : line.toLowerCase();
- if (!seen.has(key)) {
- seen.add(key);
- result.push(line);
- }
- }
+    for (const line of lines) {
+        const key = caseSensitive ? line : line.toLowerCase();
+        if (!seen.has(key)) {
+            seen.add(key);
+            result.push(line);
+        }
+    }
 
- if (sortResult) {
- result.sort((a, b) => {
- const ka = caseSensitive ? a : a.toLowerCase();
- const kb = caseSensitive ? b : b.toLowerCase();
- return ka.localeCompare(kb, 'ko');
- });
- }
+    if (sortResult) {
+        result.sort((a, b) => {
+            const ka = caseSensitive ? a : a.toLowerCase();
+            const kb = caseSensitive ? b : b.toLowerCase();
+            return ka.localeCompare(kb, 'ko');
+        });
+    }
 
- const outputCount = result.length;
- const removedCount = inputCount - outputCount;
+    const outputCount = result.length;
+    const removedCount = inputCount - outputCount;
 
- document.getElementById('outputText').value = result.join('\n');
- document.getElementById('stats').innerHTML =
- 'input <strong>' + inputCount + '</strong> &rarr; Result <strong>' + outputCount + '</strong> (<strong>' + removedCount + '</strong> Duplicate Remover)';
+    document.getElementById('outputText').value = result.join('\n');
+    document.getElementById('stats').innerHTML =
+        '入力: <strong>' + inputCount + '行</strong> &rarr; 結果: <strong>' + outputCount + '行</strong> (<strong>' + removedCount + '件</strong> 除去)';
 
- document.getElementById('resultArea').style.display = 'block';
+    document.getElementById('resultArea').style.display = 'block';
 
- const copyBtn = document.getElementById('copyBtn');
- copyBtn.textContent = 'Copy';
- copyBtn.classList.remove('copied');
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.textContent = 'コピー';
+    copyBtn.classList.remove('copied');
 }
 
 function copyResult() {
- const text = document.getElementById('outputText').value;
- if (!text) return;
+    const text = document.getElementById('outputText').value;
+    if (!text) return;
 
- navigator.clipboard.writeText(text).then(() => {
- const btn = document.getElementById('copyBtn');
- btn.textContent = 'Copy!';
- btn.classList.add('copied');
- setTimeout(() => {
- btn.textContent = 'Copy';
- btn.classList.remove('copied');
- }, 2000);
- });
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = 'コピー済み！';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = 'コピー';
+            btn.classList.remove('copied');
+        }, 2000);
+    });
 }
 </script>
 
