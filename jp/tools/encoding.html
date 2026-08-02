@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>エンコード変換 - MOGU Tools</title>
+ <meta name="description" content="Base64, URL, HTML entity, Unicode Encode/Decode easily convert.">
+ <style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+
+ body {
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+ background: #f5f5f5;
+ color: #333;
+ }
+
+ header {
+ background: #fff;
+ border-bottom: 2px solid #eee;
+ padding: 16px 20px;
+ }
+
+ header a {
+ text-decoration: none;
+ color: #2c2c2c;
+ font-size: 18px;
+ font-weight: 700;
+ }
+
+ header a span {
+ color: #4a90d9;
+ }
+
+ .breadcrumb {
+ max-width: 700px;
+ margin: 16px auto;
+ padding: 0 20px;
+ font-size: 13px;
+ color: #999;
+ }
+
+ .breadcrumb a {
+ color: #4a90d9;
+ text-decoration: none;
+ }
+
+ .container {
+ max-width: 700px;
+ margin: 10px auto 40px;
+ padding: 0 20px;
+ }
+
+ h1 {
+ font-size: 24px;
+ font-weight: 700;
+ margin-bottom: 8px;
+ }
+
+ .subtitle {
+ color: #888;
+ font-size: 14px;
+ margin-bottom: 24px;
+ }
+
+ .calc-box {
+ background: #fff;
+ border: 1px solid #e8e8e8;
+ border-radius: 12px;
+ padding: 28px;
+ }
+
+ .section-label {
+ display: block;
+ font-size: 14px;
+ font-weight: 500;
+ margin-bottom: 8px;
+ color: #555;
+ }
+
+ textarea {
+ width: 100%;
+ padding: 12px 14px;
+ border: 2px solid #e0e0e0;
+ border-radius: 8px;
+ font-size: 14px;
+ font-family: 'Menlo', 'Consolas', monospace;
+ resize: vertical;
+ outline: none;
+ transition: border-color 0.2s;
+ line-height: 1.6;
+ color: #333;
+ }
+
+ textarea:focus {
+ border-color: #4a90d9;
+ }
+
+ textarea[readonly] {
+ background: #f8f9fa;
+ color: #444;
+ cursor: default;
+ }
+
+ /* Button grid for encoding operations */
+ .btn-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 10px;
+ margin: 18px 0;
+ }
+
+ .enc-btn {
+ padding: 11px 10px;
+ background: #4a90d9;
+ color: #fff;
+ border: none;
+ border-radius: 8px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: background 0.2s;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ }
+
+ .enc-btn:hover {
+ background: #3a7bc8;
+ }
+
+ .enc-btn.decode {
+ background: #6c757d;
+ }
+
+ .enc-btn.decode:hover {
+ background: #5a6268;
+ }
+
+ /* Dividers between groups */
+ .btn-group {
+ margin-bottom: 10px;
+ }
+
+ .btn-group-label {
+ font-size: 12px;
+ color: #aaa;
+ font-weight: 500;
+ margin-bottom: 6px;
+ letter-spacing: 0.3px;
+ }
+
+ .btn-group .btn-row {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 10px;
+ }
+
+ /* Result area row */
+ .result-header {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ margin-top: 20px;
+ margin-bottom: 8px;
+ }
+
+ .result-actions {
+ display: flex;
+ gap: 8px;
+ }
+
+ .action-btn {
+ padding: 7px 16px;
+ border: none;
+ border-radius: 7px;
+ font-size: 13px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: background 0.2s, color 0.2s;
+ }
+
+ .copy-btn {
+ background: #e8f0fb;
+ color: #4a90d9;
+ }
+
+ .copy-btn:hover {
+ background: #d0e3f7;
+ }
+
+ .copy-btn.copied {
+ background: #e6f4ea;
+ color: #34a853;
+ }
+
+ .swap-btn {
+ background: #f0f0f0;
+ color: #555;
+ }
+
+ .swap-btn:hover {
+ background: #e2e2e2;
+ }
+
+ .error-msg {
+ display: none;
+ margin-top: 10px;
+ padding: 10px 14px;
+ background: #fff3f3;
+ border: 1px solid #f5c6c6;
+ border-radius: 8px;
+ color: #c0392b;
+ font-size: 13px;
+ }
+
+ .info-section {
+ margin-top: 30px;
+ background: #fff;
+ border: 1px solid #e8e8e8;
+ border-radius: 12px;
+ padding: 24px;
+ }
+
+ .info-section h2 {
+ font-size: 16px;
+ margin-bottom: 12px;
+ color: #555;
+ }
+
+ .info-section dl {
+ display: grid;
+ grid-template-columns: auto 1fr;
+ gap: 6px 16px;
+ font-size: 14px;
+ color: #666;
+ line-height: 1.7;
+ }
+
+ .info-section dt {
+ font-weight: 600;
+ color: #4a90d9;
+ white-space: nowrap;
+ }
+
+ footer {
+ text-align: center;
+ padding: 30px;
+ color: #bbb;
+ font-size: 13px;
+ }
+ </style>
+</head>
+<body>
+
+<header>
+ <a href="../index.html">MOGU <span>ツール</span></a>
+</header>
+
+<div class="breadcrumb">
+ <a href="../index.html">ホーム</a> &gt; Tools &gt; Encoding Converter
+</div>
+
+<div class="container">
+ <h1>エンコード変換</h1>
+ <p class="subtitle"> Base64、URL、HTMLエンティティのエンコード・デコード。</p>
+
+ <div class="calc-box">
+
+ <label class="section-label" for="inputText">input</label>
+ <textarea id="inputText" rows="6" placeholder="Convert Enter your text here..."></textarea>
+
+ <!-- Base64 -->
+ <div class="btn-group">
+ <div class="btn-group-label">Base64</div>
+ <div class="btn-row">
+ <button class="enc-btn" onclick="doEncode('base64')">Base64 Encode</button>
+ <button class="enc-btn decode" onclick="doDecode('base64')">Base64 Decode</button>
+ </div>
+ </div>
+
+ <!-- URL -->
+ <div class="btn-group">
+ <div class="btn-group-label">URL</div>
+ <div class="btn-row">
+ <button class="enc-btn" onclick="doEncode('url')">URL Encode</button>
+ <button class="enc-btn decode" onclick="doDecode('url')">URL Decode</button>
+ </div>
+ </div>
+
+ <!-- HTML Entity -->
+ <div class="btn-group">
+ <div class="btn-group-label">HTML entity</div>
+ <div class="btn-row">
+ <button class="enc-btn" onclick="doEncode('html')">HTML entity Encode</button>
+ <button class="enc-btn decode" onclick="doDecode('html')">HTML entity Decode</button>
+ </div>
+ </div>
+
+ <!-- Unicode -->
+ <div class="btn-group">
+ <div class="btn-group-label">Unicode</div>
+ <div class="btn-row">
+ <button class="enc-btn" onclick="doEncode('unicode')">Unicode </button>
+ <button class="enc-btn decode" onclick="doDecode('unicode')">Unicode </button>
+ </div>
+ </div>
+
+ <!-- Error message -->
+ <div class="error-msg" id="errorMsg"></div>
+
+ <!-- Result -->
+ <div class="result-header">
+ <label class="section-label" for="outputText" style="margin:0;">Result</label>
+ <div class="result-actions">
+ <button class="action-btn swap-btn" onclick="swapTexts()" title="input↔Result ">input↔Result</button>
+ <button class="action-btn copy-btn" id="copyBtn" onclick="copyResult()">コピー</button>
+ </div>
+ </div>
+ <textarea id="outputText" rows="6" readonly placeholder="Convert ResultF here done..."></textarea>
+
+ </div>
+
+ <div class="info-section">
+ <h2>Encode method Info</h2>
+ <dl>
+ <dt>Base64</dt>
+ <dd> Data ASCII characters converts. day , Data URI usedone.</dd>
+ <dt>URL</dt>
+ <dd>URL usecan Symbols %XX formatto converts.</dd>
+ <dt>HTML entity</dt>
+ <dd>&lt;, &gt;, &amp; HTML Symbols entity converts. XSS utilizedone.</dd>
+ <dt>Unicode</dt>
+ <dd>characters \uXXXX format Convert .</dd>
+ </dl>
+ </div>
+</div>
+
+<footer>
+ &copy; 2025 MOGU Tools
+</footer>
+
+<script>
+function showError(msg) {
+ const el = document.getElementById('errorMsg');
+ el.textContent = msg;
+ el.style.display = 'block';
+}
+
+function clearError() {
+ const el = document.getElementById('errorMsg');
+ el.textContent = '';
+ el.style.display = 'none';
+}
+
+function setOutput(text) {
+ document.getElementById('outputText').value = text;
+}
+
+function getinput() {
+ return document.getElementById('inputText').value;
+}
+
+function doEncode(type) {
+ clearError();
+ const input = getinput();
+ if (input === '') {
+ showError('Input text Please enter a value.');
+ return;
+ }
+ try {
+ let result = '';
+ if (type === 'base64') {
+ result = btoa(unescape(encodeURIComponent(input)));
+ } else if (type === 'url') {
+ result = encodeURIComponent(input);
+ } else if (type === 'html') {
+ result = input
+ .replace(/&/g, '&amp;')
+ .replace(/</g, '&lt;')
+ .replace(/>/g, '&gt;')
+ .replace(/"/g, '&quot;')
+ .replace(/'/g, '&#39;');
+ } else if (type === 'unicode') {
+ result = Array.from(input)
+ .map(ch => {
+ const code = ch.codePointAt(0);
+ if (code > 127) {
+ if (code > 0xFFFF) {
+ return '\\u' + code.toString(16).toUpperCase().padStart(8, '0');
+ }
+ return '\\u' + code.toString(16).toUpperCase().padStart(4, '0');
+ }
+ return ch;
+ })
+ .join('');
+ }
+ setOutput(result);
+ } catch (e) {
+ showError('Encode ErrorF occurred: ' + e.message);
+ }
+}
+
+function doDecode(type) {
+ clearError();
+ const input = getinput();
+ if (input === '') {
+ showError('Input text Please enter a value.');
+ return;
+ }
+ try {
+ let result = '';
+ if (type === 'base64') {
+ result = decodeURIComponent(escape(atob(input)));
+ } else if (type === 'url') {
+ result = decodeURIComponent(input);
+ } else if (type === 'html') {
+ const el = document.createElement('textarea');
+ el.innerHTML = input;
+ result = el.value;
+ } else if (type === 'unicode') {
+ result = input.replace(/\\u([0-9A-Fa-f]{4,8})/g, (_, hex) => {
+ return String.fromCodePoint(parseInt(hex, 16));
+ });
+ }
+ setOutput(result);
+ } catch (e) {
+ showError('Decode failed. valid format input OKplease.');
+ }
+}
+
+function copyResult() {
+ const output = document.getElementById('outputText').value;
+ if (!output) {
+ showError('Copy ResultF .');
+ return;
+ }
+ clearError();
+ navigator.clipboard.writeText(output).then(() => {
+ const btn = document.getElementById('copyBtn');
+ btn.textContent = 'Copy!';
+ btn.classList.add('copied');
+ setTimeout(() => {
+ btn.textContent = 'Copy';
+ btn.classList.remove('copied');
+ }, 1800);
+ }).catch(() => {
+ // Fallback for environments without clipboard API
+ const textarea = document.getElementById('outputText');
+ textarea.select();
+ document.execCommand('copy');
+ const btn = document.getElementById('copyBtn');
+ btn.textContent = 'Copy!';
+ btn.classList.add('copied');
+ setTimeout(() => {
+ btn.textContent = 'Copy';
+ btn.classList.remove('copied');
+ }, 1800);
+ });
+}
+
+function swapTexts() {
+ clearError();
+ const input = document.getElementById('inputText');
+ const output = document.getElementById('outputText');
+ const temp = input.value;
+ input.value = output.value;
+ output.value = temp;
+}
+</script>
+
+</body>
+</html>
