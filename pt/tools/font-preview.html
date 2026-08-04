@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de fontes - MOGU Tools</title>
+    <meta name="description" content="Visualize diversas fontes do Google em tempo real. Ajuste o texto, tamanho e cor livremente.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+        header { background: #fff; border-bottom: 2px solid #eee; padding: 16px 20px; }
+        header a { text-decoration: none; color: #2c2c2c; font-size: 18px; font-weight: 700; }
+        header a span { color: #4a90d9; }
+        .breadcrumb { max-width: 700px; margin: 16px auto; padding: 0 20px; font-size: 13px; color: #999; }
+        .breadcrumb a { color: #4a90d9; text-decoration: none; }
+        .container { max-width: 700px; margin: 10px auto 40px; padding: 0 20px; }
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+
+        .controls { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .control-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+        .control-row:last-child { margin-bottom: 0; }
+        .control-row label { font-size: 13px; font-weight: 500; color: #555; min-width: 50px; }
+        .control-row input, .control-row select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .control-row input[type="text"] { flex: 1; }
+        .control-row input[type="range"] { flex: 1; accent-color: #4a90d9; }
+        .control-row input[type="color"] { width: 40px; height: 35px; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; }
+        .size-val { font-size: 13px; color: #4a90d9; font-weight: 600; min-width: 40px; }
+
+        .font-grid { display: grid; gap: 12px; }
+        .font-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 10px; padding: 16px 20px; transition: border-color 0.2s; }
+        .font-card:hover { border-color: #4a90d9; }
+        .font-name { font-size: 12px; color: #aaa; margin-bottom: 6px; }
+        .font-preview { line-height: 1.4; word-break: break-all; }
+
+        footer { text-align: center; padding: 30px; color: #bbb; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html">MOGU <span>Tools</span></a>
+</header>
+
+<div class="breadcrumb">
+    <a href="../index.html">Início</a> &gt; Ferramentas &gt; Visualização de fontes
+</div>
+
+<div class="container">
+    <h1>Visualização de fontes</h1>
+    <p class="subtitle">Compare diversas fontes em tempo real.</p>
+
+    <div class="controls">
+        <div class="control-row">
+            <label>Texto</label>
+            <input type="text" id="sampleText" value="MOGU Tools ABC 123 Olá Mundo" oninput="render()">
+        </div>
+        <div class="control-row">
+            <label>Tamanho</label>
+            <input type="range" id="fontSize" min="12" max="72" value="28" oninput="document.getElementById('sizeVal').textContent=this.value+'px'; render()">
+            <span class="size-val" id="sizeVal">28px</span>
+        </div>
+        <div class="control-row">
+            <label>Cor</label>
+            <input type="color" id="fontColor" value="#333333" oninput="render()">
+            <label>Peso</label>
+            <select id="fontWeight" onchange="render()">
+                <option value="300">Light</option>
+                <option value="400" selected>Regular</option>
+                <option value="500">Medium</option>
+                <option value="700">Bold</option>
+                <option value="900">Black</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="font-grid" id="fontGrid"></div>
+</div>
+
+<footer>&copy; 2025 MOGU Tools</footer>
+
+<script>
+const FONTS = [
+    { name: 'Inter', category: 'Sans-serif' },
+    { name: 'Roboto', category: 'Sans-serif' },
+    { name: 'Open Sans', category: 'Sans-serif' },
+    { name: 'Lato', category: 'Sans-serif' },
+    { name: 'Montserrat', category: 'Sans-serif' },
+    { name: 'Poppins', category: 'Sans-serif' },
+    { name: 'Nunito', category: 'Sans-serif' },
+    { name: 'Raleway', category: 'Sans-serif' },
+    { name: 'Playfair Display', category: 'Serif' },
+    { name: 'Merriweather', category: 'Serif' },
+    { name: 'Lora', category: 'Serif' },
+    { name: 'PT Serif', category: 'Serif' },
+    { name: 'Dancing Script', category: 'Cursive' },
+    { name: 'Pacifico', category: 'Cursive' },
+    { name: 'Caveat', category: 'Handwriting' },
+    { name: 'Patrick Hand', category: 'Handwriting' },
+    { name: 'Fira Code', category: 'Monospace' },
+    { name: 'JetBrains Mono', category: 'Monospace' },
+    { name: 'Source Code Pro', category: 'Monospace' },
+    { name: 'Ubuntu Mono', category: 'Monospace' },
+    { name: 'Noto Sans', category: 'Sans-serif' },
+    { name: 'Noto Serif', category: 'Serif' },
+    { name: 'Black Han Sans', category: 'Sans-serif' },
+    { name: 'Sunflower', category: 'Sans-serif' },
+];
+
+// Load all fonts
+const fontFamilies = FONTS.map(f => f.name.replace(/ /g, '+')).join('&family=');
+const link = document.createElement('link');
+link.href = `https://fonts.googleapis.com/css2?family=${fontFamilies}&display=swap`;
+link.rel = 'stylesheet';
+document.head.appendChild(link);
+
+function render() {
+    const text = document.getElementById('sampleText').value || 'Hello World';
+    const size = document.getElementById('fontSize').value;
+    const color = document.getElementById('fontColor').value;
+    const weight = document.getElementById('fontWeight').value;
+
+    const grid = document.getElementById('fontGrid');
+    grid.innerHTML = '';
+    FONTS.forEach(f => {
+        grid.innerHTML += `
+            <div class="font-card">
+                <div class="font-name">${f.name} — ${f.category}</div>
+                <div class="font-preview" style="font-family:'${f.name}',sans-serif;font-size:${size}px;color:${color};font-weight:${weight};">${text}</div>
+            </div>
+        `;
+    });
+}
+
+render();
+</script>
+
+</body>
+</html>
