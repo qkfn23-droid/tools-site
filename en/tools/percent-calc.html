@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator - MOGU Tools</title>
+    <meta name="description" content="Easy percentage calculations! What is B% of A? A is what % of B? Percent change calculator.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+        header { background: #fff; border-bottom: 2px solid #eee; padding: 16px 20px; }
+        header a { text-decoration: none; color: #2c2c2c; font-size: 18px; font-weight: 700; }
+        header a span { color: #4a90d9; }
+        .breadcrumb { max-width: 600px; margin: 16px auto; padding: 0 20px; font-size: 13px; color: #999; }
+        .breadcrumb a { color: #4a90d9; text-decoration: none; }
+        .container { max-width: 600px; margin: 10px auto 40px; padding: 0 20px; }
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+        .calc-box { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+        .calc-box h2 { font-size: 15px; color: #555; margin-bottom: 14px; }
+        .calc-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 15px; }
+        .calc-row input { width: 90px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; text-align: center; outline: none; }
+        .calc-row input:focus { border-color: #4a90d9; }
+        .calc-row .result { font-size: 24px; font-weight: 700; color: #4a90d9; min-width: 80px; text-align: center; }
+        footer { text-align: center; padding: 30px; color: #bbb; font-size: 13px; }
+    </style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="breadcrumb"><a href="../index.html">Home</a> &gt; Calculator &gt; Percentage Calculator</div>
+<div class="container">
+    <h1>Percentage Calculator</h1>
+    <p class="subtitle">All kinds of percentage calculations in one place.</p>
+
+    <div class="calc-box">
+        <h2>📌 What is B% of A?</h2>
+        <div class="calc-row">
+            <input type="number" id="a1" oninput="calc1()"> &times;
+            <input type="number" id="b1" oninput="calc1()"> % =
+            <span class="result" id="r1">?</span>
+        </div>
+    </div>
+    <div class="calc-box">
+        <h2>📌 A is what % of B?</h2>
+        <div class="calc-row">
+            <input type="number" id="a2" oninput="calc2()"> out of
+            <input type="number" id="b2" oninput="calc2()"> =
+            <span class="result" id="r2">?</span> %
+        </div>
+    </div>
+    <div class="calc-box">
+        <h2>📌 Add B% to A?</h2>
+        <div class="calc-row">
+            <input type="number" id="a3" oninput="calc3()"> +
+            <input type="number" id="b3" oninput="calc3()"> % =
+            <span class="result" id="r3">?</span>
+        </div>
+    </div>
+    <div class="calc-box">
+        <h2>📌 Percent change from A to B?</h2>
+        <div class="calc-row">
+            <input type="number" id="a4" oninput="calc4()"> &rarr;
+            <input type="number" id="b4" oninput="calc4()"> =
+            <span class="result" id="r4">?</span> %
+        </div>
+    </div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+function calc1(){const a=parseFloat(document.getElementById('a1').value),b=parseFloat(document.getElementById('b1').value);document.getElementById('r1').textContent=isNaN(a)||isNaN(b)?'?':(a*b/100).toFixed(2);}
+function calc2(){const a=parseFloat(document.getElementById('a2').value),b=parseFloat(document.getElementById('b2').value);document.getElementById('r2').textContent=isNaN(a)||isNaN(b)||a===0?'?':(b/a*100).toFixed(2);}
+function calc3(){const a=parseFloat(document.getElementById('a3').value),b=parseFloat(document.getElementById('b3').value);document.getElementById('r3').textContent=isNaN(a)||isNaN(b)?'?':(a*(1+b/100)).toFixed(2);}
+function calc4(){const a=parseFloat(document.getElementById('a4').value),b=parseFloat(document.getElementById('b4').value);if(isNaN(a)||isNaN(b)||a===0){document.getElementById('r4').textContent='?';return;}const r=((b-a)/a*100).toFixed(2);document.getElementById('r4').textContent=(r>0?'+':'')+r;}
+</script>
+</body>
+</html>

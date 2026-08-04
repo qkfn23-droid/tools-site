@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur d'entités HTML - MOGU Tools</title>
+    <meta name="description" content="Convertissez les caractères spéciaux HTML en entités et vice versa.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:700px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:24px}textarea{width:100%;height:120px;padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:13px;font-family:monospace;resize:vertical;outline:none;margin-bottom:12px}textarea:focus{border-color:#4a90d9}.btn-row{display:flex;gap:8px;margin-bottom:16px}.btn{padding:10px 20px;border:1px solid #ddd;border-radius:8px;background:#fff;font-size:13px;cursor:pointer;font-weight:500}.btn-primary{background:#4a90d9;color:#fff;border-color:#4a90d9}label{font-size:13px;color:#555;display:block;margin-bottom:6px;font-weight:500}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>Convertisseur d'entités HTML</h1>
+    <p class="subtitle">Caractères spéciaux HTML ↔ entités (&amp; ↔ &)</p>
+    <label>Entrée</label>
+    <textarea id="input" placeholder='<div class="bonjour">&'></textarea>
+    <div class="btn-row">
+        <button class="btn btn-primary" onclick="encode()">Encoder (→ entités)</button>
+        <button class="btn btn-primary" onclick="decode()">Décoder (→ caractères)</button>
+        <button class="btn" onclick="document.getElementById('output').select();document.execCommand('copy')">📋 Copier</button>
+    </div>
+    <label>Résultat</label>
+    <textarea id="output" readonly style="background:#f8f9fa;"></textarea>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+function encode(){const t=document.getElementById('input').value;document.getElementById('output').value=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function decode(){const t=document.getElementById('input').value;const d=document.createElement('textarea');d.innerHTML=t;document.getElementById('output').value=d.value;}
+</script>
+</body>
+</html>

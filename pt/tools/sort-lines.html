@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenar Linhas - MOGU Tools</title>
+    <meta name="description" content="Ordene linhas de texto em ordem alfabética, reversa ou aleatória.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:700px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:24px}textarea{width:100%;height:200px;padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;font-family:monospace;resize:vertical;outline:none;margin-bottom:12px}textarea:focus{border-color:#4a90d9}.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.btn{padding:10px 16px;border:1px solid #ddd;border-radius:8px;background:#fff;font-size:13px;cursor:pointer}.btn:hover{border-color:#4a90d9;color:#4a90d9}.btn-primary{background:#4a90d9;color:#fff;border-color:#4a90d9}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>Ordenar Linhas</h1>
+    <p class="subtitle">Ordene linhas de texto de diversas formas.</p>
+    <textarea id="input" placeholder="Digite uma linha por vez..."></textarea>
+    <div class="btn-row">
+        <button class="btn btn-primary" onclick="sortLines('asc')">A→Z ↑</button>
+        <button class="btn" onclick="sortLines('desc')">Z→A ↓</button>
+        <button class="btn" onclick="sortLines('random')">🔀 Aleatório</button>
+        <button class="btn" onclick="sortLines('reverse')">↕️ Inverter</button>
+        <button class="btn" onclick="sortLines('unique')">🔹 Remover duplicatas</button>
+        <button class="btn" onclick="sortLines('number')">🔢 Ordem numérica</button>
+        <button class="btn" onclick="copy()">📋 Copiar</button>
+    </div>
+    <textarea id="output" readonly style="background:#f8f9fa;"></textarea>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+function sortLines(mode){const lines=document.getElementById('input').value.split('\n').filter(l=>l.trim());let result;switch(mode){case'asc':result=[...lines].sort((a,b)=>a.localeCompare(b));break;case'desc':result=[...lines].sort((a,b)=>b.localeCompare(a));break;case'random':result=[...lines];for(let i=result.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}break;case'reverse':result=[...lines].reverse();break;case'unique':result=[...new Set(lines)];break;case'number':result=[...lines].sort((a,b)=>parseFloat(a)-parseFloat(b));break;}document.getElementById('output').value=result.join('\n');}
+function copy(){document.getElementById('output').select();document.execCommand('copy');}
+</script>
+</body>
+</html>

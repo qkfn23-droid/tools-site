@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco de Notas Online - MOGU Tools</title>
+    <meta name="description" content="Bloco de notas com salvamento automático no navegador. Sem instalação.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:700px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:16px}.status{font-size:12px;color:#27ae60;margin-bottom:12px;min-height:18px}textarea{width:100%;height:calc(100vh - 250px);min-height:300px;padding:20px;border:2px solid #e0e0e0;border-radius:12px;font-size:15px;line-height:1.7;resize:vertical;outline:none;font-family:inherit}textarea:focus{border-color:#4a90d9}.btn-row{display:flex;gap:8px;margin-top:12px}.btn{padding:8px 16px;border:1px solid #ddd;border-radius:8px;background:#fff;font-size:13px;cursor:pointer}.btn:hover{border-color:#4a90d9;color:#4a90d9}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>📝 Bloco de Notas Online</h1>
+    <p class="subtitle">Salvamento automático. O conteúdo é mantido mesmo após fechar o navegador.</p>
+    <div class="status" id="status"></div>
+    <textarea id="notepad" placeholder="Escreva suas notas aqui..." oninput="save()"></textarea>
+    <div class="btn-row">
+        <button class="btn" onclick="clearAll()">🗑️ Apagar tudo</button>
+        <button class="btn" onclick="download()">💾 Salvar arquivo</button>
+        <button class="btn" onclick="copy()">📋 Copiar</button>
+    </div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+const ta=document.getElementById('notepad');
+ta.value=localStorage.getItem('moguNotepad')||'';
+function save(){localStorage.setItem('moguNotepad',ta.value);document.getElementById('status').textContent='✅ Salvo automaticamente ('+new Date().toLocaleTimeString('pt-BR')+')';}
+function clearAll(){if(confirm('Deseja apagar todas as notas?')){ta.value='';localStorage.removeItem('moguNotepad');document.getElementById('status').textContent='🗑️ Apagado';}}
+function download(){const blob=new Blob([ta.value],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='notas_'+new Date().toISOString().slice(0,10)+'.txt';a.click();}
+function copy(){ta.select();document.execCommand('copy');document.getElementById('status').textContent='📋 Copiado!';}
+</script>
+</body>
+</html>
