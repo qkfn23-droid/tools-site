@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Würfel & Münze - MOGU Tools</title>
+    <meta name="description" content="Online-Würfeln und Münzwurf. Ideal für Brettspiele und Entscheidungshilfen.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+        header { background: #fff; border-bottom: 2px solid #eee; padding: 16px 20px; }
+        header a { text-decoration: none; color: #2c2c2c; font-size: 18px; font-weight: 700; }
+        header a span { color: #4a90d9; }
+        .breadcrumb { max-width: 600px; margin: 16px auto; padding: 0 20px; font-size: 13px; color: #999; }
+        .breadcrumb a { color: #4a90d9; text-decoration: none; }
+        .container { max-width: 600px; margin: 10px auto 40px; padding: 0 20px; }
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+
+        .tabs { display: flex; gap: 0; margin-bottom: 24px; border: 2px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+        .tab-btn { flex: 1; padding: 12px; background: #fff; border: none; font-size: 15px; font-weight: 500; color: #999; cursor: pointer; }
+        .tab-btn.active { background: #4a90d9; color: #fff; font-weight: 600; }
+
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        .dice-area { background: #fff; border: 1px solid #e8e8e8; border-radius: 16px; padding: 40px; text-align: center; margin-bottom: 20px; }
+        .dice-result { font-size: 80px; margin-bottom: 16px; min-height: 100px; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .dice-total { font-size: 14px; color: #888; margin-bottom: 16px; }
+
+        .dice-controls { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+        .dice-controls label { font-size: 13px; color: #555; }
+        .dice-controls select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+
+        .roll-btn { padding: 14px 40px; background: #4a90d9; color: #fff; border: none; border-radius: 10px; font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .roll-btn:hover { background: #3a7bc8; transform: scale(1.05); }
+        .roll-btn:active { transform: scale(0.95); }
+
+        .coin-result { font-size: 100px; margin-bottom: 16px; min-height: 120px; display: flex; align-items: center; justify-content: center; }
+        .coin-text { font-size: 28px; font-weight: 700; color: #4a90d9; margin-bottom: 20px; }
+
+        .history { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 16px; margin-top: 20px; }
+        .history h3 { font-size: 13px; color: #999; margin-bottom: 8px; }
+        .history-list { font-size: 13px; color: #666; line-height: 1.8; max-height: 150px; overflow-y: auto; }
+
+        footer { text-align: center; padding: 30px; color: #bbb; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html">MOGU <span>Tools</span></a>
+</header>
+
+<div class="breadcrumb">
+    <a href="../index.html">Startseite</a> &gt; Tools &gt; Würfel & Münze
+</div>
+
+<div class="container">
+    <h1>Würfel & Münze</h1>
+    <p class="subtitle">Zufälliges Würfeln und Münzwurf</p>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('dice')">🎲 Würfel</button>
+        <button class="tab-btn" onclick="switchTab('coin')">🪙 Münze</button>
+    </div>
+
+    <div class="panel active" id="panel-dice">
+        <div class="dice-area">
+            <div class="dice-result" id="diceResult">🎲</div>
+            <div class="dice-total" id="diceTotal"></div>
+            <div class="dice-controls">
+                <label>Anzahl Würfel:</label>
+                <select id="diceCount">
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label>Seiten:</label>
+                <select id="diceFaces">
+                    <option value="6" selected>W6</option>
+                    <option value="4">W4</option>
+                    <option value="8">W8</option>
+                    <option value="10">W10</option>
+                    <option value="12">W12</option>
+                    <option value="20">W20</option>
+                    <option value="100">W100</option>
+                </select>
+            </div>
+            <button class="roll-btn" onclick="rollDice()">🎲 Würfeln!</button>
+        </div>
+        <div class="history" id="diceHistory">
+            <h3>Verlauf</h3>
+            <div class="history-list" id="diceHistoryList">-</div>
+        </div>
+    </div>
+
+    <div class="panel" id="panel-coin">
+        <div class="dice-area">
+            <div class="coin-result" id="coinResult">🪙</div>
+            <div class="coin-text" id="coinText">Werfen Sie die Münze!</div>
+            <button class="roll-btn" onclick="flipCoin()">🪙 Werfen!</button>
+        </div>
+        <div class="history" id="coinHistory">
+            <h3>Verlauf</h3>
+            <div class="history-list" id="coinHistoryList">-</div>
+        </div>
+    </div>
+</div>
+
+<footer>&copy; 2025 MOGU Tools</footer>
+
+<script>
+const DICE_EMOJI = ['','⚀','⚁','⚂','⚃','⚄','⚅'];
+let diceLog = [];
+let coinLog = [];
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (tab === 'dice' && i === 0) || (tab === 'coin' && i === 1)));
+    document.getElementById('panel-dice').classList.toggle('active', tab === 'dice');
+    document.getElementById('panel-coin').classList.toggle('active', tab === 'coin');
+}
+
+function rollDice() {
+    const count = parseInt(document.getElementById('diceCount').value);
+    const faces = parseInt(document.getElementById('diceFaces').value);
+    const results = [];
+    for (let i = 0; i < count; i++) {
+        results.push(Math.floor(Math.random() * faces) + 1);
+    }
+    const total = results.reduce((a, b) => a + b, 0);
+
+    let display = '';
+    if (faces === 6) {
+        display = results.map(r => DICE_EMOJI[r]).join(' ');
+    } else {
+        display = results.map(r => `<span style="display:inline-block;background:#4a90d9;color:#fff;width:50px;height:50px;line-height:50px;border-radius:8px;font-size:20px;font-weight:700;">${r}</span>`).join(' ');
+    }
+
+    document.getElementById('diceResult').innerHTML = display;
+    document.getElementById('diceTotal').textContent = count > 1 ? `Summe: ${total}` : '';
+
+    diceLog.unshift(`${results.join(' + ')}${count > 1 ? ' = ' + total : ''} (W${faces})`);
+    if (diceLog.length > 20) diceLog.pop();
+    document.getElementById('diceHistoryList').innerHTML = diceLog.join('<br>');
+}
+
+function flipCoin() {
+    const isHeads = Math.random() < 0.5;
+    document.getElementById('coinResult').textContent = isHeads ? '👑' : '🌿';
+    document.getElementById('coinText').textContent = isHeads ? 'Kopf!' : 'Zahl!';
+
+    coinLog.unshift(isHeads ? 'Kopf (K)' : 'Zahl (Z)');
+    if (coinLog.length > 20) coinLog.pop();
+    const heads = coinLog.filter(x => x.includes('K')).length;
+    const tails = coinLog.length - heads;
+    document.getElementById('coinHistoryList').innerHTML = coinLog.join('<br>') + `<br><strong>Statistik: Kopf ${heads}×, Zahl ${tails}×</strong>`;
+}
+</script>
+
+</body>
+</html>

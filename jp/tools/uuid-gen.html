@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UUID生成 - MOGU Tools</title>
+    <meta name="description" content="UUID v4を生成します。一括生成・コピーに対応。">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+        header { background: #fff; border-bottom: 2px solid #eee; padding: 16px 20px; }
+        header a { text-decoration: none; color: #2c2c2c; font-size: 18px; font-weight: 700; }
+        header a span { color: #4a90d9; }
+        .breadcrumb { max-width: 600px; margin: 16px auto; padding: 0 20px; font-size: 13px; color: #999; }
+        .breadcrumb a { color: #4a90d9; text-decoration: none; }
+        .container { max-width: 600px; margin: 10px auto 40px; padding: 0 20px; }
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+
+        .gen-box { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 24px; margin-bottom: 20px; text-align: center; }
+        .uuid-display { font-size: 22px; font-family: 'Fira Code', monospace; color: #4a90d9; font-weight: 600; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-bottom: 16px; word-break: break-all; cursor: pointer; transition: background 0.15s; }
+        .uuid-display:hover { background: #e8f0fe; }
+        .uuid-display:active { background: #d0e2fc; }
+        .copied-msg { font-size: 12px; color: #27ae60; margin-bottom: 12px; min-height: 18px; }
+
+        .btn-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+        .btn { padding: 10px 20px; border: 1px solid #ddd; border-radius: 8px; background: #fff; font-size: 13px; cursor: pointer; }
+        .btn:hover { border-color: #4a90d9; color: #4a90d9; }
+        .btn-primary { background: #4a90d9; color: #fff; border-color: #4a90d9; }
+        .btn-primary:hover { background: #3a7bc8; color: #fff; }
+
+        .bulk-section { margin-top: 16px; }
+        .bulk-section label { font-size: 13px; color: #555; }
+        .bulk-section input { width: 60px; padding: 6px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-size: 14px; }
+        .bulk-result { margin-top: 12px; }
+        .bulk-result textarea { width: 100%; height: 200px; font-family: 'Fira Code', monospace; font-size: 12px; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; resize: vertical; }
+
+        .info-section { margin-top: 30px; background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 24px; }
+        .info-section h2 { font-size: 16px; margin-bottom: 12px; color: #555; }
+        .info-section p { font-size: 14px; color: #666; line-height: 1.7; }
+        footer { text-align: center; padding: 30px; color: #bbb; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html">MOGU <span>Tools</span></a>
+</header>
+
+<div class="breadcrumb">
+    <a href="../index.html">ホーム</a> &gt; ツール &gt; UUID生成
+</div>
+
+<div class="container">
+    <h1>UUID生成</h1>
+    <p class="subtitle">一意識別子 (UUID v4) を生成します。</p>
+
+    <div class="gen-box">
+        <div class="uuid-display" id="uuidDisplay" onclick="copyUUID()" title="クリックしてコピー">-</div>
+        <div class="copied-msg" id="copiedMsg"></div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="generate()">🔄 新規生成</button>
+            <button class="btn" onclick="copyUUID()">📋 コピー</button>
+        </div>
+
+        <div class="bulk-section">
+            <label>一括生成: </label>
+            <input type="number" id="bulkCount" value="10" min="1" max="1000">
+            <button class="btn" onclick="bulkGenerate()" style="margin-left:4px;">生成</button>
+            <div class="bulk-result" id="bulkResult"></div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h2>UUIDとは？</h2>
+        <p>
+            <strong>UUID (Universally Unique Identifier)</strong>は世界中で一意な128ビット識別子です。<br><br>
+            <strong>形式:</strong> xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx<br>
+            <strong>バージョン:</strong> v4 (ランダムベース)<br>
+            <strong>衝突確率:</strong> 事実上0 (2^122通り)<br><br>
+            データベースキー、APIトークン、ファイル名などに広く使われています。
+        </p>
+    </div>
+</div>
+
+<footer>&copy; 2025 MOGU Tools</footer>
+
+<script>
+function uuidv4() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = crypto.getRandomValues(new Uint8Array(1))[0] % 16;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+function generate() {
+    document.getElementById('uuidDisplay').textContent = uuidv4();
+    document.getElementById('copiedMsg').textContent = '';
+}
+
+function copyUUID() {
+    const uuid = document.getElementById('uuidDisplay').textContent;
+    if (uuid === '-') return;
+    navigator.clipboard.writeText(uuid);
+    document.getElementById('copiedMsg').textContent = '✅ コピーしました！';
+    setTimeout(() => document.getElementById('copiedMsg').textContent = '', 2000);
+}
+
+function bulkGenerate() {
+    const count = Math.min(parseInt(document.getElementById('bulkCount').value) || 10, 1000);
+    const uuids = [];
+    for (let i = 0; i < count; i++) uuids.push(uuidv4());
+    document.getElementById('bulkResult').innerHTML = `<textarea readonly>${uuids.join('\n')}</textarea><div style="font-size:12px;color:#888;margin-top:4px;">${count}件生成しました</div>`;
+}
+
+generate();
+</script>
+
+</body>
+</html>
