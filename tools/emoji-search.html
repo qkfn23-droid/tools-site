@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="ko"><head><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>이모지 검색기 - MOGU Tools</title><meta name="description" content="이모지를 검색하고 클릭하여 복사합니다."><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:700px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:16px}input[type=text]{width:100%;padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:16px;outline:none;margin-bottom:16px}input:focus{border-color:#4a90d9}.copied{font-size:13px;color:#27ae60;min-height:20px;margin-bottom:8px}.grid{display:flex;flex-wrap:wrap;gap:4px}.emoji-btn{width:44px;height:44px;border:none;background:#fff;border-radius:8px;font-size:24px;cursor:pointer;transition:transform 0.1s}.emoji-btn:hover{transform:scale(1.3);background:#f0f6fd}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style></head><body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container"><h1>😀 이모지 검색기</h1><p class="subtitle">클릭하면 복사됩니다. 검색으로 찾아보세요.</p>
+<input type="text" id="search" placeholder="검색: smile, heart, star, animal..." oninput="filter()">
+<div class="copied" id="copied"></div>
+<div class="grid" id="grid"></div>
+</div><footer>&copy; 2025 MOGU Tools</footer>
+<script>
+const EMOJIS=[
+{e:'😀',k:'smile grin happy 웃음'},{e:'😂',k:'laugh cry tears 눈물 웃음'},{e:'🥹',k:'touched 감동'},{e:'😍',k:'love heart eyes 사랑'},{e:'😎',k:'cool sunglasses 멋'},{e:'🤔',k:'think 생각'},{e:'😢',k:'sad cry 슬픔'},{e:'😡',k:'angry 화남'},{e:'🥺',k:'please cute 귀여움'},{e:'😱',k:'shock scream 놀람'},{e:'🤣',k:'rofl 빵터짐'},{e:'😴',k:'sleep 잠'},{e:'🤮',k:'vomit sick 아픔'},{e:'🤯',k:'explode mind blown 대박'},
+{e:'❤️',k:'heart love red 하트 사랑'},{e:'💔',k:'broken heart 실연'},{e:'💕',k:'hearts love 사랑'},{e:'🔥',k:'fire hot 불 핫'},{e:'⭐',k:'star 별'},{e:'✨',k:'sparkle shine 반짝'},{e:'🌈',k:'rainbow 무지개'},{e:'☀️',k:'sun 태양 해'},{e:'🌙',k:'moon 달'},{e:'❄️',k:'snow 눈'},{e:'🌸',k:'cherry blossom 벚꽃'},{e:'🌹',k:'rose 장미'},
+{e:'👍',k:'thumbs up good 좋아요'},{e:'👎',k:'thumbs down bad 싫어요'},{e:'👏',k:'clap 박수'},{e:'🙏',k:'pray please thanks 감사'},{e:'💪',k:'muscle strong 힘'},{e:'✌️',k:'peace victory 승리'},{e:'🤝',k:'handshake deal 악수'},{e:'👋',k:'wave hello bye 안녕'},
+{e:'🐶',k:'dog 강아지 개'},{e:'🐱',k:'cat 고양이'},{e:'🐻',k:'bear 곰'},{e:'🐼',k:'panda 판다'},{e:'🦊',k:'fox 여우'},{e:'🐵',k:'monkey 원숭이'},{e:'🐷',k:'pig 돼지'},{e:'🐸',k:'frog 개구리'},{e:'🦋',k:'butterfly 나비'},{e:'🐍',k:'snake 뱀'},
+{e:'🍎',k:'apple 사과'},{e:'🍕',k:'pizza 피자'},{e:'🍔',k:'burger hamburger 햄버거'},{e:'🍟',k:'fries 감자튀김'},{e:'🍜',k:'noodle ramen 라면'},{e:'🍣',k:'sushi 초밥'},{e:'🍺',k:'beer 맥주'},{e:'☕',k:'coffee 커피'},{e:'🎂',k:'cake birthday 케이크 생일'},
+{e:'🎉',k:'party celebrate 파티 축하'},{e:'🎊',k:'confetti 축하'},{e:'🎁',k:'gift present 선물'},{e:'🏆',k:'trophy winner 트로피 우승'},{e:'🎵',k:'music note 음악'},{e:'🎮',k:'game controller 게임'},{e:'📱',k:'phone mobile 폰'},{e:'💻',k:'laptop computer 컴퓨터 노트북'},{e:'📧',k:'email mail 이메일'},{e:'📷',k:'camera photo 카메라 사진'},
+{e:'✅',k:'check done 완료'},{e:'❌',k:'x wrong no 아니 틀림'},{e:'⚠️',k:'warning 경고'},{e:'💡',k:'idea bulb 아이디어 전구'},{e:'🔑',k:'key 열쇠'},{e:'🔒',k:'lock 잠금'},{e:'⏰',k:'alarm clock 알람 시계'},{e:'📌',k:'pin 핀 고정'},{e:'🗑️',k:'trash delete 삭제 휴지통'},{e:'💯',k:'100 perfect 백점 완벽'}
+];
+function render(list){document.getElementById('grid').innerHTML=list.map(e=>`<button class="emoji-btn" onclick="copy('${e.e}')">${e.e}</button>`).join('');}
+function filter(){const q=document.getElementById('search').value.toLowerCase();const filtered=q?EMOJIS.filter(e=>e.k.includes(q)):EMOJIS;render(filtered);}
+function copy(e){navigator.clipboard.writeText(e);document.getElementById('copied').textContent=`${e} 복사됨!`;setTimeout(()=>document.getElementById('copied').textContent='',1500);}
+render(EMOJIS);
+</script></body></html>
