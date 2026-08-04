@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Volumen - MOGU Tools</title>
+    <meta name="description" content="Calcula el volumen de esferas, cilindros, prismas y conos.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:600px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:24px}.calc-box{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:24px;margin-bottom:12px}.calc-box h2{font-size:15px;color:#555;margin-bottom:12px}.input-row{display:flex;gap:8px;margin-bottom:12px;align-items:center;font-size:14px;flex-wrap:wrap}.input-row input{width:80px;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:14px;text-align:center}.result{font-size:20px;font-weight:700;color:#4a90d9}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>📦 Calculadora de Volumen</h1>
+    <p class="subtitle">Calcula el volumen de distintos sólidos geométricos.</p>
+    <div class="calc-box"><h2>📦 Prisma rectangular</h2><div class="input-row">Ancho<input type="number" id="bw" oninput="calcB()">× Alto<input type="number" id="bh" oninput="calcB()">× Profundidad<input type="number" id="bd" oninput="calcB()">= <span class="result" id="br">?</span></div></div>
+    <div class="calc-box"><h2>🔵 Esfera</h2><div class="input-row">Radio<input type="number" id="sr" oninput="calcS()">→ Volumen = <span class="result" id="srr">?</span></div></div>
+    <div class="calc-box"><h2>🥫 Cilindro</h2><div class="input-row">Radio<input type="number" id="cyr" oninput="calcCy()">Altura<input type="number" id="cyh" oninput="calcCy()">= <span class="result" id="cyr2">?</span></div></div>
+    <div class="calc-box"><h2>🔺 Cono</h2><div class="input-row">Radio<input type="number" id="cor" oninput="calcCo()">Altura<input type="number" id="coh" oninput="calcCo()">= <span class="result" id="cor2">?</span></div></div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+function calcB(){const w=parseFloat(document.getElementById('bw').value),h=parseFloat(document.getElementById('bh').value),d=parseFloat(document.getElementById('bd').value);document.getElementById('br').textContent=w&&h&&d?(w*h*d).toFixed(2):'?';}
+function calcS(){const r=parseFloat(document.getElementById('sr').value);document.getElementById('srr').textContent=r?(4/3*Math.PI*r*r*r).toFixed(2):'?';}
+function calcCy(){const r=parseFloat(document.getElementById('cyr').value),h=parseFloat(document.getElementById('cyh').value);document.getElementById('cyr2').textContent=r&&h?(Math.PI*r*r*h).toFixed(2):'?';}
+function calcCo(){const r=parseFloat(document.getElementById('cor').value),h=parseFloat(document.getElementById('coh').value);document.getElementById('cor2').textContent=r&&h?(Math.PI*r*r*h/3).toFixed(2):'?';}
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signe astrologique chinois - MOGU Tools</title>
+    <meta name="description" content="Trouvez votre signe du zodiaque chinois selon votre année de naissance.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:600px;margin:10px auto 40px;padding:0 20px;text-align:center}h1{font-size:24px;font-weight:700;margin-bottom:24px}.calc-box{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:30px}input{padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:20px;text-align:center;width:150px;outline:none;margin-bottom:20px}input:focus{border-color:#4a90d9}.emoji{font-size:80px;margin:16px 0}.name{font-size:28px;font-weight:700;color:#4a90d9}.desc{font-size:14px;color:#666;margin-top:12px;line-height:1.7;text-align:left}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>🐲 Signe astrologique chinois</h1>
+    <div class="calc-box">
+        <input type="number" id="year" value="1995" min="1900" max="2100" oninput="calc()">
+        <div class="emoji" id="emoji">🐷</div>
+        <div class="name" id="name">Cochon</div>
+        <div class="desc" id="desc"></div>
+    </div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+const ANIMALS=[
+{e:'🐀',n:'Rat',d:'Intelligent et adaptable. Sociable et habile à saisir les opportunités.'},
+{e:'🐂',n:'Bœuf',d:'Travailleur et persévérant. Fiable et déterminé dans ses efforts.'},
+{e:'🐅',n:'Tigre',d:'Courageux et confiant. Grand sens du leadership et de la justice.'},
+{e:'🐇',n:'Lapin',d:'Doux et délicat. Grand sens artistique et amour de la paix.'},
+{e:'🐉',n:'Dragon',d:'Charismatique et ambitieux. Plein d\'énergie et orienté vers le succès.'},
+{e:'🐍',n:'Serpent',d:'Sage et mystérieux. Grande intuition et profondeur de caractère.'},
+{e:'🐴',n:'Cheval',d:'Actif et libre. Aime l\'aventure et déborde d\'énergie.'},
+{e:'🐑',n:'Chèvre',d:'Doux et artistique. Empathique et attaché à un environnement paisible.'},
+{e:'🐵',n:'Singe',d:'Espiègle et intelligent. Curieux et excellent dans la résolution de problèmes.'},
+{e:'🐔',n:'Coq',d:'Travailleur et observateur. Honnête et direct.'},
+{e:'🐶',n:'Chien',d:'Loyal et fidèle. Sens de la justice développé et toujours prêt à aider.'},
+{e:'🐷',n:'Cochon',d:'Généreux et optimiste. Patient et sincère de cœur.'}
+];
+function calc(){const y=parseInt(document.getElementById('year').value);if(isNaN(y))return;const idx=(y-4)%12;const a=ANIMALS[idx<0?idx+12:idx];document.getElementById('emoji').textContent=a.e;document.getElementById('name').textContent=a.n+` (né${y>=0?'(e)':''} en ${y})`;document.getElementById('desc').textContent=a.d;}
+calc();
+</script>
+</body>
+</html>

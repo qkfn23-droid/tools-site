@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisador de Emoji - MOGU Tools</title>
+    <meta name="description" content="Pesquise emojis e clique para copiar.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:700px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:16px}input[type=text]{width:100%;padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:16px;outline:none;margin-bottom:16px}input:focus{border-color:#4a90d9}.copied{font-size:13px;color:#27ae60;min-height:20px;margin-bottom:8px}.grid{display:flex;flex-wrap:wrap;gap:4px}.emoji-btn{width:44px;height:44px;border:none;background:#fff;border-radius:8px;font-size:24px;cursor:pointer;transition:transform 0.1s}.emoji-btn:hover{transform:scale(1.3);background:#f0f6fd}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>😀 Pesquisador de Emoji</h1>
+    <p class="subtitle">Clique para copiar. Use a busca para encontrar emojis.</p>
+    <input type="text" id="search" placeholder="Pesquisar: smile, heart, star, animal..." oninput="filter()">
+    <div class="copied" id="copied"></div>
+    <div class="grid" id="grid"></div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+const EMOJIS=[
+{e:'😀',k:'smile grin happy sorriso feliz'},{e:'😂',k:'laugh cry tears rir choro lagrimas'},{e:'🥹',k:'touched emocionado'},{e:'😍',k:'love heart eyes amor coracao'},{e:'😎',k:'cool sunglasses oculos'},{e:'🤔',k:'think pensar'},{e:'😢',k:'sad cry triste choro'},{e:'😡',k:'angry bravo raiva'},{e:'🥺',k:'please cute fofo'},{e:'😱',k:'shock scream susto grito'},{e:'🤣',k:'rofl gargalhada'},{e:'😴',k:'sleep dormir'},{e:'🤮',k:'vomit sick doente'},{e:'🤯',k:'explode mind blown incrivel'},
+{e:'❤️',k:'heart love red coracao amor vermelho'},{e:'💔',k:'broken heart coracao partido'},{e:'💕',k:'hearts love amor'},{e:'🔥',k:'fire hot fogo'},{e:'⭐',k:'star estrela'},{e:'✨',k:'sparkle shine brilho'},{e:'🌈',k:'rainbow arco iris'},{e:'☀️',k:'sun sol'},{e:'🌙',k:'moon lua'},{e:'❄️',k:'snow neve'},{e:'🌸',k:'cherry blossom flor cerejeira'},{e:'🌹',k:'rose rosa flor'},
+{e:'👍',k:'thumbs up good curtir'},{e:'👎',k:'thumbs down bad descurtir'},{e:'👏',k:'clap palmas aplauso'},{e:'🙏',k:'pray please thanks obrigado'},{e:'💪',k:'muscle strong forca'},{e:'✌️',k:'peace victory paz vitoria'},{e:'🤝',k:'handshake aperto de mao'},{e:'👋',k:'wave hello bye ola tchau'},
+{e:'🐶',k:'dog cachorro'},{e:'🐱',k:'cat gato'},{e:'🐻',k:'bear urso'},{e:'🐼',k:'panda'},{e:'🦊',k:'fox raposa'},{e:'🐵',k:'monkey macaco'},{e:'🐷',k:'pig porco'},{e:'🐸',k:'frog sapo'},{e:'🦋',k:'butterfly borboleta'},{e:'🐍',k:'snake cobra'},
+{e:'🍎',k:'apple maca'},{e:'🍕',k:'pizza'},{e:'🍔',k:'burger hamburger'},{e:'🍟',k:'fries batata frita'},{e:'🍜',k:'noodle macarrao'},{e:'🍣',k:'sushi'},{e:'🍺',k:'beer cerveja'},{e:'☕',k:'coffee cafe'},{e:'🎂',k:'cake birthday bolo aniversario'},
+{e:'🎉',k:'party celebrate festa'},{e:'🎊',k:'confetti festa'},{e:'🎁',k:'gift present presente'},{e:'🏆',k:'trophy winner trofeu'},{e:'🎵',k:'music note musica'},{e:'🎮',k:'game controller jogo'},{e:'📱',k:'phone mobile celular'},{e:'💻',k:'laptop computer computador notebook'},{e:'📧',k:'email mail'},{e:'📷',k:'camera photo foto'},
+{e:'✅',k:'check done concluido'},{e:'❌',k:'x wrong no errado nao'},{e:'⚠️',k:'warning aviso'},{e:'💡',k:'idea bulb ideia lampada'},{e:'🔑',k:'key chave'},{e:'🔒',k:'lock cadeado'},{e:'⏰',k:'alarm clock alarme relogio'},{e:'📌',k:'pin fixar'},{e:'🗑️',k:'trash delete lixo'},{e:'💯',k:'100 perfect perfeito'}
+];
+function render(list){document.getElementById('grid').innerHTML=list.map(e=>`<button class="emoji-btn" onclick="copy('${e.e}')">${e.e}</button>`).join('');}
+function filter(){const q=document.getElementById('search').value.toLowerCase();const filtered=q?EMOJIS.filter(e=>e.k.includes(q)):EMOJIS;render(filtered);}
+function copy(e){navigator.clipboard.writeText(e);document.getElementById('copied').textContent=`${e} copiado!`;setTimeout(()=>document.getElementById('copied').textContent='',1500);}
+render(EMOJIS);
+</script>
+</body>
+</html>

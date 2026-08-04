@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>干支計算機 - MOGU Tools</title>
+    <meta name="description" content="生まれ年から干支を調べます。">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:600px;margin:10px auto 40px;padding:0 20px;text-align:center}h1{font-size:24px;font-weight:700;margin-bottom:24px}.calc-box{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:30px}input{padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:20px;text-align:center;width:150px;outline:none;margin-bottom:20px}input:focus{border-color:#4a90d9}.emoji{font-size:80px;margin:16px 0}.name{font-size:28px;font-weight:700;color:#4a90d9}.desc{font-size:14px;color:#666;margin-top:12px;line-height:1.7;text-align:left}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>🐲 干支計算機</h1>
+    <div class="calc-box">
+        <input type="number" id="year" value="1995" min="1900" max="2100" oninput="calc()">
+        <div class="emoji" id="emoji">🐗</div>
+        <div class="name" id="name">イノシシ年</div>
+        <div class="desc" id="desc"></div>
+    </div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+const ANIMALS=[
+    {e:'🐀',n:'ネズミ年',d:'賢く適応力が高いです。社交的で機会をうまく掴みます。'},
+    {e:'🐂',n:'ウシ年',d:'誠実で忍耐強いです。信頼でき、努力を惜しまない働き者です。'},
+    {e:'🐅',n:'トラ年',d:'勇敢で自信に満ちています。リーダーシップが強く正義感があります。'},
+    {e:'🐇',n:'ウサギ年',d:'穏やかで繊細です。芸術的センスが高く平和を愛します。'},
+    {e:'🐉',n:'タツ年',d:'カリスマ的で野心的です。エネルギッシュで成功志向です。'},
+    {e:'🐍',n:'ヘビ年',d:'知恵があり神秘的な魅力を持ちます。直感が鋭く深みがあります。'},
+    {e:'🐴',n:'ウマ年',d:'活動的で自由な魂です。冒険好きでエネルギーに満ちています。'},
+    {e:'🐑',n:'ヒツジ年',d:'温和で芸術的です。思いやりがあり穏やかな環境を好みます。'},
+    {e:'🐵',n:'サル年',d:'機知に富み賢いです。好奇心旺盛で問題解決能力が高いです。'},
+    {e:'🐔',n:'トリ年',d:'勤勉で観察力が鋭いです。誠実で率直な性格です。'},
+    {e:'🐶',n:'イヌ年',d:'忠実で義理堅いです。正義感が強く人をよく助けます。'},
+    {e:'🐗',n:'イノシシ年',d:'寛大で楽観的です。忍耐強く誠実な心を持っています。'}
+];
+function calc(){const y=parseInt(document.getElementById('year').value);if(isNaN(y))return;const idx=(y-4)%12;const a=ANIMALS[idx<0?idx+12:idx];document.getElementById('emoji').textContent=a.e;document.getElementById('name').textContent=a.n+`（${y}年生まれ）`;document.getElementById('desc').textContent=a.d;}
+calc();
+</script>
+</body>
+</html>

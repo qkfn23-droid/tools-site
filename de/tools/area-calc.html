@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flächenrechner - MOGU Tools</title>
+    <meta name="description" content="Berechnet die Fläche von Kreis, Dreieck, Rechteck und Trapez.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:600px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:24px}.calc-box{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:24px;margin-bottom:12px}.calc-box h2{font-size:15px;color:#555;margin-bottom:12px}.input-row{display:flex;gap:8px;margin-bottom:12px;align-items:center;font-size:14px}.input-row input{width:80px;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:14px;text-align:center}.result{font-size:20px;font-weight:700;color:#4a90d9}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>📐 Flächenrechner</h1>
+    <p class="subtitle">Berechnet die Fläche verschiedener geometrischer Formen.</p>
+    <div class="calc-box"><h2>⬜ Rechteck</h2><div class="input-row">Breite <input type="number" id="rw" oninput="calcR()"> × Höhe <input type="number" id="rh" oninput="calcR()"> = <span class="result" id="rr">?</span></div></div>
+    <div class="calc-box"><h2>🔺 Dreieck</h2><div class="input-row">Basis <input type="number" id="tb" oninput="calcT()"> × Höhe <input type="number" id="th" oninput="calcT()"> ÷ 2 = <span class="result" id="tr">?</span></div></div>
+    <div class="calc-box"><h2>⭕ Kreis</h2><div class="input-row">Radius <input type="number" id="cr" oninput="calcC()"> → Fläche = <span class="result" id="crr">?</span></div></div>
+    <div class="calc-box"><h2>⏢ Trapez</h2><div class="input-row">Seite a <input type="number" id="ta" oninput="calcTz()"> + Seite b <input type="number" id="tbb" oninput="calcTz()"> × Höhe <input type="number" id="tzh" oninput="calcTz()"> ÷ 2 = <span class="result" id="tzr">?</span></div></div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+function calcR(){const w=parseFloat(document.getElementById('rw').value),h=parseFloat(document.getElementById('rh').value);document.getElementById('rr').textContent=w&&h?(w*h).toFixed(2):'?';}
+function calcT(){const b=parseFloat(document.getElementById('tb').value),h=parseFloat(document.getElementById('th').value);document.getElementById('tr').textContent=b&&h?(b*h/2).toFixed(2):'?';}
+function calcC(){const r=parseFloat(document.getElementById('cr').value);document.getElementById('crr').textContent=r?(Math.PI*r*r).toFixed(2):'?';}
+function calcTz(){const a=parseFloat(document.getElementById('ta').value),b=parseFloat(document.getElementById('tbb').value),h=parseFloat(document.getElementById('tzh').value);document.getElementById('tzr').textContent=a&&b&&h?((a+b)*h/2).toFixed(2):'?';}
+</script>
+</body>
+</html>

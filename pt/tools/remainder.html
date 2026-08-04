@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Quociente e Resto - MOGU Tools</title>
+    <meta name="description" content="Calcule o quociente e o resto de uma divisão.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:600px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:24px}.calc-box{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:24px}.calc-row{display:flex;align-items:center;gap:10px;font-size:18px;justify-content:center;margin-bottom:20px}.calc-row input{width:100px;padding:10px;border:2px solid #e0e0e0;border-radius:8px;font-size:18px;text-align:center;outline:none}.calc-row input:focus{border-color:#4a90d9}.results{display:grid;grid-template-columns:1fr 1fr;gap:12px}.result-card{background:#f8f9fa;border-radius:10px;padding:16px;text-align:center}.result-card .val{font-size:32px;font-weight:700;color:#4a90d9}.result-card .label{font-size:12px;color:#888;margin-top:4px}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>➗ Quociente e Resto</h1>
+    <p class="subtitle">Calcule o quociente e o resto de uma divisão.</p>
+    <div class="calc-box">
+        <div class="calc-row"><input type="number" id="a" oninput="calc()"> ÷ <input type="number" id="b" oninput="calc()"> =</div>
+        <div class="results">
+            <div class="result-card"><div class="val" id="q">-</div><div class="label">Quociente</div></div>
+            <div class="result-card"><div class="val" id="r">-</div><div class="label">Resto</div></div>
+        </div>
+    </div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+function calc(){const a=parseInt(document.getElementById('a').value),b=parseInt(document.getElementById('b').value);
+if(isNaN(a)||isNaN(b)||b===0){document.getElementById('q').textContent='-';document.getElementById('r').textContent='-';return;}
+document.getElementById('q').textContent=Math.floor(a/b);document.getElementById('r').textContent=a%b;}
+</script>
+</body>
+</html>

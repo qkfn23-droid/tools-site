@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>絵文字検索 - MOGU Tools</title>
+    <meta name="description" content="絵文字を検索してクリックでコピーします。">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:700px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:16px}input[type=text]{width:100%;padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:16px;outline:none;margin-bottom:16px}input:focus{border-color:#4a90d9}.copied{font-size:13px;color:#27ae60;min-height:20px;margin-bottom:8px}.grid{display:flex;flex-wrap:wrap;gap:4px}.emoji-btn{width:44px;height:44px;border:none;background:#fff;border-radius:8px;font-size:24px;cursor:pointer;transition:transform 0.1s}.emoji-btn:hover{transform:scale(1.3);background:#f0f6fd}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>😀 絵文字検索</h1>
+    <p class="subtitle">クリックするとコピーされます。検索で探してみてください。</p>
+    <input type="text" id="search" placeholder="検索: smile, heart, star, animal..." oninput="filter()">
+    <div class="copied" id="copied"></div>
+    <div class="grid" id="grid"></div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+const EMOJIS=[
+{e:'😀',k:'smile grin happy 笑顔'},{e:'😂',k:'laugh cry tears 泣き笑い'},{e:'🥹',k:'touched 感動'},{e:'😍',k:'love heart eyes 大好き'},{e:'😎',k:'cool sunglasses かっこいい'},{e:'🤔',k:'think 考え中'},{e:'😢',k:'sad cry 悲しい'},{e:'😡',k:'angry 怒り'},{e:'🥺',k:'please cute かわいい'},{e:'😱',k:'shock scream 驚き'},{e:'🤣',k:'rofl 大爆笑'},{e:'😴',k:'sleep 眠い'},{e:'🤮',k:'vomit sick 気持ち悪い'},{e:'🤯',k:'explode mind blown すごい'},
+{e:'❤️',k:'heart love red ハート 愛'},{e:'💔',k:'broken heart 失恋'},{e:'💕',k:'hearts love 愛'},{e:'🔥',k:'fire hot 炎 熱い'},{e:'⭐',k:'star 星'},{e:'✨',k:'sparkle shine キラキラ'},{e:'🌈',k:'rainbow 虹'},{e:'☀️',k:'sun 太陽'},{e:'🌙',k:'moon 月'},{e:'❄️',k:'snow 雪'},{e:'🌸',k:'cherry blossom 桜'},{e:'🌹',k:'rose バラ'},
+{e:'👍',k:'thumbs up good いいね'},{e:'👎',k:'thumbs down bad よくない'},{e:'👏',k:'clap 拍手'},{e:'🙏',k:'pray please thanks ありがとう'},{e:'💪',k:'muscle strong 力'},{e:'✌️',k:'peace victory ピース'},{e:'🤝',k:'handshake deal 握手'},{e:'👋',k:'wave hello bye こんにちは'},
+{e:'🐶',k:'dog 犬 いぬ'},{e:'🐱',k:'cat 猫 ねこ'},{e:'🐻',k:'bear 熊'},{e:'🐼',k:'panda パンダ'},{e:'🦊',k:'fox キツネ'},{e:'🐵',k:'monkey サル'},{e:'🐷',k:'pig ブタ'},{e:'🐸',k:'frog カエル'},{e:'🦋',k:'butterfly チョウ'},{e:'🐍',k:'snake ヘビ'},
+{e:'🍎',k:'apple リンゴ'},{e:'🍕',k:'pizza ピザ'},{e:'🍔',k:'burger hamburger ハンバーガー'},{e:'🍟',k:'fries フライドポテト'},{e:'🍜',k:'noodle ramen ラーメン'},{e:'🍣',k:'sushi 寿司'},{e:'🍺',k:'beer ビール'},{e:'☕',k:'coffee コーヒー'},{e:'🎂',k:'cake birthday ケーキ 誕生日'},
+{e:'🎉',k:'party celebrate パーティー お祝い'},{e:'🎊',k:'confetti お祝い'},{e:'🎁',k:'gift present プレゼント'},{e:'🏆',k:'trophy winner トロフィー 優勝'},{e:'🎵',k:'music note 音楽'},{e:'🎮',k:'game controller ゲーム'},{e:'📱',k:'phone mobile スマホ'},{e:'💻',k:'laptop computer パソコン'},{e:'📧',k:'email mail メール'},{e:'📷',k:'camera photo カメラ 写真'},
+{e:'✅',k:'check done 完了'},{e:'❌',k:'x wrong no ダメ 違う'},{e:'⚠️',k:'warning 警告'},{e:'💡',k:'idea bulb アイデア 電球'},{e:'🔑',k:'key 鍵'},{e:'🔒',k:'lock 鍵 ロック'},{e:'⏰',k:'alarm clock 目覚まし 時計'},{e:'📌',k:'pin ピン 固定'},{e:'🗑️',k:'trash delete 削除 ゴミ箱'},{e:'💯',k:'100 perfect 満点 完璧'}
+];
+function render(list){document.getElementById('grid').innerHTML=list.map(e=>`<button class="emoji-btn" onclick="copy('${e.e}')">${e.e}</button>`).join('');}
+function filter(){const q=document.getElementById('search').value.toLowerCase();const filtered=q?EMOJIS.filter(e=>e.k.includes(q)):EMOJIS;render(filtered);}
+function copy(e){navigator.clipboard.writeText(e);document.getElementById('copied').textContent=`${e} コピーしました！`;setTimeout(()=>document.getElementById('copied').textContent='',1500);}
+render(EMOJIS);
+</script>
+</body>
+</html>

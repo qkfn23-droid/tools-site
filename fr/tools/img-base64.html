@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image → Base64 - MOGU Tools</title>
+    <meta name="description" content="Convertissez une image en texte Base64.">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;color:#333}header{background:#fff;border-bottom:2px solid #eee;padding:16px 20px}header a{text-decoration:none;color:#2c2c2c;font-size:18px;font-weight:700}header a span{color:#4a90d9}.container{max-width:700px;margin:10px auto 40px;padding:0 20px}h1{font-size:24px;font-weight:700;margin-bottom:8px}.subtitle{color:#888;font-size:14px;margin-bottom:24px}.drop-zone{background:#fff;border:2px dashed #ccc;border-radius:16px;padding:40px;text-align:center;cursor:pointer;margin-bottom:16px}.drop-zone:hover{border-color:#4a90d9}textarea{width:100%;height:150px;padding:12px;border:1px solid #e0e0e0;border-radius:8px;font-size:11px;font-family:monospace;resize:vertical;margin-bottom:12px}.btn{padding:10px 20px;background:#4a90d9;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;margin-right:8px}.preview{margin-top:16px;text-align:center}.preview img{max-width:100%;max-height:200px;border-radius:8px}.info{font-size:12px;color:#888;margin-top:8px}footer{text-align:center;padding:30px;color:#bbb;font-size:13px}</style>
+</head>
+<body>
+<header><a href="../index.html">MOGU <span>Tools</span></a></header>
+<div class="container">
+    <h1>🖼️ Image → Base64</h1>
+    <p class="subtitle">Convertissez une image en texte Base64. Aucun envoi vers un serveur.</p>
+    <div class="drop-zone" onclick="document.getElementById('fi').click()">📁 Sélectionnez ou glissez une image ici<input type="file" id="fi" accept="image/*" style="display:none" onchange="convert(this.files[0])"></div>
+    <div class="preview" id="preview"></div>
+    <textarea id="output" readonly placeholder="Le résultat Base64 s'affichera ici..."></textarea>
+    <button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('output').value)">📋 Copier</button>
+    <button class="btn" onclick="navigator.clipboard.writeText('data:'+window._mime+';base64,'+document.getElementById('output').value)">📋 Copier l'URI Data</button>
+    <div class="info" id="info"></div>
+</div>
+<footer>&copy; 2025 MOGU Tools</footer>
+<script>
+const dz=document.querySelector('.drop-zone');dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.borderColor='#4a90d9';});dz.addEventListener('dragleave',()=>dz.style.borderColor='#ccc');dz.addEventListener('drop',e=>{e.preventDefault();dz.style.borderColor='#ccc';convert(e.dataTransfer.files[0]);});
+function convert(file){if(!file)return;window._mime=file.type;const reader=new FileReader();reader.onload=e=>{const b64=e.target.result.split(',')[1];document.getElementById('output').value=b64;document.getElementById('preview').innerHTML=`<img src="${e.target.result}">`;document.getElementById('info').textContent=`${file.name} | ${(file.size/1024).toFixed(1)} Ko | Base64 : ${(b64.length/1024).toFixed(1)} Ko`;};reader.readAsDataURL(file);}
+</script>
+</body>
+</html>
